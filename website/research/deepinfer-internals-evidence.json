@@ -1,0 +1,692 @@
+[
+  {
+    "id": "deepinfer-internals-attention-and-model-1",
+    "claim": "attention-and-model inspects V4.1 builder for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/builder.py"
+  },
+  {
+    "id": "deepinfer-internals-attention-and-model-2",
+    "claim": "attention-and-model inspects decoder layer execution for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/decoder_layer.py"
+  },
+  {
+    "id": "deepinfer-internals-attention-and-model-3",
+    "claim": "attention-and-model inspects MLA parameter containers for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/mla_attn.py"
+  },
+  {
+    "id": "deepinfer-internals-attention-and-model-4",
+    "claim": "V4 attention runtime selects model/platform-dependent projection/fusion/cache paths and constrains sparse/sliding-window/packed-KV combinations.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/attn.py"
+  },
+  {
+    "id": "deepinfer-internals-attention-and-model-5",
+    "claim": "attention-and-model inspects attention backend wrappers for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/layers/attention_backend.py"
+  },
+  {
+    "id": "deepinfer-internals-attention-and-model-6",
+    "claim": "attention-and-model inspects SharedLayerTopology and CrossLayerRuntime for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/cross_layer.py"
+  },
+  {
+    "id": "deepinfer-internals-attention-and-model-7",
+    "claim": "attention-and-model inspects YoCo boundary helpers for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/yoco.py"
+  },
+  {
+    "id": "deepinfer-internals-attention-and-model-8",
+    "claim": "attention-and-model inspects state-cache layout tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/worker/test_state_cache_ops.py"
+  },
+  {
+    "id": "deepinfer-internals-attention-and-model-9",
+    "claim": "attention-and-model inspects batch-invariant model tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_batch_invariant.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-1",
+    "claim": "Example setup resolves artifacts and sets environment/device visibility before lazily importing the engine, preventing premature runtime initialization.",
+    "project": "deepinfer",
+    "path": "examples/_config.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-2",
+    "claim": "diagnosis-and-tests inspects offline job for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "examples/offline_inference.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-3",
+    "claim": "StepStats and aggregation distinguish estimated arithmetic, actual work/token counters, cache state, draft acceptance and windowed latency/throughput.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/stats_logger.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-4",
+    "claim": "diagnosis-and-tests inspects timing infrastructure for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/timer.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-5",
+    "claim": "Optional runtime profiling samples a bounded engine-step window on the driver process and does not capture separate CP follower processes.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/profile_server.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-6",
+    "claim": "diagnosis-and-tests inspects sequence tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/engine/test_sequence.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-7",
+    "claim": "diagnosis-and-tests inspects expert policy tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_eplb_policy.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-8",
+    "claim": "diagnosis-and-tests inspects expert shuffle tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/distributed/test_expert_shuffle.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-9",
+    "claim": "diagnosis-and-tests inspects cache-state tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/worker/test_state_cache_ops.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-10",
+    "claim": "diagnosis-and-tests inspects offline model tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_offline_inference.py"
+  },
+  {
+    "id": "deepinfer-internals-diagnosis-and-tests-11",
+    "claim": "diagnosis-and-tests inspects sampler statistics tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_sampler.py"
+  },
+  {
+    "id": "deepinfer-internals-experts-and-balancing-1",
+    "claim": "experts-and-balancing inspects MoE parameter containers for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/moe.py"
+  },
+  {
+    "id": "deepinfer-internals-experts-and-balancing-2",
+    "claim": "experts-and-balancing inspects DeepseekMoE runtime for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/mlp.py"
+  },
+  {
+    "id": "deepinfer-internals-experts-and-balancing-3",
+    "claim": "EPLB maps logical experts to physical copies and greedily places historical per-step load vectors under local capacity, with deterministic ties.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/eplb/policy.py"
+  },
+  {
+    "id": "deepinfer-internals-experts-and-balancing-4",
+    "claim": "Expert shuffle stages local copies, pairs remote transfers, waits for batched P2P requests, and installs weights to match new placement.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/eplb/shuffle.py"
+  },
+  {
+    "id": "deepinfer-internals-experts-and-balancing-5",
+    "claim": "experts-and-balancing inspects expert shuffle tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/distributed/test_expert_shuffle.py"
+  },
+  {
+    "id": "deepinfer-internals-experts-and-balancing-6",
+    "claim": "experts-and-balancing inspects EPLB policy tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_eplb_policy.py"
+  },
+  {
+    "id": "deepinfer-internals-input-metadata-1",
+    "claim": "input-metadata inspects ModelRunner._prepare_input for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/model_runner.py"
+  },
+  {
+    "id": "deepinfer-internals-input-metadata-2",
+    "claim": "InputMetadata distinguishes original and CP-mirror layouts, valid padding, original positions, rank-local indexes, and separate tensor/object broadcast contracts.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/input_metadata/input_metadata.py"
+  },
+  {
+    "id": "deepinfer-internals-input-metadata-3",
+    "claim": "input-metadata inspects PrepareArgs and preparation interfaces for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/engine/input_metadata/prepare_tensor_input.hpp"
+  },
+  {
+    "id": "deepinfer-internals-input-metadata-4",
+    "claim": "input-metadata inspects V4 tensor preparation for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/engine/input_metadata/prepare_tensor_input_v4.cpp"
+  },
+  {
+    "id": "deepinfer-internals-input-metadata-5",
+    "claim": "BlockLoadPlanBuilder assembles zero-fill, paged, and ring segments with source ranges and destination offsets.",
+    "project": "deepinfer",
+    "path": "csrc/engine/input_metadata/block_load_plan.hpp"
+  },
+  {
+    "id": "deepinfer-internals-input-metadata-6",
+    "claim": "ZOS decode preparation combines pinned CPU extraction, device correction, and reusable graph buffers whose strides need not match eager contiguous tensors.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/input_metadata/prepare_tensor_input_zos.py"
+  },
+  {
+    "id": "deepinfer-internals-input-metadata-7",
+    "claim": "input-metadata inspects strict sequence input tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/engine/test_sequence.py"
+  },
+  {
+    "id": "deepinfer-internals-input-metadata-8",
+    "claim": "input-metadata inspects chunk metadata tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/ve/test_chunk_mm_metadata.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-1",
+    "claim": "Example setup resolves artifacts and sets environment/device visibility before lazily importing the engine, preventing premature runtime initialization.",
+    "project": "deepinfer",
+    "path": "examples/_config.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-2",
+    "claim": "model-loading inspects load_model_config for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_config_loader.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-3",
+    "claim": "The pinned ModelRegistry maps the released V4.1 architecture explicitly rather than accepting arbitrary similarly structured models.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/__init__.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-4",
+    "claim": "Model loading resolves architecture, finalizes runtime/group-dependent expert layout, validates HF coverage/shapes, and uses a bounded watchdog for checkpoint loading.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/model_loader.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-5",
+    "claim": "model-loading inspects V41Builder for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/builder.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-6",
+    "claim": "model-loading inspects the released model wrapper for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/deepseek_vl.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-7",
+    "claim": "HF loading validates immutable shard coverage and shapes before copying tensors, including alias/tied-parameter rules.",
+    "project": "deepinfer",
+    "path": "deepinfer/hugging_face/loading.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-8",
+    "claim": "model-loading inspects offline inference correctness tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_offline_inference.py"
+  },
+  {
+    "id": "deepinfer-internals-model-loading-9",
+    "claim": "model-loading inspects expert policy tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_eplb_policy.py"
+  },
+  {
+    "id": "deepinfer-internals-native-scheduler-1",
+    "claim": "The native scheduler selects prompt/decode steps with coordinated ALL/ANY votes in normal mode, validates completion-mode preemption policy, and lends per-step action vectors until rescheduling.",
+    "project": "deepinfer",
+    "path": "csrc/engine/scheduler.hpp"
+  },
+  {
+    "id": "deepinfer-internals-native-scheduler-2",
+    "claim": "Sequence separates request, input, sampling, cache, scheduling and MTP state; accepted/draft history and optimistic cache progression are distinct.",
+    "project": "deepinfer",
+    "path": "csrc/engine/sequence.hpp"
+  },
+  {
+    "id": "deepinfer-internals-native-scheduler-3",
+    "claim": "Native blocks reserve ID0, use refcount-protected free-list membership, and return OK/LATER/NEVER capacity status before scheduling.",
+    "project": "deepinfer",
+    "path": "csrc/engine/block_manager.hpp"
+  },
+  {
+    "id": "deepinfer-internals-native-scheduler-4",
+    "claim": "Variable-length verification policy combines confidence/acceptance state with bounded runtime estimates, keeping proposed work distinct from accepted output.",
+    "project": "deepinfer",
+    "path": "csrc/engine/mtp_varlen.hpp"
+  },
+  {
+    "id": "deepinfer-internals-native-scheduler-5",
+    "claim": "native-scheduler inspects FLOP-estimator tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/engine/test_flops_estimator.py"
+  },
+  {
+    "id": "deepinfer-internals-native-scheduler-6",
+    "claim": "native-scheduler inspects sequence tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/engine/test_sequence.py"
+  },
+  {
+    "id": "deepinfer-internals-offline-request-lifecycle-1",
+    "claim": "The offline wrapper copies sampling parameters, normalizes token arrays, clones raw pooled outputs, drains final in-flight work, and restores input request order.",
+    "project": "deepinfer",
+    "path": "deepinfer/entrypoints/llm.py"
+  },
+  {
+    "id": "deepinfer-internals-offline-request-lifecycle-2",
+    "claim": "Sequence separates request, input, sampling, cache, scheduling and MTP state; accepted/draft history and optimistic cache progression are distinct.",
+    "project": "deepinfer",
+    "path": "csrc/engine/sequence.hpp"
+  },
+  {
+    "id": "deepinfer-internals-offline-request-lifecycle-3",
+    "claim": "offline-request-lifecycle inspects sequence constructor tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/engine/test_sequence.py"
+  },
+  {
+    "id": "deepinfer-internals-offline-request-lifecycle-4",
+    "claim": "The native scheduler selects prompt/decode steps with coordinated ALL/ANY votes in normal mode, validates completion-mode preemption policy, and lends per-step action vectors until rescheduling.",
+    "project": "deepinfer",
+    "path": "csrc/engine/scheduler.hpp"
+  },
+  {
+    "id": "deepinfer-internals-offline-request-lifecycle-5",
+    "claim": "RequestOutput.clone dereferences a raw uint64 pointer and returns an owning unique_ptr copy; the raw-pointer array does not own pooled objects.",
+    "project": "deepinfer",
+    "path": "csrc/engine/pybind_output.cpp"
+  },
+  {
+    "id": "deepinfer-internals-offline-request-lifecycle-6",
+    "claim": "Worker execution orders current forward, previous-result post-processing, current sampling, and immediate/deferred current post-processing, with sampling-event synchronization and ZOS length correction.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/worker.py"
+  },
+  {
+    "id": "deepinfer-internals-offline-request-lifecycle-7",
+    "claim": "LLMEngine coordinates worker/model/cache startup, native scheduling, clone/zero actions, post-processing callbacks, output pools, and event-protected deferred release.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/llm_engine.py"
+  },
+  {
+    "id": "deepinfer-internals-offline-request-lifecycle-8",
+    "claim": "offline-request-lifecycle inspects offline model tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_offline_inference.py"
+  },
+  {
+    "id": "deepinfer-internals-overlapped-execution-1",
+    "claim": "Worker execution orders current forward, previous-result post-processing, current sampling, and immediate/deferred current post-processing, with sampling-event synchronization and ZOS length correction.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/worker.py"
+  },
+  {
+    "id": "deepinfer-internals-overlapped-execution-2",
+    "claim": "WorkerStepState retains sequence/step metadata across iterations; MetadataZOS maps current rows to prior rows and carries corrected device lengths and previous samples.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/zos_status.py"
+  },
+  {
+    "id": "deepinfer-internals-overlapped-execution-3",
+    "claim": "overlapped-execution inspects native overlap preparation for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/engine/zos.cpp"
+  },
+  {
+    "id": "deepinfer-internals-overlapped-execution-4",
+    "claim": "overlapped-execution inspects sync-guard tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/test_cuda_sync_guards.py"
+  },
+  {
+    "id": "deepinfer-internals-overlapped-execution-5",
+    "claim": "overlapped-execution inspects offline generation tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_offline_inference.py"
+  },
+  {
+    "id": "deepinfer-internals-parallel-groups-1",
+    "claim": "ParallelProcessGroup constructs distinct world/DP/CP/EP groups and CPU/device control/data paths from explicit rank geometry.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/parallel_utils/parallel_state.py"
+  },
+  {
+    "id": "deepinfer-internals-parallel-groups-2",
+    "claim": "parallel-groups inspects worker distributed startup for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/base.py"
+  },
+  {
+    "id": "deepinfer-internals-parallel-groups-3",
+    "claim": "parallel-groups inspects communication wrappers for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/parallel_utils/communication_op.py"
+  },
+  {
+    "id": "deepinfer-internals-parallel-groups-4",
+    "claim": "parallel-groups inspects user-buffer communication for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/parallel_utils/userbuffer.py"
+  },
+  {
+    "id": "deepinfer-internals-parallel-groups-5",
+    "claim": "parallel-groups inspects NCCL memory helpers for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/parallel_utils/nccl_memory.py"
+  },
+  {
+    "id": "deepinfer-internals-parallel-groups-6",
+    "claim": "parallel-groups inspects shared-memory broadcast tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/distributed/test_shm_broadcast.py"
+  },
+  {
+    "id": "deepinfer-internals-parallel-groups-7",
+    "claim": "parallel-groups inspects user-buffer tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/worker/test_userbuffer.py"
+  },
+  {
+    "id": "deepinfer-internals-parallel-groups-8",
+    "claim": "parallel-groups inspects expert-shuffle tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/distributed/test_expert_shuffle.py"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-1",
+    "claim": "The pinned public release supplies offline inference for its stated model/platform scope and explicitly identifies additional service-level KV, disaggregation, and load-balancing infrastructure.",
+    "project": "deepinfer",
+    "path": "README.md"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-2",
+    "claim": "repository-map inspects the offline example for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "examples/offline_inference.py"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-3",
+    "claim": "Example setup resolves artifacts and sets environment/device visibility before lazily importing the engine, preventing premature runtime initialization.",
+    "project": "deepinfer",
+    "path": "examples/_config.py"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-4",
+    "claim": "The offline wrapper copies sampling parameters, normalizes token arrays, clones raw pooled outputs, drains final in-flight work, and restores input request order.",
+    "project": "deepinfer",
+    "path": "deepinfer/entrypoints/llm.py"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-5",
+    "claim": "LLMEngine coordinates worker/model/cache startup, native scheduling, clone/zero actions, post-processing callbacks, output pools, and event-protected deferred release.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/llm_engine.py"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-6",
+    "claim": "The native scheduler selects prompt/decode steps with coordinated ALL/ANY votes in normal mode, validates completion-mode preemption policy, and lends per-step action vectors until rescheduling.",
+    "project": "deepinfer",
+    "path": "csrc/engine/scheduler.hpp"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-7",
+    "claim": "Sequence separates request, input, sampling, cache, scheduling and MTP state; accepted/draft history and optimistic cache progression are distinct.",
+    "project": "deepinfer",
+    "path": "csrc/engine/sequence.hpp"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-8",
+    "claim": "Native blocks reserve ID0, use refcount-protected free-list membership, and return OK/LATER/NEVER capacity status before scheduling.",
+    "project": "deepinfer",
+    "path": "csrc/engine/block_manager.hpp"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-9",
+    "claim": "repository-map inspects scheduler bindings for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/engine/pybind_scheduler.cpp"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-10",
+    "claim": "repository-map inspects sequence bindings for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/engine/pybind_sequence.cpp"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-11",
+    "claim": "The pinned ModelRegistry maps the released V4.1 architecture explicitly rather than accepting arbitrary similarly structured models.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/__init__.py"
+  },
+  {
+    "id": "deepinfer-internals-repository-map-12",
+    "claim": "repository-map inspects sequence boundary tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/engine/test_sequence.py"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-1",
+    "claim": "sampling-and-verification inspects SamplingParams for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/sampling_params.py"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-2",
+    "claim": "Sequence separates request, input, sampling, cache, scheduling and MTP state; accepted/draft history and optimistic cache progression are distinct.",
+    "project": "deepinfer",
+    "path": "csrc/engine/sequence.hpp"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-3",
+    "claim": "Sampling input structures separate accepted draft counts, next-draft controls, sequence seeds and positions; native vector getters yield Python snapshots.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/sampling_inputs.py"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-4",
+    "claim": "sampling-and-verification inspects ModelRunner.prepare_sampler_inputs and execute_sample for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/model_runner.py"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-5",
+    "claim": "sampling-and-verification inspects native sampling preparation for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/engine/prepare_sample.cpp"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-6",
+    "claim": "Variable-length verification policy combines confidence/acceptance state with bounded runtime estimates, keeping proposed work distinct from accepted output.",
+    "project": "deepinfer",
+    "path": "csrc/engine/mtp_varlen.hpp"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-7",
+    "claim": "sampling-and-verification inspects native output processing for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/engine/process_output.hpp"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-8",
+    "claim": "sampling-and-verification inspects request output construction for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/engine/outputs.hpp"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-9",
+    "claim": "sampling-and-verification inspects sampler correctness tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_sampler.py"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-10",
+    "claim": "sampling-and-verification inspects batch-invariant tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_batch_invariant.py"
+  },
+  {
+    "id": "deepinfer-internals-sampling-and-verification-11",
+    "claim": "sampling-and-verification inspects offline golden checks for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_offline_inference.py"
+  },
+  {
+    "id": "deepinfer-internals-startup-1",
+    "claim": "Example setup resolves artifacts and sets environment/device visibility before lazily importing the engine, preventing premature runtime initialization.",
+    "project": "deepinfer",
+    "path": "examples/_config.py"
+  },
+  {
+    "id": "deepinfer-internals-startup-2",
+    "claim": "The offline wrapper copies sampling parameters, normalizes token arrays, clones raw pooled outputs, drains final in-flight work, and restores input request order.",
+    "project": "deepinfer",
+    "path": "deepinfer/entrypoints/llm.py"
+  },
+  {
+    "id": "deepinfer-internals-startup-3",
+    "claim": "startup inspects EngineArgs for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/arg_utils.py"
+  },
+  {
+    "id": "deepinfer-internals-startup-4",
+    "claim": "LLMEngine coordinates worker/model/cache startup, native scheduling, clone/zero actions, post-processing callbacks, output pools, and event-protected deferred release.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/llm_engine.py"
+  },
+  {
+    "id": "deepinfer-internals-startup-5",
+    "claim": "ParallelProcessGroup constructs distinct world/DP/CP/EP groups and CPU/device control/data paths from explicit rank geometry.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/parallel_utils/parallel_state.py"
+  },
+  {
+    "id": "deepinfer-internals-startup-6",
+    "claim": "The native scheduler selects prompt/decode steps with coordinated ALL/ANY votes in normal mode, validates completion-mode preemption policy, and lends per-step action vectors until rescheduling.",
+    "project": "deepinfer",
+    "path": "csrc/engine/scheduler.hpp"
+  },
+  {
+    "id": "deepinfer-internals-startup-7",
+    "claim": "startup inspects offline model tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_offline_inference.py"
+  },
+  {
+    "id": "deepinfer-internals-startup-8",
+    "claim": "startup inspects synchronization guard tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/test_cuda_sync_guards.py"
+  },
+  {
+    "id": "deepinfer-internals-state-memory-1",
+    "claim": "Native blocks reserve ID0, use refcount-protected free-list membership, and return OK/LATER/NEVER capacity status before scheduling.",
+    "project": "deepinfer",
+    "path": "csrc/engine/block_manager.hpp"
+  },
+  {
+    "id": "deepinfer-internals-state-memory-2",
+    "claim": "state-memory inspects physical cache interfaces for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/cache_engine.py"
+  },
+  {
+    "id": "deepinfer-internals-state-memory-3",
+    "claim": "LLMEngine coordinates worker/model/cache startup, native scheduling, clone/zero actions, post-processing callbacks, output pools, and event-protected deferred release.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/llm_engine.py"
+  },
+  {
+    "id": "deepinfer-internals-state-memory-4",
+    "claim": "RequestOutput.clone dereferences a raw uint64 pointer and returns an owning unique_ptr copy; the raw-pointer array does not own pooled objects.",
+    "project": "deepinfer",
+    "path": "csrc/engine/pybind_output.cpp"
+  },
+  {
+    "id": "deepinfer-internals-state-memory-5",
+    "claim": "state-memory inspects object-pool implementation for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "csrc/utils/object_pool.hpp"
+  },
+  {
+    "id": "deepinfer-internals-state-memory-6",
+    "claim": "state-memory inspects state-cache operation tests for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/worker/test_state_cache_ops.py"
+  },
+  {
+    "id": "deepinfer-internals-structured-output-1",
+    "claim": "structured-output inspects the structured-output example for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "examples/_structured_output.py"
+  },
+  {
+    "id": "deepinfer-internals-structured-output-2",
+    "claim": "Matcher builder compiles on worker threads, polls/adopts results on the engine thread, preserves pending job lifetime, replays accepted tokens, and explicitly shuts resources down.",
+    "project": "deepinfer",
+    "path": "deepinfer/structure_output/so_matcher_builder.py"
+  },
+  {
+    "id": "deepinfer-internals-structured-output-3",
+    "claim": "XGrammarCompiler selects schema compilation mode and owns cache lifetime separately from per-request mutable matcher state.",
+    "project": "deepinfer",
+    "path": "deepinfer/structure_output/compiler.py"
+  },
+  {
+    "id": "deepinfer-internals-structured-output-4",
+    "claim": "LLMEngine coordinates worker/model/cache startup, native scheduling, clone/zero actions, post-processing callbacks, output pools, and event-protected deferred release.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/llm_engine.py"
+  },
+  {
+    "id": "deepinfer-internals-structured-output-5",
+    "claim": "XGrammarMatcher tracks trigger/bound progress, accepted constraint state, rollback history, EOS, and abort status per request.",
+    "project": "deepinfer",
+    "path": "deepinfer/structure_output/matcher.py"
+  },
+  {
+    "id": "deepinfer-internals-structured-output-6",
+    "claim": "structured-output inspects vocabulary mask application for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/structure_output/mask.py"
+  },
+  {
+    "id": "deepinfer-internals-structured-output-7",
+    "claim": "structured-output inspects structured-output kernel dispatch for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/layers/tilelang_ops/structure_output.py"
+  },
+  {
+    "id": "deepinfer-internals-structured-output-8",
+    "claim": "structured-output inspects offline tests with structured-output extension for the operation contract or asserted behavior described in the chapter.",
+    "project": "deepinfer",
+    "path": "tests/models/test_offline_inference.py"
+  }
+]

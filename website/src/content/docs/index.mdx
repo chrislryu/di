@@ -1,0 +1,30 @@
+---
+title: "Distributed Inference Field Guide"
+description: "LLM serving, GPU communication, and networking—from architecture to source code."
+template: "splash"
+hero: {"title":"Distributed Inference Field Guide","tagline":"LLM serving, GPU communication, and networking—from architecture to source code.","actions":[{"text":"Follow your first request","link":"/walkthroughs/one-request/","icon":"right-arrow"},{"text":"Explore the system map","link":"/start/#system-map","variant":"secondary"},{"text":"Project index","link":"/architecture/","variant":"minimal"}]}
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import SystemMap from '../../components/SystemMap.astro';
+
+## From a customer problem to the code
+
+A response should start quickly, stream smoothly, and remain affordable as demand grows. Those requirements lead from one model engine to scheduling, cached state, multiple GPUs, and eventually a network fabric. Learn the responsibilities one boundary at a time.
+
+Start with a single request. Then follow the same ideas as the system distributes work and moves state between devices.
+
+<CardGrid>
+  <LinkCard title="Start with the customer" description="Why latency, throughput, and cost shape the serving stack." href="/start/" />
+  <LinkCard title="Find a project" description="Ten source-grounded architecture guides, organized by responsibility." href="/architecture/" />
+  <LinkCard title="Learn a concept" description="Focused explanations of KV cache, parallelism, and networking." href="/concepts/" />
+  <LinkCard title="Make a decision" description="Situations, evidence, options, and tradeoffs for engineering choices." href="/decisions/" />
+</CardGrid>
+
+## A map, not a dependency chain
+
+<SystemMap />
+
+Each project solves a different part of the problem. Engines can serve directly; orchestration and external state movement become relevant as requirements grow. Every guide links to an inspected source revision so you can continue from an explanation into implementation.
+
+[Follow the newcomer reading path →](/start/reading-path/)

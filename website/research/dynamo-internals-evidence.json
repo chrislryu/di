@@ -1,0 +1,542 @@
+[
+  {
+    "id": "dynamo-internals-backend-adapters-1",
+    "claim": "The backend-adapters chapter traces vLLM backend construction and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/main.py"
+  },
+  {
+    "id": "dynamo-internals-backend-adapters-2",
+    "claim": "The backend-adapters chapter traces the engine lifecycle contract and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/common/backend/README.md"
+  },
+  {
+    "id": "dynamo-internals-backend-adapters-3",
+    "claim": "The backend-adapters chapter traces vLLM request handlers and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/handlers.py"
+  },
+  {
+    "id": "dynamo-internals-backend-adapters-4",
+    "claim": "The backend-adapters chapter traces per-connector prefill/decode protocols and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/kv_connector_protocols.py"
+  },
+  {
+    "id": "dynamo-internals-backend-adapters-5",
+    "claim": "The backend-adapters chapter traces connector protocol tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/tests/test_vllm_kv_connector_protocols.py"
+  },
+  {
+    "id": "dynamo-internals-cache-aware-routing-1",
+    "claim": "The cache-aware-routing chapter traces cache event and hash protocols and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/protocols.rs"
+  },
+  {
+    "id": "dynamo-internals-cache-aware-routing-2",
+    "claim": "The cache-aware-routing chapter traces event listener and gap recovery and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/indexer/listener.rs"
+  },
+  {
+    "id": "dynamo-internals-cache-aware-routing-3",
+    "claim": "The cache-aware-routing chapter traces Indexer lookup pipeline and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/indexer/lookup.rs"
+  },
+  {
+    "id": "dynamo-internals-cache-aware-routing-4",
+    "claim": "The cache-aware-routing chapter traces BlockTracker and RequestBlockChain and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/sequences/block_tracker.rs"
+  },
+  {
+    "id": "dynamo-internals-cache-aware-routing-5",
+    "claim": "The cache-aware-routing chapter traces documented indexing invariants and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/README.md"
+  },
+  {
+    "id": "dynamo-internals-cache-management-1",
+    "claim": "The cache-management chapter traces KVBM connector detection and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/args.py"
+  },
+  {
+    "id": "dynamo-internals-cache-management-2",
+    "claim": "The cache-management chapter traces conditional KVBM consolidator setup and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/main.py"
+  },
+  {
+    "id": "dynamo-internals-cache-management-3",
+    "claim": "The cache-management chapter traces DynamoConnector facade and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/bindings/kvbm/python/kvbm/vllm_integration/connector/dynamo_connector.py"
+  },
+  {
+    "id": "dynamo-internals-cache-management-4",
+    "claim": "The cache-management chapter traces KvConnectorLeader and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/bindings/kvbm/python/kvbm/vllm_integration/connector_leader.py"
+  },
+  {
+    "id": "dynamo-internals-cache-management-5",
+    "claim": "The cache-management chapter traces KvConnectorWorker and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/bindings/kvbm/python/kvbm/vllm_integration/connector_worker.py"
+  },
+  {
+    "id": "dynamo-internals-cache-management-6",
+    "claim": "The cache-management chapter traces logical block guard states and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kvbm-logical/src/blocks/mod.rs"
+  },
+  {
+    "id": "dynamo-internals-cache-management-7",
+    "claim": "The cache-management chapter traces layout and manager identities and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kvbm-logical/src/lib.rs"
+  },
+  {
+    "id": "dynamo-internals-cache-management-8",
+    "claim": "The cache-management chapter traces KVBM/vLLM interface tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "tests/kvbm_integration/test_kvbm_vllm_integration.py"
+  },
+  {
+    "id": "dynamo-internals-cancellation-failure-1",
+    "claim": "The cancellation-failure chapter traces ConnectionHandle and connection monitors and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/disconnect.rs"
+  },
+  {
+    "id": "dynamo-internals-cancellation-failure-2",
+    "claim": "The cancellation-failure chapter traces HTTP handlers and until_client_disconnects and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/openai.rs"
+  },
+  {
+    "id": "dynamo-internals-cancellation-failure-3",
+    "claim": "The cancellation-failure chapter traces _DeferredAbort and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/handlers.py"
+  },
+  {
+    "id": "dynamo-internals-cancellation-failure-4",
+    "claim": "The cancellation-failure chapter traces TestDeferredAbort unit tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/tests/test_vllm_worker_handler.py"
+  },
+  {
+    "id": "dynamo-internals-cancellation-failure-5",
+    "claim": "The cancellation-failure chapter traces vLLM cancellation integration tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "tests/fault_tolerance/cancellation/test_vllm.py"
+  },
+  {
+    "id": "dynamo-internals-code-labs-1",
+    "claim": "The code-labs chapter traces agg.sh and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/agg.sh"
+  },
+  {
+    "id": "dynamo-internals-code-labs-2",
+    "claim": "The code-labs chapter traces handler_completions and completions_single and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/openai.rs"
+  },
+  {
+    "id": "dynamo-internals-code-labs-3",
+    "claim": "The code-labs chapter traces the composed frontend pipeline and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/entrypoint/input/common.rs"
+  },
+  {
+    "id": "dynamo-internals-code-labs-4",
+    "claim": "The code-labs chapter traces SelectionAdmission and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/operation.rs"
+  },
+  {
+    "id": "dynamo-internals-code-labs-5",
+    "claim": "The code-labs chapter traces reservation claims and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/reservations.rs"
+  },
+  {
+    "id": "dynamo-internals-code-labs-6",
+    "claim": "The code-labs chapter traces disagg.sh and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/disagg.sh"
+  },
+  {
+    "id": "dynamo-internals-code-labs-7",
+    "claim": "The code-labs chapter traces connector-specific stage protocols and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/kv_connector_protocols.py"
+  },
+  {
+    "id": "dynamo-internals-code-labs-8",
+    "claim": "The code-labs chapter traces NativePlannerBase._run_one_tick and _submit_effects and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/core/base.py"
+  },
+  {
+    "id": "dynamo-internals-code-labs-9",
+    "claim": "The code-labs chapter traces PlannerReconfiguration and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/reconfiguration.py"
+  },
+  {
+    "id": "dynamo-internals-code-labs-10",
+    "claim": "The code-labs chapter traces the conditional/idempotent update test and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/tests/unit/test_reconfiguration.py"
+  },
+  {
+    "id": "dynamo-internals-frontend-path-1",
+    "claim": "The frontend-path chapter traces the completion handler and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/openai.rs"
+  },
+  {
+    "id": "dynamo-internals-frontend-path-2",
+    "claim": "The frontend-path chapter traces PreprocessedRouting::build_pipeline and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/entrypoint/input/common.rs"
+  },
+  {
+    "id": "dynamo-internals-frontend-path-3",
+    "claim": "The frontend-path chapter traces OpenAIPreprocessor and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/preprocessor.rs"
+  },
+  {
+    "id": "dynamo-internals-frontend-path-4",
+    "claim": "The frontend-path chapter traces connection monitoring and stream guards and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/disconnect.rs"
+  },
+  {
+    "id": "dynamo-internals-frontend-path-5",
+    "claim": "The frontend-path chapter traces HTTP protocol tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/tests/frontend_protocol_validation_http.rs"
+  },
+  {
+    "id": "dynamo-internals-frontend-path-6",
+    "claim": "The frontend-path chapter traces frontend metrics tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/tests/http_metrics.rs"
+  },
+  {
+    "id": "dynamo-internals-observability-1",
+    "claim": "The observability chapter traces frontend request metrics and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/metrics.rs"
+  },
+  {
+    "id": "dynamo-internals-observability-2",
+    "claim": "The observability chapter traces handler guard placement and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/openai.rs"
+  },
+  {
+    "id": "dynamo-internals-observability-3",
+    "claim": "The observability chapter traces FrontendLoadFrame and publishing and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/frontend_load.rs"
+  },
+  {
+    "id": "dynamo-internals-observability-4",
+    "claim": "The observability chapter traces InstrumentedScheduler metrics and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/instrumented_scheduler.py"
+  },
+  {
+    "id": "dynamo-internals-observability-5",
+    "claim": "The observability chapter traces framework trace-link fields and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/protocols/common/preprocessor.rs"
+  },
+  {
+    "id": "dynamo-internals-observability-6",
+    "claim": "The observability chapter traces HTTP metrics tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/tests/http_metrics.rs"
+  },
+  {
+    "id": "dynamo-internals-planning-and-reconfiguration-1",
+    "claim": "The planning-and-reconfiguration chapter traces NativePlannerBase observation and tick loop and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/core/base.py"
+  },
+  {
+    "id": "dynamo-internals-planning-and-reconfiguration-2",
+    "claim": "The planning-and-reconfiguration chapter traces LoadScalingMixin and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/core/load_scaling.py"
+  },
+  {
+    "id": "dynamo-internals-planning-and-reconfiguration-3",
+    "claim": "The planning-and-reconfiguration chapter traces ThroughputScalingMixin and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/core/throughput_scaling.py"
+  },
+  {
+    "id": "dynamo-internals-planning-and-reconfiguration-4",
+    "claim": "The planning-and-reconfiguration chapter traces PlannerReconfiguration and ReconfigureRequest and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/reconfiguration.py"
+  },
+  {
+    "id": "dynamo-internals-planning-and-reconfiguration-5",
+    "claim": "The planning-and-reconfiguration chapter traces tick lifecycle tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/tests/unit/test_tick_lifecycle.py"
+  },
+  {
+    "id": "dynamo-internals-planning-and-reconfiguration-6",
+    "claim": "The planning-and-reconfiguration chapter traces runtime reconfiguration tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/tests/unit/test_reconfiguration.py"
+  },
+  {
+    "id": "dynamo-internals-planning-and-reconfiguration-7",
+    "claim": "The planning-and-reconfiguration chapter traces load budget guard tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/tests/unit/test_load_budget_guard.py"
+  },
+  {
+    "id": "dynamo-internals-prefill-decode-1",
+    "claim": "The prefill-decode chapter traces the selected disaggregated launch script and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/disagg.sh"
+  },
+  {
+    "id": "dynamo-internals-prefill-decode-2",
+    "claim": "The prefill-decode chapter traces PrefillRouter and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/kv_router/prefill_router/mod.rs"
+  },
+  {
+    "id": "dynamo-internals-prefill-decode-3",
+    "claim": "The prefill-decode chapter traces handoff completion and forward_decode and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/kv_router/prefill_router/handoff.rs"
+  },
+  {
+    "id": "dynamo-internals-prefill-decode-4",
+    "claim": "The prefill-decode chapter traces prefill and decode handlers and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/handlers.py"
+  },
+  {
+    "id": "dynamo-internals-prefill-decode-5",
+    "claim": "The prefill-decode chapter traces KvConnectorProtocol strategies and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/kv_connector_protocols.py"
+  },
+  {
+    "id": "dynamo-internals-repository-map-1",
+    "claim": "The repository-map chapter traces repository overview and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "README.md"
+  },
+  {
+    "id": "dynamo-internals-repository-map-2",
+    "claim": "The repository-map chapter traces the Python frontend entrypoint and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/frontend/main.py"
+  },
+  {
+    "id": "dynamo-internals-repository-map-3",
+    "claim": "The repository-map chapter traces Rust HTTP service construction and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/entrypoint/input/http.rs"
+  },
+  {
+    "id": "dynamo-internals-repository-map-4",
+    "claim": "The repository-map chapter traces pipeline construction and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/entrypoint/input/common.rs"
+  },
+  {
+    "id": "dynamo-internals-repository-map-5",
+    "claim": "The repository-map chapter traces preprocessed request definitions and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/protocols/common/preprocessor.rs"
+  },
+  {
+    "id": "dynamo-internals-repository-map-6",
+    "claim": "The repository-map chapter traces backend output definitions and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/protocols/common/llm_backend.rs"
+  },
+  {
+    "id": "dynamo-internals-repository-map-7",
+    "claim": "The repository-map chapter traces the selection core's operation contract and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/operation.rs"
+  },
+  {
+    "id": "dynamo-internals-repository-map-8",
+    "claim": "The repository-map chapter traces NativePlannerBase and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/core/base.py"
+  },
+  {
+    "id": "dynamo-internals-repository-map-9",
+    "claim": "The repository-map chapter traces frontend protocol tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/tests/frontend_protocol_validation_http.rs"
+  },
+  {
+    "id": "dynamo-internals-repository-map-10",
+    "claim": "The repository-map chapter traces Planner tick tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/tests/unit/test_tick_lifecycle.py"
+  },
+  {
+    "id": "dynamo-internals-request-protocols-1",
+    "claim": "The request-protocols chapter traces OpenAI handler implementations and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/openai.rs"
+  },
+  {
+    "id": "dynamo-internals-request-protocols-2",
+    "claim": "The request-protocols chapter traces PreprocessedRequest and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/protocols/common/preprocessor.rs"
+  },
+  {
+    "id": "dynamo-internals-request-protocols-3",
+    "claim": "The request-protocols chapter traces BackendOutput and LLMEngineOutput and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/protocols/common/llm_backend.rs"
+  },
+  {
+    "id": "dynamo-internals-request-protocols-4",
+    "claim": "The request-protocols chapter traces frontend protocol validation tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/tests/frontend_protocol_validation_http.rs"
+  },
+  {
+    "id": "dynamo-internals-routing-selection-1",
+    "claim": "The routing-selection chapter traces SelectionOperation and SelectionAdmission and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/operation.rs"
+  },
+  {
+    "id": "dynamo-internals-routing-selection-2",
+    "claim": "The routing-selection chapter traces worker and partition management and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/workers.rs"
+  },
+  {
+    "id": "dynamo-internals-routing-selection-3",
+    "claim": "The routing-selection chapter traces selection service invariants and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/README.md"
+  },
+  {
+    "id": "dynamo-internals-routing-selection-4",
+    "claim": "The routing-selection chapter traces selection execution and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/run.rs"
+  },
+  {
+    "id": "dynamo-internals-routing-selection-5",
+    "claim": "The routing-selection chapter traces reservation index and claims and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/reservations.rs"
+  },
+  {
+    "id": "dynamo-internals-routing-selection-6",
+    "claim": "The routing-selection chapter traces selection core tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/tests.rs"
+  },
+  {
+    "id": "dynamo-internals-runtime-discovery-1",
+    "claim": "The runtime-discovery chapter traces discovery types and queries and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/runtime/src/discovery/mod.rs"
+  },
+  {
+    "id": "dynamo-internals-runtime-discovery-2",
+    "claim": "The runtime-discovery chapter traces endpoint registration manager and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/runtime/src/discovery/registration.rs"
+  },
+  {
+    "id": "dynamo-internals-runtime-discovery-3",
+    "claim": "The runtime-discovery chapter traces LocalEndpointRegistry and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/runtime/src/local_endpoint_registry.rs"
+  },
+  {
+    "id": "dynamo-internals-runtime-discovery-4",
+    "claim": "The runtime-discovery chapter traces service and endpoint information and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/runtime/src/service.rs"
+  },
+  {
+    "id": "dynamo-internals-runtime-discovery-5",
+    "claim": "The runtime-discovery chapter traces run_watcher and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/entrypoint/input/http.rs"
+  },
+  {
+    "id": "dynamo-internals-runtime-discovery-6",
+    "claim": "The runtime-discovery chapter traces ModelWatcher and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/discovery/watcher.rs"
+  },
+  {
+    "id": "dynamo-internals-startup-1",
+    "claim": "The startup chapter traces two-GPU vLLM example and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/disagg.sh"
+  },
+  {
+    "id": "dynamo-internals-startup-2",
+    "claim": "The startup chapter traces frontend startup and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/frontend/main.py"
+  },
+  {
+    "id": "dynamo-internals-startup-3",
+    "claim": "The startup chapter traces FrontendConfig parsing and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/frontend/frontend_args.py"
+  },
+  {
+    "id": "dynamo-internals-startup-4",
+    "claim": "The startup chapter traces HTTP input construction and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "lib/llm/src/entrypoint/input/http.rs"
+  },
+  {
+    "id": "dynamo-internals-startup-5",
+    "claim": "The startup chapter traces vLLM backend startup and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/main.py"
+  },
+  {
+    "id": "dynamo-internals-startup-6",
+    "claim": "The startup chapter traces the common backend lifecycle and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/common/backend/README.md"
+  },
+  {
+    "id": "dynamo-internals-startup-7",
+    "claim": "The startup chapter traces vLLM health-check tests and its documented state, interface, or test behavior.",
+    "project": "dynamo",
+    "path": "tests/fault_tolerance/test_vllm_health_check.py"
+  }
+]

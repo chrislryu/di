@@ -1,0 +1,176 @@
+[
+  {
+    "id": "sglang-internals-review-1",
+    "claim": "The Engine baseline splits tokenizer/API, scheduler, and detokenizer roles; launcher resolves and validates context before publication.",
+    "project": "sglang",
+    "path": "python/sglang/srt/entrypoints/engine.py"
+  },
+  {
+    "id": "sglang-internals-review-2",
+    "claim": "IPC structures define representation boundaries rather than all normalization/execution behavior.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/io_struct.py"
+  },
+  {
+    "id": "sglang-internals-review-3",
+    "claim": "get_model chooses a loader and delegates model installation with model/device configuration.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_loader/__init__.py"
+  },
+  {
+    "id": "sglang-internals-review-4",
+    "claim": "The default loader calls model.load_weights and alternate loaders must preserve post-load fixup contracts.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_loader/loader.py"
+  },
+  {
+    "id": "sglang-internals-review-5",
+    "claim": "Qwen2 contains stacked projection mappings for selected checkpoint weight installation.",
+    "project": "sglang",
+    "path": "python/sglang/srt/models/qwen2.py"
+  },
+  {
+    "id": "sglang-internals-review-6",
+    "claim": "Frontend request state is initialized before tokenization/dispatch, and failure handling distinguishes undelivered and dispatched state.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tokenizer_manager.py"
+  },
+  {
+    "id": "sglang-internals-review-7",
+    "claim": "Normal and overlap loops use NextBatchPlan; overlap queues batch.copy with results and separates previous-result processing from current sampling.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-internals-review-8",
+    "claim": "The WAR barrier consumes shared_read_done_event and enqueues schedule-stream waits on the fine event or forward stream fallback.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-internals-review-9",
+    "claim": "Batch preparation transforms request progress and KV mappings into extend/decode execution metadata while respecting overlap references.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/schedule_batch.py"
+  },
+  {
+    "id": "sglang-internals-review-10",
+    "claim": "Prefill admission tracks resource budgets separately from candidate ordering.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/schedule_policy.py"
+  },
+  {
+    "id": "sglang-internals-review-11",
+    "claim": "Node splitting clones KV-index vector slices, not model KV payload tensors; lock references protect shared ancestry.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/radix_cache.py"
+  },
+  {
+    "id": "sglang-internals-review-12",
+    "claim": "ReqToTokenPool reserves row zero, increments allocation generations, and preserves generations across clear.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/memory_pool.py"
+  },
+  {
+    "id": "sglang-internals-review-13",
+    "claim": "free_segment requires page-aligned starts and grouped page release owns copied page representatives.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/allocator/paged.py"
+  },
+  {
+    "id": "sglang-internals-review-14",
+    "claim": "The worker constructs ForwardBatch for ModelRunner, with selected transformed-batch paths.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tp_worker.py"
+  },
+  {
+    "id": "sglang-internals-review-15",
+    "claim": "Filtering retains per-request row-aligned sampling metadata.",
+    "project": "sglang",
+    "path": "python/sglang/srt/sampling/sampling_batch_info.py"
+  },
+  {
+    "id": "sglang-internals-review-16",
+    "claim": "Incremental text production retains decoder offsets/context rather than independently concatenating decoded token strings.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/incremental_detokenize.py"
+  },
+  {
+    "id": "sglang-internals-review-17",
+    "claim": "Repeated load timestamps are ignored and control fan-out iterates the stepped active-worker set.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/data_parallel_controller.py"
+  },
+  {
+    "id": "sglang-internals-review-18",
+    "claim": "PoolTransferResult can describe nonmonotonic restorable prefix boundaries whose per-rank sets must be intersected.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/hicache_storage.py"
+  },
+  {
+    "id": "sglang-internals-review-19",
+    "claim": "KVPoll distinguishes failed, bootstrap, waiting, transferring, and success states.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/base/conn.py"
+  },
+  {
+    "id": "sglang-internals-review-20",
+    "claim": "StagingAllocator overcommits ring rounds; remote writes require the oldest-unfreed watermark safety protocol.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/common/staging_buffer.py"
+  },
+  {
+    "id": "sglang-internals-review-21",
+    "claim": "Full-pool accounting sums available, evictable, protected, session-held, and uncached state and separately enforces other invariants.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler_components/invariant_checker.py"
+  },
+  {
+    "id": "sglang-internals-review-22",
+    "claim": "Request timing structures distinguish frontend/controller/scheduler/delivery measurement boundaries.",
+    "project": "sglang",
+    "path": "python/sglang/srt/observability/req_time_stats.py"
+  },
+  {
+    "id": "sglang-internals-review-23",
+    "claim": "Named salt-slicing and page-aligned-match tests assert key-view compatibility and rounded usable matches.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/test_radix_cache_unit.py"
+  },
+  {
+    "id": "sglang-internals-review-24",
+    "claim": "Shared-read event tests distinguish event publication and disabled/incompatible paths.",
+    "project": "sglang",
+    "path": "test/registered/unit/model_executor/runner/test_prefill_shared_read_done.py"
+  },
+  {
+    "id": "sglang-internals-review-25",
+    "claim": "Named tests keep failed destinations unpublished and wait for required rank completion.",
+    "project": "sglang",
+    "path": "test/registered/unit/disaggregation/test_decode_queue_cleanup.py"
+  },
+  {
+    "id": "sglang-internals-review-26",
+    "claim": "Aborted final results do not publish successful ready state.",
+    "project": "sglang",
+    "path": "test/registered/unit/disaggregation/test_prefill_abort_result_cleanup.py"
+  },
+  {
+    "id": "sglang-internals-review-27",
+    "claim": "Named timeout tests preserve unset timing, suppress repeated outstanding aborts, and retain queued results after newer forward launches.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/test_scheduler_timeouts.py"
+  },
+  {
+    "id": "sglang-internals-review-28",
+    "claim": "Named tests cover conserved/skewed pool ownership and detection of one unowned page.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/scheduler_components/test_invariant_checker.py"
+  },
+  {
+    "id": "sglang-internals-review-29",
+    "claim": "Release-step test restricts which coordination paths may execute a release step.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/scheduler_components/test_request_retirer.py"
+  }
+]

@@ -1,0 +1,34 @@
+---
+title: "Which parallelism strategy?"
+description: "Match the partitioning strategy to memory, compute, context, or expert-routing constraints."
+kind: decision
+projects: ["vllm","deepep"]
+related: [{"title":"Choose communication","href":"/decisions/communication/"},{"title":"MoE walkthrough","href":"/walkthroughs/moe/"}]
+---
+
+## Name the constrained resource
+
+A **rank** is a participant in a distributed operation, commonly associated with a process and GPU. Adding ranks changes how a model executes and communicates. Start with a model and workload that run correctly, then identify which resource prevents the desired capacity or latency.
+
+| Situation | Evidence to collect | Options | Tradeoffs | Prerequisites | Deeper explanation |
+| --- | --- | --- | --- | --- | --- |
+| A model fits one replica but demand exceeds capacity | Queue growth, utilization, per-replica memory | Data parallelism: add independent replicas | Replicas duplicate weights and need request routing | Enough capacity for each replica | [Parallelism](/concepts/parallelism/) |
+| Layers or their matrices exceed one device’s capacity | Weight/activation memory, collective time | Tensor parallelism or pipeline parallelism | Tensor splits communicate within layers; pipelines exchange stage activations | Engine/model support and suitable links | [Topology](/concepts/topology/) |
+| Long-context attention is the constraint | Context length, attention memory and time | Supported context-parallel implementation | Sequence partitioning adds communication and synchronization | Model-specific attention support | [Parallelism](/concepts/parallelism/) |
+| MoE expert weights or expert load dominate | Per-expert token counts, dispatch/combine time | Expert parallelism, possibly with load balancing | Uneven routing can strand capacity and overload hot experts | MoE model and supported communication backend | [DeepEP](/architecture/deepep/) |
+
+## Work through an example
+
+If a dense model fits on one GPU and each request already meets its latency objective, extra independent replicas are an experiment for aggregate demand. Tensor splitting would add communication to each layer, so test whether that cost buys anything for this workload. If the model cannot fit, tensor or pipeline partitioning becomes a capacity question before it becomes a speed question.
+
+vLLM’s [parallel configuration](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/config/parallel.py) exposes these choices and constraints; it does not promise that arbitrary combinations work for every model. Read the selected model implementation before treating a flag as support evidence. DeepEP’s [EPBuffer interface](https://github.com/deepseek-ai/DeepEP/blob/f6aa38fe06cd4a0489e7730365d4e0114970a2f3/deep_ep/buffers/ep.py) addresses expert token movement, whose shape differs from a dense model’s collective.
+
+The operator chooses partition sizes and placement; model and engine code define legal combinations; the runtime executes their communication groups. Keep total hardware, precision, batch distribution, and context lengths explicit when comparing candidates. Use communication traces to check whether a new partition merely moved the bottleneck onto a slower interconnect.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [vLLM rank groups](/architecture/vllm/distributed-execution/) | Model layout and collective result ownership |
+| [NCCL algorithm selection](/architecture/nccl/algorithm-selection/) | Runtime tuning versus operator configuration |
+| [DeepEP domains](/architecture/deepep/hybrid-communication/) | Expert traffic across scale-up and scale-out |

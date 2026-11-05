@@ -1,0 +1,34 @@
+---
+title: "Which communication operation?"
+description: "Choose the operation by what participants must receive and when they can safely use it."
+kind: decision
+projects: ["nccl","nixl","deepep"]
+related: [{"title":"Choose a network path","href":"/decisions/network/"},{"title":"Parallelism decision","href":"/decisions/parallelism/"}]
+---
+
+## Describe the output before choosing a library
+
+A **collective** coordinates a group of ranks. An **all-reduce** combines corresponding values and gives the result to every participant; an **all-gather** collects contributions without that reduction. A point-to-point operation moves selected data between peers. An MoE layer routes tokens to selected experts and returns their contributions, which adds model-specific layout requirements.
+
+| Situation | Evidence to collect | Options | Tradeoffs | Prerequisites | Deeper explanation |
+| --- | --- | --- | --- | --- | --- |
+| Every rank needs the sum of partial results | Tensor shape, reduction semantics, group membership | All-reduce through NCCL or engine backend | All participants must follow compatible collective ordering | Communicator and stream coordination | [NCCL](/architecture/nccl/) |
+| Each rank needs contributions kept separate | Required destination layout and total bytes | All-gather or another matching collective | Output size and memory pressure can grow with ranks | Compatible sizes and layout | [Communication](/concepts/communication/) |
+| One worker needs another’s cache ranges | Ownership, addresses, bytes, completion boundary | Supported point-to-point transfer such as NIXL | Framework owns addressing and readiness | Registration and peer metadata | [NIXL](/architecture/nixl/) |
+| Tokens route to different MoE experts | Expert selections, per-expert counts, reverse layout | Expert dispatch/combine such as DeepEP | Irregular traffic and skew affect capacity and overlap | Supported engine/backend and hardware | [MoE trace](/walkthroughs/moe/) |
+
+## Check semantics and completion
+
+If two tensor-parallel ranks each produce a partial vector and both need the sum, copying one vector to the other leaves a reduction and return path to implement. A matching collective expresses the desired result directly. Conversely, copying a producer’s cache to one consumer does not require every GPU to participate in an all-reduce.
+
+The [NCCL collective entrypoints](https://github.com/NVIDIA/nccl/blob/3e46c089f4ae4732722a419eb6096aead7e47a30/src/collectives.cc) show the operation contract. NIXL’s [two-agent example](https://github.com/ai-dynamo/nixl/blob/c359986fed8bcf7fad6b2fa9b95d98d4b581a8e7/examples/cpp/nixl_example.cpp) separates posting from completion. DeepEP’s [dispatch/combine interface](https://github.com/deepseek-ai/DeepEP/blob/f6aa38fe06cd4a0489e7730365d4e0114970a2f3/deep_ep/buffers/ep.py) preserves a routing handle used by combine. Keep that handle and its referenced inputs valid while work depends on them.
+
+The model developer determines mathematical semantics; the integration selects an implementation; operators choose supported transport and topology. A successful asynchronous API return may mean work was enqueued. Follow its stream/event/completion contract before consuming output or reusing buffers.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [NCCL operation contracts](/architecture/nccl/public-api/) | Collective and point-to-point semantics |
+| [DeepEP expert layouts](/architecture/deepep/token-layouts/) | Routing, expansion, and valid ranges |
+| [libfabric remote operations](/architecture/libfabric/rma-and-atomics/) | Keys, access, and ordering contracts |

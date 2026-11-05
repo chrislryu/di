@@ -1,0 +1,284 @@
+[
+  {
+    "id": "vllm-review-1",
+    "claim": "Block ownership and cached identity are distinct: free blocks may remain hash-indexed until reuse; writability requires sole ownership and absent cached hash.",
+    "project": "vllm",
+    "path": "vllm/v1/core/block_pool.py"
+  },
+  {
+    "id": "vllm-review-2",
+    "claim": "KVCacheManager tracks grouped logical block allocations, prefix lookup and request release rather than directly allocating model tensor bytes.",
+    "project": "vllm",
+    "path": "vllm/v1/core/kv_cache_manager.py"
+  },
+  {
+    "id": "vllm-review-3",
+    "claim": "Scheduling tracks computed versus required token progress; remote-KV completion and failed receive bookkeeping are separate, with recomputation/replay after retrieval.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/scheduler.py"
+  },
+  {
+    "id": "vllm-review-4",
+    "claim": "Async scheduling reserves output placeholders, tracks pending structured output tokens, and uses worker-side draft IDs.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/async_scheduler.py"
+  },
+  {
+    "id": "vllm-review-5",
+    "claim": "EngineCore constructs executor before KV planning and scheduler; ordinary step processes aborts before scheduler result updates and batch-queue execution may defer grammar-dependent sampling.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py"
+  },
+  {
+    "id": "vllm-review-6",
+    "claim": "AsyncLLM registers requests and yields per-request output collectors; client cancellation and engine-dead failures follow different exception paths.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/async_llm.py"
+  },
+  {
+    "id": "vllm-review-7",
+    "claim": "Output processing owns request output assembly and incremental detokenization rather than HTTP framing.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/output_processor.py"
+  },
+  {
+    "id": "vllm-review-8",
+    "claim": "Grammar futures can become completed grammar or stored exception; grammar readiness is not itself evidence of successful compilation.",
+    "project": "vllm",
+    "path": "vllm/v1/structured_output/request.py"
+  },
+  {
+    "id": "vllm-review-9",
+    "claim": "StructuredOutputManager fixes one backend per engine, compiles per-request grammars, and lazily creates request-local reasoning parsers.",
+    "project": "vllm",
+    "path": "vllm/v1/structured_output/__init__.py"
+  },
+  {
+    "id": "vllm-review-10",
+    "claim": "Executor selection is based on normalized distributed_executor_backend including uni, mp, ray and external launcher choices.",
+    "project": "vllm",
+    "path": "vllm/v1/executor/abstract.py"
+  },
+  {
+    "id": "vllm-review-11",
+    "claim": "The uniprocess executor creates and initializes its driver worker before loading the model and can return executor futures without promising separate-process execution.",
+    "project": "vllm",
+    "path": "vllm/v1/executor/uniproc_executor.py"
+  },
+  {
+    "id": "vllm-review-12",
+    "claim": "GPU worker lifecycle separates device initialization, model loading, memory profiling, and KV-cache initialization.",
+    "project": "vllm",
+    "path": "vllm/v1/worker/gpu_worker.py"
+  },
+  {
+    "id": "vllm-review-13",
+    "claim": "GPUModelRunner updates persistent state and prepares inputs from SchedulerOutput; execute_model returning None requires a following sample_tokens operation.",
+    "project": "vllm",
+    "path": "vllm/v1/worker/gpu_model_runner.py"
+  },
+  {
+    "id": "vllm-review-14",
+    "claim": "Attention selection uses model/platform/configuration properties and supports per-kind overrides; KV-layout resolution covers the model backends together.",
+    "project": "vllm",
+    "path": "vllm/v1/attention/selector.py"
+  },
+  {
+    "id": "vllm-review-15",
+    "claim": "Loader selection uses load format, and get_model delegates model construction/loading to the selected loader.",
+    "project": "vllm",
+    "path": "vllm/model_executor/model_loader/__init__.py"
+  },
+  {
+    "id": "vllm-review-16",
+    "claim": "Sampler applies logit processors, samples tokens, and returns GPU tensor output; raw and processed logprob modes have different semantics.",
+    "project": "vllm",
+    "path": "vllm/v1/sample/sampler.py"
+  },
+  {
+    "id": "vllm-review-17",
+    "claim": "Scheduler tests cover active-sequence caps, finished speculative request caching, and avoiding cache publication of in-flight async tokens.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_scheduler.py"
+  },
+  {
+    "id": "vllm-review-18",
+    "claim": "VllmConfig aggregates subsystem configuration and its constructor resolves cross-subsystem constraints.",
+    "project": "vllm",
+    "path": "vllm/config/vllm.py"
+  },
+  {
+    "id": "vllm-review-19",
+    "claim": "Base loader creates modules under dtype/device contexts, loads named weights, clears transient allocator state, and post-processes weights before model.eval.",
+    "project": "vllm",
+    "path": "vllm/model_executor/model_loader/base_loader.py"
+  },
+  {
+    "id": "vllm-review-20",
+    "claim": "Qwen3Model inherits Qwen2Model loading; Qwen3ForCausalLM delegates loading to AutoWeightsLoader.",
+    "project": "vllm",
+    "path": "vllm/model_executor/models/qwen3.py"
+  },
+  {
+    "id": "vllm-review-21",
+    "claim": "Qwen2Model maps separate Q/K/V checkpoint names to qkv_proj with q/k/v shard identities.",
+    "project": "vllm",
+    "path": "vllm/model_executor/models/qwen2.py"
+  },
+  {
+    "id": "vllm-review-22",
+    "claim": "AutoWeightsLoader traverses child modules and delegates to model-specific loaders where available.",
+    "project": "vllm",
+    "path": "vllm/model_executor/models/utils.py"
+  },
+  {
+    "id": "vllm-review-23",
+    "claim": "QKVParallelLinear uses output-dimension packing and head partitioning; grouped-query KV heads may be replicated rather than split into equal thirds.",
+    "project": "vllm",
+    "path": "vllm/model_executor/layers/linear.py"
+  },
+  {
+    "id": "vllm-review-24",
+    "claim": "Under async scheduling and pipeline parallelism num_computed_tokens can optimistically include in-flight steps, so the counter alone does not certify materialized KV.",
+    "project": "vllm",
+    "path": "vllm/v1/request.py"
+  },
+  {
+    "id": "vllm-review-25",
+    "claim": "SchedulerOutput describes iteration work while NewRequestData and CachedRequestData carry different request-state update forms.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/output.py"
+  },
+  {
+    "id": "vllm-review-26",
+    "claim": "Runtime CUDA-graph dispatch chooses only initialized valid batch keys and can return FULL, PIECEWISE, or NONE according to supported execution modes.",
+    "project": "vllm",
+    "path": "vllm/v1/cudagraph_dispatcher.py"
+  },
+  {
+    "id": "vllm-review-27",
+    "claim": "Tests distinguish a pending grammar Future from a completed Future whose result is a stored compilation exception.",
+    "project": "vllm",
+    "path": "tests/v1/structured_output/test_request.py"
+  },
+  {
+    "id": "vllm-review-28",
+    "claim": "Partial-hit copy-on-write retains copy endpoints until execution; model-specific running-tail handling can move cached hash identity before overwriting the former source.",
+    "project": "vllm",
+    "path": "vllm/v1/core/single_type_kv_cache_manager.py"
+  },
+  {
+    "id": "vllm-review-29",
+    "claim": "Output-processor tests cover request output assembly; collector merges delta outputs when producer outpaces consumer.",
+    "project": "vllm",
+    "path": "tests/v1/engine/test_output_processor.py"
+  },
+  {
+    "id": "vllm-review-30",
+    "claim": "Preprocessing-error test distinguishes rejected input from a permanently dead engine.",
+    "project": "vllm",
+    "path": "tests/v1/engine/test_preprocess_error_handling.py"
+  },
+  {
+    "id": "vllm-review-31",
+    "claim": "CommonAttentionMetadata explicitly distinguishes exact GPU lengths from CPU upper bounds under async speculative decoding.",
+    "project": "vllm",
+    "path": "vllm/v1/attention/backend.py"
+  },
+  {
+    "id": "vllm-review-32",
+    "claim": "FlashAttention cache update forms separate key/value views and uses unpadded slot-mapping length to bound writes from padded tensors.",
+    "project": "vllm",
+    "path": "vllm/v1/attention/backends/flash_attn.py"
+  },
+  {
+    "id": "vllm-review-33",
+    "claim": "Classic runner tests validate preservation of allowed-token masks during swaps and clearing stale masks on condensation.",
+    "project": "vllm",
+    "path": "tests/v1/worker/test_gpu_input_batch.py"
+  },
+  {
+    "id": "vllm-review-34",
+    "claim": "Classic block-table move test asserts clearing the vacated row.",
+    "project": "vllm",
+    "path": "tests/v1/worker/test_gpu_block_table.py"
+  },
+  {
+    "id": "vllm-review-35",
+    "claim": "Sampler tests exercise allowed-token, presence/frequency/repetition penalty behavior.",
+    "project": "vllm",
+    "path": "tests/v1/sample/test_sampler.py"
+  },
+  {
+    "id": "vllm-review-36",
+    "claim": "Penalty helper derives prompt/output repetition masks and output-only frequency/presence penalties.",
+    "project": "vllm",
+    "path": "vllm/model_executor/layers/utils.py"
+  },
+  {
+    "id": "vllm-review-37",
+    "claim": "Repetition penalty kernel divides positive repeated-token logits and multiplies negative logits.",
+    "project": "vllm",
+    "path": "csrc/sampler.cu"
+  },
+  {
+    "id": "vllm-review-38",
+    "claim": "Model-parallel initialization creates distinct tensor/pipeline groups; world-size-one all-reduce bypasses communication and retained async handles preserve source tensor lifetime.",
+    "project": "vllm",
+    "path": "vllm/distributed/parallel_state.py"
+  },
+  {
+    "id": "vllm-review-39",
+    "claim": "PyNccl all-reduce enqueues ncclAllReduce on a selected CUDA stream and checks input-device ownership.",
+    "project": "vllm",
+    "path": "vllm/distributed/device_communicators/pynccl.py"
+  },
+  {
+    "id": "vllm-review-40",
+    "claim": "NIXL worker polling tracks failed receives independently and may include ended failed requests in completion bookkeeping.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/base_worker.py"
+  },
+  {
+    "id": "vllm-review-41",
+    "claim": "NixlConnector is the backward-compatible pull/READ alias, separate from push/WRITE behavior.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py"
+  },
+  {
+    "id": "vllm-review-42",
+    "claim": "Async scheduler tests exercise placeholder progress and iteration bookkeeping.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_async_scheduler.py"
+  },
+  {
+    "id": "vllm-review-43",
+    "claim": "Rejection sampler tests establish proposal acceptance/sampling semantics rather than end-to-end throughput.",
+    "project": "vllm",
+    "path": "tests/v1/sample/test_rejection_sampler.py"
+  },
+  {
+    "id": "vllm-review-44",
+    "claim": "Grammar validate_tokens returns an accepted prefix without FSM mutation; a false accept_tokens result must preserve prior grammar state.",
+    "project": "vllm",
+    "path": "vllm/v1/structured_output/backend_types.py"
+  },
+  {
+    "id": "vllm-review-45",
+    "claim": "Prefill statistics split total prompt work into local compute, local prefix hits, external cached tokens, and cache creation.",
+    "project": "vllm",
+    "path": "vllm/v1/metrics/stats.py"
+  },
+  {
+    "id": "vllm-review-46",
+    "claim": "Multiprocess metrics directory lifecycle can cause inaccurate exports when user-managed stale state persists across runs.",
+    "project": "vllm",
+    "path": "vllm/v1/metrics/prometheus.py"
+  },
+  {
+    "id": "vllm-review-47",
+    "claim": "EngineGenerateError is documented recoverable while EngineDeadError represents unrecoverable core death and separates log/client messages.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/exceptions.py"
+  }
+]

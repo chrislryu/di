@@ -1,0 +1,97 @@
+---
+title: 'DeepInfer: State memory'
+description: "Track blocks, cloning, pinning, and deferred reclamation."
+kind: architecture
+projects: [deepinfer]
+---
+
+import Source from '../../../../components/Source.astro';
+
+## Track logical ownership through asynchronous work
+
+DeepInfer manages cache and model state with native block references while workers
+operate on physical accelerator storage. Logical allocation identifies where a
+request's state belongs; device completion determines when an old reader or copy
+has stopped using it.
+
+The scheduler owns admission and references. The worker cache engine performs
+state operations. `LLMEngine` joins their lifetimes through deferred retirement.
+
+## Follow one state clone
+
+```mermaid
+sequenceDiagram
+  accTitle: A cloned state source cannot retire when the copy is merely enqueued
+  accDescr: The conceptual slot example allocates destination nine and retains source five. Worker execution enqueues the clone and the engine records pending source pins with a copy event. At pre-sampler synchronization DeferredRelease waits for that event before unpinning the source. Reuse still requires the final reference to be gone.
+  participant S as Scheduler
+  participant A as Block manager
+  participant W as Worker copy
+  participant D as DeferredRelease
+  S->>A: Allocate destination 9<br/>Keep source 5 pinned
+  S->>W: Enqueue clone 5 to 9
+  W-->>D: Return sources to unpin later
+  D->>D: Record copy event
+  Note over A,D: Logical destination selection<br/>does not end source access
+  D->>W: At pre-sampler sync,<br/>wait for recorded copy event
+  W-->>D: Copy completion established
+  D->>A: Unpin source 5
+  A->>A: Reuse only if refcount is zero
+```
+
+Slots 5 and 9 are a teaching example. Selecting the destination does not release
+the source: the queued copy still needs its contents. The engine records a copy
+event, keeps the source pinned, and unpins it only after that event establishes
+completion. Other live references can still prevent reuse.
+
+`BlockManager` accounts for logical capacity, including references needed by
+active sequences and state operations. The worker's cache engine implements
+copying and zeroing against the physical layout. Keeping those owners separate
+explains why an allocation decision alone cannot certify safe storage reuse.
+
+`DeferredRelease` collects metadata, pooled outputs and clone-source references
+that outlive their immediate call. At the engine's retirement point it releases
+the appropriate resources, synchronizing recorded clone work before unpinning
+its sources.
+
+## Returned output has another pool lifetime
+
+```mermaid
+flowchart TD
+  accTitle: Copying raw output addresses does not preserve pooled output objects
+  accDescr: An engine step returns uint64 addresses of pooled RequestOutput objects. Copying the address array still refers to those pooled objects, which a later step can release. RequestOutput.clone instead creates an owning copy that the wrapper can retain independently.
+  Step["Engine step returns uint64 handles"] --> Pool["Pooled native RequestOutput objects"]
+  Pool --> Address["Copy address array: same pointed-to objects"]
+  Address --> Release["Later step may release pool storage"]
+  Pool --> Clone["RequestOutput.clone(raw_handle)"]
+  Clone --> Owned["Owning native copy retained by caller"]
+```
+
+The same ownership principle applies at the Python/native interface. Engine
+steps return addresses of pooled `RequestOutput` objects. An array of addresses
+can remain readable after the pointed-to objects become invalid or reused.
+`RequestOutput.clone(raw_handle)` creates the owning copy retained by the public
+wrapper.
+
+There are therefore two useful questions: who owns the backing object, and which
+outstanding work still references it? A Python reference, a numerical block ID
+or a completed enqueue call answers only part of the question.
+
+## Decisions that affect capacity and reuse
+
+| Decision | Consequence |
+| --- | --- |
+| Admit more requests | Requires allocatable logical blocks within initialized physical capacity. |
+| Share or clone state | Adds references or copy work that can extend source lifetime. |
+| Reuse a slot | Requires all relevant owners and asynchronous readers to retire. |
+| Retain an engine result | Requires an owning output clone rather than raw pooled handles. |
+
+Temporary admission pressure differs from a request whose state cannot fit the
+configured limits at all. Inspect scheduler decisions and block ownership before
+attributing either condition to a new device-allocation failure.
+
+## Read the code
+
+<Source project="deepinfer" path="csrc/engine/block_manager.hpp" label="Logical block ownership and capacity" />
+<Source project="deepinfer" path="deepinfer/worker/cache_engine.py" label="Physical state copying and zeroing" />
+<Source project="deepinfer" path="deepinfer/engine/llm_engine.py" label="DeferredRelease and copy-event retirement" />
+<Source project="deepinfer" path="csrc/engine/pybind_output.cpp" label="Pooled output handles and owning clone" />

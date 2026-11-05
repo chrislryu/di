@@ -1,0 +1,650 @@
+[
+  {
+    "id": "vllm-internals-async-and-speculative-1",
+    "claim": "EngineCore constructs its executor, resolves KV capacity/layout, and builds the scheduler afterward; execution reconciles aborts before scheduler output updates.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py"
+  },
+  {
+    "id": "vllm-internals-async-and-speculative-2",
+    "claim": "Request tracks optimistic computed progress and separate in-flight/output-placeholder state under async/PP, so its computed counter is not a durable KV completion certificate.",
+    "project": "vllm",
+    "path": "vllm/v1/request.py"
+  },
+  {
+    "id": "vllm-internals-async-and-speculative-3",
+    "claim": "AsyncScheduler records output/speculative placeholders and marks grammar dependencies when prior accepted tokens remain in flight.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/async_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-async-and-speculative-4",
+    "claim": "vLLM: Asynchronous scheduling and speculative progress inspects async cache-publication test to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-async-and-speculative-5",
+    "claim": "vLLM: Asynchronous scheduling and speculative progress inspects async scheduler tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_async_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-async-and-speculative-6",
+    "claim": "vLLM: Asynchronous scheduling and speculative progress inspects rejection sampler tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/sample/test_rejection_sampler.py"
+  },
+  {
+    "id": "vllm-internals-attention-backends-1",
+    "claim": "Attention selection gathers model/configuration capabilities and delegates backend class selection to the active platform.",
+    "project": "vllm",
+    "path": "vllm/v1/attention/selector.py"
+  },
+  {
+    "id": "vllm-internals-attention-backends-2",
+    "claim": "CommonAttentionMetadata separates query boundaries, lengths, block tables, slot mappings, and CPU upper bounds that are not always exact kernel inputs.",
+    "project": "vllm",
+    "path": "vllm/v1/attention/backend.py"
+  },
+  {
+    "id": "vllm-internals-attention-backends-3",
+    "claim": "vLLM: Attention interfaces, metadata, and KV layout inspects the FlashAttention backend to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/attention/backends/flash_attn.py"
+  },
+  {
+    "id": "vllm-internals-attention-backends-4",
+    "claim": "vLLM: Attention interfaces, metadata, and KV layout inspects block-table and slot-mapping construction to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/worker/block_table.py"
+  },
+  {
+    "id": "vllm-internals-attention-backends-5",
+    "claim": "vLLM: Attention interfaces, metadata, and KV layout inspects CUDA backend probe-error tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/attention/test_cuda_backend_probe_errors.py"
+  },
+  {
+    "id": "vllm-internals-attention-backends-6",
+    "claim": "vLLM: Attention interfaces, metadata, and KV layout inspects per-kind backend tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/attention/test_backend_per_kind.py"
+  },
+  {
+    "id": "vllm-internals-diagnosis-and-tests-1",
+    "claim": "vLLM: Diagnose behavior through state, metrics, and tests inspects request and iteration statistics to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/metrics/stats.py"
+  },
+  {
+    "id": "vllm-internals-diagnosis-and-tests-2",
+    "claim": "vLLM: Diagnose behavior through state, metrics, and tests inspects metric logging/export logic to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/metrics/loggers.py"
+  },
+  {
+    "id": "vllm-internals-diagnosis-and-tests-3",
+    "claim": "Prometheus multiprocessing setup owns registry/directory lifecycle and warns about stale user-managed metric directories across runs.",
+    "project": "vllm",
+    "path": "vllm/v1/metrics/prometheus.py"
+  },
+  {
+    "id": "vllm-internals-diagnosis-and-tests-4",
+    "claim": "vLLM: Diagnose behavior through state, metrics, and tests inspects engine exception types to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/exceptions.py"
+  },
+  {
+    "id": "vllm-internals-diagnosis-and-tests-5",
+    "claim": "vLLM: Diagnose behavior through state, metrics, and tests inspects scheduler tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-diagnosis-and-tests-6",
+    "claim": "vLLM: Diagnose behavior through state, metrics, and tests inspects output-processor tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/engine/test_output_processor.py"
+  },
+  {
+    "id": "vllm-internals-diagnosis-and-tests-7",
+    "claim": "vLLM: Diagnose behavior through state, metrics, and tests inspects statistics tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/metrics/test_stats.py"
+  },
+  {
+    "id": "vllm-internals-diagnosis-and-tests-8",
+    "claim": "vLLM: Diagnose behavior through state, metrics, and tests inspects initialization error messaging tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/engine/test_init_error_messaging.py"
+  },
+  {
+    "id": "vllm-internals-distributed-execution-1",
+    "claim": "vLLM: Executors, rank groups, and communication boundaries inspects the Executor abstraction to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/executor/abstract.py"
+  },
+  {
+    "id": "vllm-internals-distributed-execution-2",
+    "claim": "vLLM: Executors, rank groups, and communication boundaries inspects MultiprocExecutor to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/executor/multiproc_executor.py"
+  },
+  {
+    "id": "vllm-internals-distributed-execution-3",
+    "claim": "vLLM: Executors, rank groups, and communication boundaries inspects parallel state and GroupCoordinator to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/distributed/parallel_state.py"
+  },
+  {
+    "id": "vllm-internals-distributed-execution-4",
+    "claim": "vLLM: Executors, rank groups, and communication boundaries inspects parallel linear layers to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/layers/linear.py"
+  },
+  {
+    "id": "vllm-internals-distributed-execution-5",
+    "claim": "vLLM: Executors, rank groups, and communication boundaries inspects communication operation wrappers to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/distributed/communication_op.py"
+  },
+  {
+    "id": "vllm-internals-distributed-execution-6",
+    "claim": "vLLM: Executors, rank groups, and communication boundaries inspects PyNcclCommunicator to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/distributed/device_communicators/pynccl.py"
+  },
+  {
+    "id": "vllm-internals-distributed-execution-7",
+    "claim": "vLLM: Executors, rank groups, and communication boundaries inspects custom all-reduce tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/distributed/test_custom_all_reduce.py"
+  },
+  {
+    "id": "vllm-internals-distributed-execution-8",
+    "claim": "vLLM: Executors, rank groups, and communication boundaries inspects alternative executor end-to-end tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/distributed/test_ray_v2_executor_e2e.py"
+  },
+  {
+    "id": "vllm-internals-gpu-execution-1",
+    "claim": "GPUModelRunner updates persistent batch state, builds inputs, chooses execution padding/mode, and requires sample_tokens to consume pending ExecuteModelState.",
+    "project": "vllm",
+    "path": "vllm/v1/worker/gpu_model_runner.py"
+  },
+  {
+    "id": "vllm-internals-gpu-execution-2",
+    "claim": "vLLM: From an iteration plan to GPU execution inspects UniProcExecutor.execute_model to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/executor/uniproc_executor.py"
+  },
+  {
+    "id": "vllm-internals-gpu-execution-3",
+    "claim": "vLLM: From an iteration plan to GPU execution inspects InputBatch and CachedRequestState to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/worker/gpu_input_batch.py"
+  },
+  {
+    "id": "vllm-internals-gpu-execution-4",
+    "claim": "vLLM: From an iteration plan to GPU execution inspects worker block-table implementation to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/worker/block_table.py"
+  },
+  {
+    "id": "vllm-internals-gpu-execution-5",
+    "claim": "vLLM: From an iteration plan to GPU execution inspects the classic input-batch tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/worker/test_gpu_input_batch.py"
+  },
+  {
+    "id": "vllm-internals-gpu-execution-6",
+    "claim": "vLLM: From an iteration plan to GPU execution inspects block-table tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/worker/test_gpu_block_table.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-1",
+    "claim": "vLLM: External KV state and connector lifetimes inspects KVConnectorBase_V1 to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/base.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-2",
+    "claim": "NixlConnector is the backward-compatible alias for the pull/READ connector; push/WRITE is a distinct facade.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-3",
+    "claim": "vLLM: External KV state and connector lifetimes inspects the pull scheduler to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/pull_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-4",
+    "claim": "vLLM: External KV state and connector lifetimes inspects shared scheduler logic to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/base_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-5",
+    "claim": "vLLM: External KV state and connector lifetimes inspects the pull worker to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/pull_worker.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-6",
+    "claim": "NIXL transfer results report completed and failed receives separately, which the scheduler must reconcile before treating loaded state as usable.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/base_worker.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-7",
+    "claim": "vLLM: External KV state and connector lifetimes inspects scheduler remote-KV handling to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/scheduler.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-8",
+    "claim": "Mooncake Store connector uses a shared KV pool independently from the direct peer-transfer connector.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/connector.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-9",
+    "claim": "vLLM: External KV state and connector lifetimes inspects scheduler connector-selection tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/kv_connector/unit/test_scheduler_kv_connector_override.py"
+  },
+  {
+    "id": "vllm-internals-kv-connectors-10",
+    "claim": "vLLM: External KV state and connector lifetimes inspects scheduler lifecycle tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-kv-memory-1",
+    "claim": "allocate_slots distinguishes matched local prefixes, external state, new tokens, lookahead, and delayed publication before reporting capacity failure or reserved blocks.",
+    "project": "vllm",
+    "path": "vllm/v1/core/kv_cache_manager.py"
+  },
+  {
+    "id": "vllm-internals-kv-memory-2",
+    "claim": "A writable block must be non-null, have one reference, and have no cached hash; freed cached content can retain identity until reuse evicts it.",
+    "project": "vllm",
+    "path": "vllm/v1/core/block_pool.py"
+  },
+  {
+    "id": "vllm-internals-kv-memory-3",
+    "claim": "vLLM: KV blocks, prefix reuse, and reclamation inspects KV cache utilities to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/core/kv_cache_utils.py"
+  },
+  {
+    "id": "vllm-internals-kv-memory-4",
+    "claim": "vLLM: KV blocks, prefix reuse, and reclamation inspects test_async_output_does_not_cache_inflight_tokens to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-kv-memory-5",
+    "claim": "vLLM: KV blocks, prefix reuse, and reclamation inspects single-type cache-manager tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_single_type_kv_cache_manager.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-1",
+    "claim": "vLLM: Model construction and checkpoint loading inspects the loader registry to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/model_loader/__init__.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-2",
+    "claim": "vLLM: Model construction and checkpoint loading inspects model initialization helpers to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/model_loader/utils.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-3",
+    "claim": "vLLM: Model construction and checkpoint loading inspects the model registry to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/models/registry.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-4",
+    "claim": "BaseModelLoader constructs modules before loading checkpoint weights and performs loading under selected dtype/device contexts.",
+    "project": "vllm",
+    "path": "vllm/model_executor/model_loader/base_loader.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-5",
+    "claim": "DefaultModelLoader supplies named weight iterators to model-specific load_weights and makes strict tracking conditional on the path.",
+    "project": "vllm",
+    "path": "vllm/model_executor/model_loader/default_loader.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-6",
+    "claim": "vLLM: Model construction and checkpoint loading inspects Qwen3ForCausalLM.load_weights to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/models/qwen3.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-7",
+    "claim": "vLLM: Model construction and checkpoint loading inspects Qwen2Model to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/models/qwen2.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-8",
+    "claim": "vLLM: Model construction and checkpoint loading inspects QKVParallelLinear.weight_loader to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/layers/linear.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-9",
+    "claim": "vLLM: Model construction and checkpoint loading inspects AutoWeightsLoader's module traversal to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/models/utils.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-10",
+    "claim": "vLLM: Model construction and checkpoint loading inspects weight-tying tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/model_executor/model_loader/test_weight_tying.py"
+  },
+  {
+    "id": "vllm-internals-model-loading-11",
+    "claim": "vLLM: Model construction and checkpoint loading inspects duplicate safetensors filtering tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/model_executor/model_loader/test_filter_duplicate_safetensors.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-1",
+    "claim": "vLLM: Repository map and implementation contracts inspects the completion router to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/entrypoints/openai/completion/api_router.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-2",
+    "claim": "vLLM: Repository map and implementation contracts inspects the completion serving adapter to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/entrypoints/openai/completion/serving.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-3",
+    "claim": "vLLM: Repository map and implementation contracts inspects AsyncLLM to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/async_llm.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-4",
+    "claim": "EngineCore constructs its executor, resolves KV capacity/layout, and builds the scheduler afterward; execution reconciles aborts before scheduler output updates.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-5",
+    "claim": "vLLM: Repository map and implementation contracts inspects VllmConfig to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/config/vllm.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-6",
+    "claim": "vLLM: Repository map and implementation contracts inspects Scheduler.schedule to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/scheduler.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-7",
+    "claim": "allocate_slots distinguishes matched local prefixes, external state, new tokens, lookahead, and delayed publication before reporting capacity failure or reserved blocks.",
+    "project": "vllm",
+    "path": "vllm/v1/core/kv_cache_manager.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-8",
+    "claim": "Request tracks optimistic computed progress and separate in-flight/output-placeholder state under async/PP, so its computed counter is not a durable KV completion certificate.",
+    "project": "vllm",
+    "path": "vllm/v1/request.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-9",
+    "claim": "vLLM: Repository map and implementation contracts inspects SchedulerOutput to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/output.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-10",
+    "claim": "vLLM: Repository map and implementation contracts inspects InputBatch to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/worker/gpu_input_batch.py"
+  },
+  {
+    "id": "vllm-internals-repository-map-11",
+    "claim": "vLLM: Repository map and implementation contracts inspects scheduler tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-request-lifecycle-1",
+    "claim": "vLLM: Request admission, streaming, and cancellation inspects completion route to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/entrypoints/openai/completion/api_router.py"
+  },
+  {
+    "id": "vllm-internals-request-lifecycle-2",
+    "claim": "vLLM: Request admission, streaming, and cancellation inspects OpenAIServingCompletion to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/entrypoints/openai/completion/serving.py"
+  },
+  {
+    "id": "vllm-internals-request-lifecycle-3",
+    "claim": "vLLM: Request admission, streaming, and cancellation inspects AsyncLLM to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/async_llm.py"
+  },
+  {
+    "id": "vllm-internals-request-lifecycle-4",
+    "claim": "RequestOutputCollector merges delta outputs when production outruns consumption and preserves per-completion indexes rather than serving as a simple FIFO.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/output_processor.py"
+  },
+  {
+    "id": "vllm-internals-request-lifecycle-5",
+    "claim": "Request tracks optimistic computed progress and separate in-flight/output-placeholder state under async/PP, so its computed counter is not a durable KV completion certificate.",
+    "project": "vllm",
+    "path": "vllm/v1/request.py"
+  },
+  {
+    "id": "vllm-internals-request-lifecycle-6",
+    "claim": "EngineCore constructs its executor, resolves KV capacity/layout, and builds the scheduler afterward; execution reconciles aborts before scheduler output updates.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py"
+  },
+  {
+    "id": "vllm-internals-request-lifecycle-7",
+    "claim": "vLLM: Request admission, streaming, and cancellation inspects output-processor tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/engine/test_output_processor.py"
+  },
+  {
+    "id": "vllm-internals-request-lifecycle-8",
+    "claim": "vLLM: Request admission, streaming, and cancellation inspects preprocessing error tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/engine/test_preprocess_error_handling.py"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-1",
+    "claim": "vLLM: Sampling, stopping, and output assembly inspects SamplingMetadata to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/sample/metadata.py"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-2",
+    "claim": "Raw logprobs are computed from original logits before penalties/temperature, while token selection follows the configured processing and greedy/random pipeline.",
+    "project": "vllm",
+    "path": "vllm/v1/sample/sampler.py"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-3",
+    "claim": "vLLM: Sampling, stopping, and output assembly inspects apply_penalties to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/model_executor/layers/utils.py"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-4",
+    "claim": "vLLM: Sampling, stopping, and output assembly inspects the repetition-penalty CUDA kernel to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "csrc/sampler.cu"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-5",
+    "claim": "RequestOutputCollector merges delta outputs when production outruns consumption and preserves per-completion indexes rather than serving as a simple FIFO.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/output_processor.py"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-6",
+    "claim": "vLLM: Sampling, stopping, and output assembly inspects incremental detokenization to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/detokenizer.py"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-7",
+    "claim": "vLLM: Sampling, stopping, and output assembly inspects completion stream generation to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/entrypoints/openai/completion/serving.py"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-8",
+    "claim": "vLLM: Sampling, stopping, and output assembly inspects sampler tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/sample/test_sampler.py"
+  },
+  {
+    "id": "vllm-internals-sampling-and-output-9",
+    "claim": "vLLM: Sampling, stopping, and output assembly inspects output-processor tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/engine/test_output_processor.py"
+  },
+  {
+    "id": "vllm-internals-scheduling-1",
+    "claim": "vLLM: Token budgets and scheduling iterations inspects Scheduler.schedule to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/scheduler.py"
+  },
+  {
+    "id": "vllm-internals-scheduling-2",
+    "claim": "Request tracks optimistic computed progress and separate in-flight/output-placeholder state under async/PP, so its computed counter is not a durable KV completion certificate.",
+    "project": "vllm",
+    "path": "vllm/v1/request.py"
+  },
+  {
+    "id": "vllm-internals-scheduling-3",
+    "claim": "vLLM: Token budgets and scheduling iterations inspects SchedulerOutput to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/output.py"
+  },
+  {
+    "id": "vllm-internals-scheduling-4",
+    "claim": "allocate_slots distinguishes matched local prefixes, external state, new tokens, lookahead, and delayed publication before reporting capacity failure or reserved blocks.",
+    "project": "vllm",
+    "path": "vllm/v1/core/kv_cache_manager.py"
+  },
+  {
+    "id": "vllm-internals-scheduling-5",
+    "claim": "EngineCore constructs its executor, resolves KV capacity/layout, and builds the scheduler afterward; execution reconciles aborts before scheduler output updates.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py"
+  },
+  {
+    "id": "vllm-internals-scheduling-6",
+    "claim": "vLLM: Token budgets and scheduling iterations inspects scheduler tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_scheduler.py"
+  },
+  {
+    "id": "vllm-internals-startup-1",
+    "claim": "vLLM: From configuration to a running engine inspects VllmConfig aggregate to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/config/vllm.py"
+  },
+  {
+    "id": "vllm-internals-startup-2",
+    "claim": "vLLM: From configuration to a running engine inspects Executor.get_class selection to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/executor/abstract.py"
+  },
+  {
+    "id": "vllm-internals-startup-3",
+    "claim": "vLLM: From configuration to a running engine inspects core clients to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core_client.py"
+  },
+  {
+    "id": "vllm-internals-startup-4",
+    "claim": "EngineCore constructs its executor, resolves KV capacity/layout, and builds the scheduler afterward; execution reconciles aborts before scheduler output updates.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py"
+  },
+  {
+    "id": "vllm-internals-startup-5",
+    "claim": "vLLM: From configuration to a running engine inspects UniProcExecutor to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/executor/uniproc_executor.py"
+  },
+  {
+    "id": "vllm-internals-startup-6",
+    "claim": "vLLM: From configuration to a running engine inspects MultiprocExecutor to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/executor/multiproc_executor.py"
+  },
+  {
+    "id": "vllm-internals-startup-7",
+    "claim": "vLLM: From configuration to a running engine inspects KV planning tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_kv_cache_planning.py"
+  },
+  {
+    "id": "vllm-internals-startup-8",
+    "claim": "vLLM: From configuration to a running engine inspects cache configuration tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/core/test_kv_cache_config_builder.py"
+  },
+  {
+    "id": "vllm-internals-structured-generation-1",
+    "claim": "A grammar compilation future can become ready with a stored exception; readiness and compilation success are distinct.",
+    "project": "vllm",
+    "path": "vllm/v1/structured_output/request.py"
+  },
+  {
+    "id": "vllm-internals-structured-generation-2",
+    "claim": "StructuredOutputManager enforces one backend per engine and coordinates grammar compilation, bitmask filling, and accepted-token state advancement.",
+    "project": "vllm",
+    "path": "vllm/v1/structured_output/__init__.py"
+  },
+  {
+    "id": "vllm-internals-structured-generation-3",
+    "claim": "vLLM: Structured generation and grammar-state coordination inspects grammar-future tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/structured_output/test_request.py"
+  },
+  {
+    "id": "vllm-internals-structured-generation-4",
+    "claim": "vLLM: Structured generation and grammar-state coordination inspects StructuredOutputGrammar and StructuredOutputBackend to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "vllm/v1/structured_output/backend_types.py"
+  },
+  {
+    "id": "vllm-internals-structured-generation-5",
+    "claim": "vLLM: Structured generation and grammar-state coordination inspects manager flow tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/structured_output/test_structured_output_manager.py"
+  },
+  {
+    "id": "vllm-internals-structured-generation-6",
+    "claim": "vLLM: Structured generation and grammar-state coordination inspects regex compilation timeout tests to explain its operation contract, state, or test expectations.",
+    "project": "vllm",
+    "path": "tests/v1/structured_output/test_regex_compilation_timeout.py"
+  }
+]

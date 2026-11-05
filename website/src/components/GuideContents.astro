@@ -1,0 +1,13 @@
+---
+import { chapterHref, type ProjectId, guides, isGuidePublished } from '../data/guides';
+interface Props { project: ProjectId; }
+const {project} = Astro.props;
+// Do not expose unfinished sets in overview navigation during authoring.
+const chapters = guides[project].chapters;
+const complete = await isGuidePublished(project);
+---
+{complete && <section class="guide-contents" data-guide-chapters={project} aria-labelledby="guide-chapters" data-pagefind-ignore>
+  <h2 id="guide-chapters">Read the complete guide</h2>
+  <p>Start with this overview, then follow the internals in order or choose the subsystem you need.</p>
+  <ol start="2">{chapters.map(chapter => <li><a href={chapterHref(project,chapter.slug)}>{chapter.title.split(': ').slice(1).join(': ')}</a><p>{chapter.summary}</p></li>)}</ol>
+</section>}

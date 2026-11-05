@@ -1,0 +1,34 @@
+---
+title: "Which network path is actually active?"
+description: "Verify plugin, provider, memory support, and completion evidence for the selected deployment."
+kind: decision
+projects: ["nccl","aws-ofi-nccl","libfabric"]
+related: [{"title":"Networking concepts","href":"/concepts/networking/"},{"title":"NCCL architecture","href":"/architecture/nccl/"}]
+---
+
+## Follow the selected implementation
+
+A **NIC** connects a host to the network. **RDMA** allows supported transfers involving registered remote memory. A libfabric **provider** implements fabric services for particular hardware or a software transport. An installed library alone does not prove that an application selected it.
+
+| Situation | Evidence to collect | Options | Tradeoffs | Prerequisites | Deeper explanation |
+| --- | --- | --- | --- | --- | --- |
+| NCCL communicates between AWS EFA hosts | NCCL plugin logs, provider identity, device visibility | AWS OFI NCCL with libfabric EFA provider | Extra plugin/provider configuration and version compatibility | EFA-equipped instances and compatible software | [AWS path](/walkthroughs/aws-network/) |
+| Plugin exists but path is uncertain | Loaded library paths, initialization logs, selected transport | Repair configuration or accept another supported path | Working fallback can hide the intended path’s failure | Reproducible launch environment | [AWS OFI NCCL](/architecture/aws-ofi-nccl/) |
+| GPU memory must be accessed directly | Provider capabilities, registration results, transfer correctness | Supported GPU-memory path or staging | Staging adds copies; direct access needs hardware/software support | Heterogeneous-memory and RDMA support where required | [libfabric](/architecture/libfabric/) |
+| Slow communication follows a topology boundary | GPU/NIC locality, message sizes, per-link timings | Change placement, protocol, or supported network backend | Improvements depend on workload and link topology | Measured baseline | [Topology](/concepts/topology/) |
+
+## Verify a concrete case
+
+For a two-host NCCL operation, record the NCCL library and network plugin loaded by each process. Inspect plugin logs for protocol and provider selection. Check that libfabric sees the intended devices, then run correctness and representative-size communication measurements. Keep intra-host links separate in the explanation: an operation can use NVLink locally and EFA between hosts.
+
+NCCL’s [network plugin loader](https://github.com/NVIDIA/nccl/blob/3e46c089f4ae4732722a419eb6096aead7e47a30/src/plugin/net.cc) makes the plugin optional. AWS OFI NCCL’s [initialization path](https://github.com/aws/aws-ofi-nccl/blob/df4474a3882224df168f89c69e2450bbfe5f4536/src/nccl_ofi_net.cpp) chooses its protocol; a forced setting and a platform default are different evidence. The [plugin requirements](https://github.com/aws/aws-ofi-nccl/blob/df4474a3882224df168f89c69e2450bbfe5f4536/README.md) describes capability requirements, while [libfabric provider discovery](https://github.com/ofiwg/libfabric/blob/bf5aafceb0eba8043217dbf26c4427e059501e72/src/fabric.c) identifies provider discovery. EFA is one provider, not a synonym for libfabric.
+
+The operator chooses deployment and configuration; initialization selects an available path; runtime completions establish individual operation outcomes. Pin inspected source separately from installed binary versions, and record both when claiming a reproduced result.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [Provider/protocol selection](/architecture/aws-ofi-nccl/provider-and-protocol/) | Requested intent and resolved capabilities |
+| [EFA operation trace](/architecture/libfabric/efa-operation-trace/) | Provider work and completion evidence |
+| [NCCL network path](/architecture/nccl/network-and-proxy/) | Plugin loading and progress ownership |

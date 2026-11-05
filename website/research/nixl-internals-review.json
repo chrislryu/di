@@ -1,0 +1,290 @@
+[
+  {
+    "id": "nixl-independent-review-01",
+    "claim": "Public agent APIs separate registration, preparation, post/status, notifications, and release from caller-owned allocation policy.",
+    "project": "nixl",
+    "path": "src/api/cpp/nixl.h"
+  },
+  {
+    "id": "nixl-independent-review-02",
+    "claim": "READ/WRITE operations and success/pending/negative-error statuses match chapter polling explanations.",
+    "project": "nixl",
+    "path": "src/api/cpp/nixl_types.h"
+  },
+  {
+    "id": "nixl-independent-review-03",
+    "claim": "Basic descriptor fields are address, byte length, and device/block/file identity; default construction does not zero fields.",
+    "project": "nixl",
+    "path": "src/api/cpp/nixl_descriptors.h"
+  },
+  {
+    "id": "nixl-independent-review-04",
+    "claim": "Coverage checks handle device identity, start ordering, unbounded sentinel, and unsigned address overflow.",
+    "project": "nixl",
+    "path": "src/api/cpp/nixl_descriptors.h"
+  },
+  {
+    "id": "nixl-independent-review-05",
+    "claim": "Effective synchronization upgrades NONE to STRICT when metadata backend threads share agent structures.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-06",
+    "claim": "Metadata manager starts as the last data-constructor action and stops before members are destroyed.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-07",
+    "claim": "Registration is best effort and aggregate success requires at least one candidate success.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-08",
+    "claim": "Local-capable registration loads a self remote-section view and rolls back the local descriptor list if that view fails.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-09",
+    "claim": "Ordinary request creation validates paired counts and byte lengths before registered metadata population.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-10",
+    "claim": "Ordinary backend candidates use std::set of engine pointers rather than backend creation order; corrected agent-lifecycle and request-preparation.",
+    "project": "nixl",
+    "path": "src/infra/mem_section.h"
+  },
+  {
+    "id": "nixl-independent-review-11",
+    "claim": "Prepared per-backend descriptor maps use unordered_map; default common-backend iteration does not preserve creation order.",
+    "project": "nixl",
+    "path": "src/core/transfer_request.h"
+  },
+  {
+    "id": "nixl-independent-review-12",
+    "claim": "Prepared makeXferReq honors explicit backend-list iteration, otherwise intersects unordered maps, and locks the weak remote registration reference.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-13",
+    "claim": "Prepared request indices are converted to size_t, checked against flat bounds, and merged only for dense compatible consecutive source/destination runs.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-14",
+    "claim": "Identical connection metadata is accepted, changed cached connection information is rejected, and failed load is not published.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-15",
+    "claim": "Successful remote section refresh merges into a shared object; explicit invalidation or failed section load erases it and disconnects known backends.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-16",
+    "claim": "Transfer and prepared handles weakly name remote section lifetimes; request destructor releases backend resources but does not own caller allocations.",
+    "project": "nixl",
+    "path": "src/core/transfer_request.h"
+  },
+  {
+    "id": "nixl-independent-review-17",
+    "claim": "Post rejects expired remote generation and active repost, checking completion before deciding whether another execution may start.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-18",
+    "claim": "getXferStatus checks backend/generation only while pending and returns cached terminal status thereafter.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-19",
+    "claim": "Refused active release returns before deleting the public handle; successful active release nulls backend handle before deletion.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-20",
+    "claim": "Ordinary UCX range submission chooses endpoint READ or WRITE and appends endpoint flush to preserve the intended completion boundary.",
+    "project": "nixl",
+    "path": "src/plugins/ucx/ucx_backend.cpp"
+  },
+  {
+    "id": "nixl-independent-review-21",
+    "claim": "UCX status drives worker progress, retains incomplete requests, and distinguishes pending notification from tracked active-message work.",
+    "project": "nixl",
+    "path": "src/plugins/ucx/ucx_backend_req.h"
+  },
+  {
+    "id": "nixl-independent-review-22",
+    "claim": "Associated UCX notification is sent after successful data completion; errors clear pending notification.",
+    "project": "nixl",
+    "path": "src/plugins/ucx/ucx_backend.cpp"
+  },
+  {
+    "id": "nixl-independent-review-23",
+    "claim": "UCX release warns about incomplete requests and contains a cancellation sufficiency TODO, supporting the nontransactional cleanup explanation.",
+    "project": "nixl",
+    "path": "src/plugins/ucx/ucx_backend_req.h"
+  },
+  {
+    "id": "nixl-independent-review-24",
+    "claim": "getNotifs aggregates per-engine messages best effort while retaining error status; genNotif selects one usable notification engine.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-25",
+    "claim": "POSIX preparation requires self target, local DRAM, remote FILE, and paired descriptor counts.",
+    "project": "nixl",
+    "path": "src/plugins/posix/posix_backend.cpp"
+  },
+  {
+    "id": "nixl-independent-review-26",
+    "claim": "POSIX path registration reserves unique file identity and commits only after open; deregistration releases path reservation and owned metadata.",
+    "project": "nixl",
+    "path": "src/plugins/posix/posix_backend.cpp"
+  },
+  {
+    "id": "nixl-independent-review-27",
+    "claim": "POSIX fd/path modes and Linux AIO/io_uring choices are bounded backend contracts with POSIX AIO deprecated.",
+    "project": "nixl",
+    "path": "src/plugins/posix/README.md"
+  },
+  {
+    "id": "nixl-independent-review-28",
+    "claim": "Without background progress, libfabric status progresses active rails; CQ errors propagate, and READ notification follows completion.",
+    "project": "nixl",
+    "path": "src/plugins/libfabric/libfabric_backend.cpp"
+  },
+  {
+    "id": "nixl-independent-review-29",
+    "claim": "Pinned libfabric plugin documents EFA-validated environment and dependency/accelerator bounds rather than universal provider certification.",
+    "project": "nixl",
+    "path": "src/plugins/libfabric/README.md"
+  },
+  {
+    "id": "nixl-independent-review-30",
+    "claim": "Runtime Python wrapper converts contiguous tensors to byte descriptors and maps ordinary/prepared/native lifecycle phases.",
+    "project": "nixl",
+    "path": "src/api/python/_api.py"
+  },
+  {
+    "id": "nixl-independent-review-31",
+    "claim": "Metadata package selects installed accelerator backend and aliases its real API module; similarly named type-checking stub is not runtime implementation.",
+    "project": "nixl",
+    "path": "src/bindings/python/nixl-meta/nixl/__init__.py"
+  },
+  {
+    "id": "nixl-independent-review-32",
+    "claim": "Negative native post/status/release values throw translated exceptions before Python DONE/PROC/ERR fallback can return ERR.",
+    "project": "nixl",
+    "path": "src/bindings/python/nixl_bindings.cpp"
+  },
+  {
+    "id": "nixl-independent-review-33",
+    "claim": "Explicit handle release sets released flag only after successful native return; failed finalizer queues handle on agent for best-effort later cleanup.",
+    "project": "nixl",
+    "path": "src/api/python/_api.py"
+  },
+  {
+    "id": "nixl-independent-review-34",
+    "claim": "Notification matcher polls and removes the first prefix/substring match including empty payload cases; it is not application-generation validation.",
+    "project": "nixl",
+    "path": "src/api/python/_api.py"
+  },
+  {
+    "id": "nixl-independent-review-35",
+    "claim": "FailedActiveReleaseKeepsRequestPollable explicitly asserts pending post, refused release, successful poll, and successful later release.",
+    "project": "nixl",
+    "path": "test/gtest/unit/agent/agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-36",
+    "claim": "Post completion observation tests cover status/repost/release and rejected repost does not create a submitted execution.",
+    "project": "nixl",
+    "path": "test/gtest/unit/agent/agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-37",
+    "claim": "PreparedTransfersPreserveBinaryBackendParameters checks length-bearing custom parameters through prepared paths.",
+    "project": "nixl",
+    "path": "test/gtest/unit/agent/agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-38",
+    "claim": "LoadRemoteAfterSectionError corrupts section tag, confirms peer removal, then valid reload for absent and previously present peers.",
+    "project": "nixl",
+    "path": "test/gtest/metadata_exchange.cpp"
+  },
+  {
+    "id": "nixl-independent-review-39",
+    "claim": "Finite/unbounded file coverage tests reject overflowing ranges and preserve nonzero-start coverage rules.",
+    "project": "nixl",
+    "path": "test/gtest/unit/descriptors/sec_desc_list.cpp"
+  },
+  {
+    "id": "nixl-independent-review-40",
+    "claim": "TCPStore invalidation test explicitly invalidates remote state because that metadata service has no watch.",
+    "project": "nixl",
+    "path": "test/gtest/md_manager.cpp"
+  },
+  {
+    "id": "nixl-independent-review-41",
+    "claim": "Named tensor contiguity/scalar, consumed notification, and leaked-finalizer tests match the Python chapter claims.",
+    "project": "nixl",
+    "path": "test/python/test_nixl_api.py"
+  },
+  {
+    "id": "nixl-independent-review-42",
+    "claim": "Telemetry post/transfer durations share one timer start, and finish is recorded at an agent observation point.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-independent-review-43",
+    "claim": "Telemetry can use collect-only NOP exporter; classified binding failure yields no object while other factory errors propagate.",
+    "project": "nixl",
+    "path": "src/core/telemetry/telemetry.cpp"
+  },
+  {
+    "id": "nixl-independent-review-44",
+    "claim": "Trace plugin factory skips absent/failed requested backends and returns no tracer if none remain.",
+    "project": "nixl",
+    "path": "src/core/tracing/tracer.cpp"
+  },
+  {
+    "id": "nixl-independent-review-45",
+    "claim": "Named notification, telemetry capture/no-sink/disable, and reused notifying-write cases exist with the documented fixture scope.",
+    "project": "nixl",
+    "path": "test/gtest/test_transfer.cpp"
+  },
+  {
+    "id": "nixl-independent-review-46",
+    "claim": "Nonfitting batch tests reject whole batches and account drops by batch length.",
+    "project": "nixl",
+    "path": "test/gtest/unit/telemetry/telemetry_staging_queue_test.cpp"
+  },
+  {
+    "id": "nixl-independent-review-47",
+    "claim": "Preparation benchmark measures descriptor conversion/registration/preparation/request construction without posting payload transfers.",
+    "project": "nixl",
+    "path": "test/python/prep_xfer_perf.py"
+  },
+  {
+    "id": "nixl-independent-review-48",
+    "claim": "Worked lab source/destination offsets and eight-byte request match actual example constants and two-observer wait condition.",
+    "project": "nixl",
+    "path": "examples/cpp/nixl_example.cpp"
+  }
+]

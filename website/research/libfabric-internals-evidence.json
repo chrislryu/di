@@ -1,0 +1,554 @@
+[
+  {
+    "id": "libfabric-internals-1",
+    "claim": "Public tagged send/receive wrappers dispatch through the endpoint operation tables, while context/tag/address/descriptor have separate roles.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_tagged.h"
+  },
+  {
+    "id": "libfabric-internals-2",
+    "claim": "Core fi_getinfo rejects newer requested API versions, iterates eligible provider callbacks, filters/reorders results, and returns ENODATA without a result.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-internals-3",
+    "claim": "Input mode bits advertise application obligations; returned required modes must be implemented, unlike service capability requirements.",
+    "project": "libfabric",
+    "path": "man/fi_getinfo.3.md"
+  },
+  {
+    "id": "libfabric-internals-4",
+    "claim": "Provider registration validates name, mandatory fabric entrypoint, supported interface version, type, and include/exclude filtering.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-internals-5",
+    "claim": "EFA provider builds direct information before protocol-based RDM entries where available, but caller requirements still determine compatibility.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_prov.c"
+  },
+  {
+    "id": "libfabric-internals-6",
+    "claim": "EFA direct attribute tests exclude FI_TAGGED and FI_ATOMIC and distinguish direct progress/size/ordering attributes.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_info.c"
+  },
+  {
+    "id": "libfabric-internals-7",
+    "claim": "API 2.7 direct mode without FI_CONTEXT2 returns no context2 requirement and zero inject size; older requests have different eligibility.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_info.c"
+  },
+  {
+    "id": "libfabric-internals-8",
+    "claim": "Endpoint close can discard outstanding work without completions; buffers remain valid until completion or endpoint close returns.",
+    "project": "libfabric",
+    "path": "man/fi_endpoint.3.md"
+  },
+  {
+    "id": "libfabric-internals-9",
+    "claim": "Fabric children must be released before fabric close; endpoint bindings and scalable child contexts impose separate resource dependencies.",
+    "project": "libfabric",
+    "path": "man/fi_fabric.3.md"
+  },
+  {
+    "id": "libfabric-internals-10",
+    "claim": "AV insertion returns local handles rather than globally meaningful ranks; lookup/removal has its own lifetime and representation.",
+    "project": "libfabric",
+    "path": "man/fi_av.3.md"
+  },
+  {
+    "id": "libfabric-internals-11",
+    "claim": "EFA AV stores raw endpoint address, QPN/QKey, address handles and reverse lookup; RDM layers endpoint-specific peers above the base AV.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_av.h"
+  },
+  {
+    "id": "libfabric-internals-12",
+    "claim": "Direct AV test checks full address insertion/lookup and failure after removal, not a portable fixed handle value.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_av.c"
+  },
+  {
+    "id": "libfabric-internals-13",
+    "claim": "Tagged matching compares sender and receiver tags after receive ignore bits are masked out.",
+    "project": "libfabric",
+    "path": "man/fi_tagged.3.md"
+  },
+  {
+    "id": "libfabric-internals-14",
+    "claim": "Directed receive functional tests explicitly select efa and parameterize operation, size, memory type and completion semantics.",
+    "project": "libfabric",
+    "path": "fabtests/pytest/efa/test_directed_recv.py"
+  },
+  {
+    "id": "libfabric-internals-15",
+    "claim": "RMA wrapper separates peer handle, remote address/key, local descriptor, and operation context.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_rma.h"
+  },
+  {
+    "id": "libfabric-internals-16",
+    "claim": "Atomic validity is specific to write/fetch/compare operation family, datatype, operation, and element count.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_atomic.h"
+  },
+  {
+    "id": "libfabric-internals-17",
+    "claim": "EFA RMA read unit test conditionally expects EOPNOTSUPP or one mocked device request after valid local registration.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_rma.c"
+  },
+  {
+    "id": "libfabric-internals-18",
+    "claim": "EFA manual documents no FI_RMA_EVENT and target AV insertion prerequisites for direct or homogeneous-peer RMA configurations.",
+    "project": "libfabric",
+    "path": "man/fi_efa.7.md"
+  },
+  {
+    "id": "libfabric-internals-19",
+    "claim": "MR_LOCAL, VIRT_ADDR, PROV_KEY, ENDPOINT, and HMEM govern different registration/address/key/lifetime responsibilities.",
+    "project": "libfabric",
+    "path": "man/fi_mr.3.md"
+  },
+  {
+    "id": "libfabric-internals-20",
+    "claim": "EFA MR validation rejects excess IOV count with EINVAL and an uninitialized CUDA interface with ENOSYS.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_mr.c"
+  },
+  {
+    "id": "libfabric-internals-21",
+    "claim": "Cache-hit test registers one buffer twice, asserts shared cache-entry identity, closes both handles, then frees the allocation.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_mr.c"
+  },
+  {
+    "id": "libfabric-internals-22",
+    "claim": "HMEM interface availability and P2P availability are distinct; P2P disabled CUDA test retains initialized interface but clears direct support.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_hmem.c"
+  },
+  {
+    "id": "libfabric-internals-23",
+    "claim": "EFA P2P policy validation distinguishes REQUIRED, PREFERRED, ENABLED, DISABLED and interface/API restrictions.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_hmem.c"
+  },
+  {
+    "id": "libfabric-internals-24",
+    "claim": "CQ read returns entries, EAGAIN when none, or EAVAIL requiring readerr; format determines which fields are available.",
+    "project": "libfabric",
+    "path": "man/fi_cq.3.md"
+  },
+  {
+    "id": "libfabric-internals-25",
+    "claim": "EFA RDM CQ progress can post initial internal receives, poll device queues and service endpoint protocol state.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_cq.c"
+  },
+  {
+    "id": "libfabric-internals-26",
+    "claim": "Initial receive test verifies zero-count CQ read posts initial pool-sized internal receives and clears scan state.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_cq.c"
+  },
+  {
+    "id": "libfabric-internals-27",
+    "claim": "Injected send failure expects EAVAIL and validates provider error translation through the CQ error path.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_cq.c"
+  },
+  {
+    "id": "libfabric-internals-28",
+    "claim": "EFA domain stores variant identity/device/protection domain/MR pool; lock policy depends on negotiated threading obligations.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_domain.h"
+  },
+  {
+    "id": "libfabric-internals-29",
+    "claim": "RDM endpoint owns packet pools, endpoint-specific peer maps, backoff and queued handshake/protocol work.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_ep.h"
+  },
+  {
+    "id": "libfabric-internals-30",
+    "claim": "Generic send resolves peer and checks backoff, packet capacity, and TX operation pool before protocol posting.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_msg.c"
+  },
+  {
+    "id": "libfabric-internals-31",
+    "claim": "Current send first tries refactored selector with ordered eager, medium, runtread, longread, longcts candidates before legacy fallback.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_proto.c"
+  },
+  {
+    "id": "libfabric-internals-32",
+    "claim": "Eager eligibility subtracts actual request-header size from MTU; construction produces one packet with operation pointer/callback.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_eager.c"
+  },
+  {
+    "id": "libfabric-internals-33",
+    "claim": "Longread requires P2P, every source IOV registered, interface size threshold, and peer RDMA-read interoperability.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_longread.c"
+  },
+  {
+    "id": "libfabric-internals-34",
+    "claim": "Runtread adds delivery-complete exclusion, read-message-in-flight and positive peer runt allowance gates.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_runtread.c"
+  },
+  {
+    "id": "libfabric-internals-35",
+    "claim": "Selector releases temporary MRs before legacy fallback and forced protocol replaces normal size selection.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_proto.c"
+  },
+  {
+    "id": "libfabric-internals-36",
+    "claim": "Eager device completion and delivery receipt use separate completion/release predicates.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_eager.c"
+  },
+  {
+    "id": "libfabric-internals-37",
+    "claim": "Tagged incoming request path carries callbacks for matched and later unexpected-message matching.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_pke_rtm.c"
+  },
+  {
+    "id": "libfabric-internals-38",
+    "claim": "Eager tests check successful TX retirement and exactly-once failed-post message-ID rollback/resource release.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_proto.c"
+  },
+  {
+    "id": "libfabric-internals-39",
+    "claim": "Forced CUDA read functional test gates prerequisites, isolates control traffic, and validates device read counters.",
+    "project": "libfabric",
+    "path": "fabtests/pytest/efa/test_efa_protocol_selection.py"
+  },
+  {
+    "id": "libfabric-internals-40",
+    "claim": "libfabric: Public fabric contracts: inspected Project scope and OFI entrypoint.",
+    "project": "libfabric",
+    "path": "README"
+  },
+  {
+    "id": "libfabric-internals-41",
+    "claim": "libfabric: Public fabric contracts: inspected Public types, capabilities, and fabric operations.",
+    "project": "libfabric",
+    "path": "include/rdma/fabric.h"
+  },
+  {
+    "id": "libfabric-internals-42",
+    "claim": "libfabric: Public fabric contracts: inspected Tagged send/receive operation-table wrappers.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_tagged.h"
+  },
+  {
+    "id": "libfabric-internals-43",
+    "claim": "libfabric: Public fabric contracts: inspected Discovery and mode contract.",
+    "project": "libfabric",
+    "path": "man/fi_getinfo.3.md"
+  },
+  {
+    "id": "libfabric-internals-44",
+    "claim": "libfabric: Public fabric contracts: inspected Endpoint binding, enablement, and teardown.",
+    "project": "libfabric",
+    "path": "man/fi_endpoint.3.md"
+  },
+  {
+    "id": "libfabric-internals-45",
+    "claim": "libfabric: Public fabric contracts: inspected Completion entries and error queue.",
+    "project": "libfabric",
+    "path": "man/fi_cq.3.md"
+  },
+  {
+    "id": "libfabric-internals-46",
+    "claim": "libfabric: Public fabric contracts: inspected Provider-specific capability assertions.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_info.c"
+  },
+  {
+    "id": "libfabric-internals-47",
+    "claim": "libfabric: Public fabric contracts: inspected Portable negotiation checks.",
+    "project": "libfabric",
+    "path": "fabtests/unit/getinfo_test.c"
+  },
+  {
+    "id": "libfabric-internals-48",
+    "claim": "libfabric: Capability negotiation: inspected Core fi_getinfo version, provider, and result-list handling.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-internals-49",
+    "claim": "libfabric: Capability negotiation: inspected EFA variant construction order.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_prov.c"
+  },
+  {
+    "id": "libfabric-internals-50",
+    "claim": "libfabric: Capability negotiation: inspected EFA variant modes and API-version distinctions.",
+    "project": "libfabric",
+    "path": "man/fi_efa.7.md"
+  },
+  {
+    "id": "libfabric-internals-51",
+    "claim": "libfabric: Provider loading: inspected EFA returned attributes and matching.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_prov_info.c"
+  },
+  {
+    "id": "libfabric-internals-52",
+    "claim": "libfabric: Provider loading: inspected Domain-to-endpoint and endpoint-control dispatch.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_endpoint.h"
+  },
+  {
+    "id": "libfabric-internals-53",
+    "claim": "libfabric: Resource hierarchy: inspected Fabric scope and child-resource release.",
+    "project": "libfabric",
+    "path": "man/fi_fabric.3.md"
+  },
+  {
+    "id": "libfabric-internals-54",
+    "claim": "libfabric: Resource hierarchy: inspected Domain resources and negotiated attributes.",
+    "project": "libfabric",
+    "path": "man/fi_domain.3.md"
+  },
+  {
+    "id": "libfabric-internals-55",
+    "claim": "libfabric: Resource hierarchy: inspected EFA fabric creation.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_fabric.c"
+  },
+  {
+    "id": "libfabric-internals-56",
+    "claim": "libfabric: Resource hierarchy: inspected EFA domain and endpoint-family dispatch.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_domain.c"
+  },
+  {
+    "id": "libfabric-internals-57",
+    "claim": "libfabric: Resource hierarchy: inspected Base endpoint resources and cleanup.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_base_ep.c"
+  },
+  {
+    "id": "libfabric-internals-58",
+    "claim": "libfabric: Addressing and connections: inspected Address vector insertion, lookup, and handle semantics.",
+    "project": "libfabric",
+    "path": "man/fi_av.3.md"
+  },
+  {
+    "id": "libfabric-internals-59",
+    "claim": "libfabric: Addressing and connections: inspected Connection-oriented establishment and address retrieval.",
+    "project": "libfabric",
+    "path": "man/fi_cm.3.md"
+  },
+  {
+    "id": "libfabric-internals-60",
+    "claim": "libfabric: Addressing and connections: inspected AV operation dispatch.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_domain.h"
+  },
+  {
+    "id": "libfabric-internals-61",
+    "claim": "libfabric: Addressing and connections: inspected EFA endpoint addresses, base AV, and reverse lookup.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_av.h"
+  },
+  {
+    "id": "libfabric-internals-62",
+    "claim": "libfabric: Addressing and connections: inspected Insert, lookup, remove, duplicate, and multi-endpoint tests.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_av.c"
+  },
+  {
+    "id": "libfabric-internals-63",
+    "claim": "libfabric: Messages and tagged operations: inspected Tag matching, source restriction, and asynchronous lifetime.",
+    "project": "libfabric",
+    "path": "man/fi_tagged.3.md"
+  },
+  {
+    "id": "libfabric-internals-64",
+    "claim": "libfabric: Messages and tagged operations: inspected Untagged message and injection contracts.",
+    "project": "libfabric",
+    "path": "man/fi_msg.3.md"
+  },
+  {
+    "id": "libfabric-internals-65",
+    "claim": "libfabric: Messages and tagged operations: inspected RDM tagged wrappers and shared send path.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_msg.c"
+  },
+  {
+    "id": "libfabric-internals-66",
+    "claim": "libfabric: Messages and tagged operations: inspected Directed message/tagged functional test selection.",
+    "project": "libfabric",
+    "path": "fabtests/pytest/efa/test_directed_recv.py"
+  },
+  {
+    "id": "libfabric-internals-67",
+    "claim": "libfabric: RMA and atomics: inspected Portable read/write and remote-address contracts.",
+    "project": "libfabric",
+    "path": "man/fi_rma.3.md"
+  },
+  {
+    "id": "libfabric-internals-68",
+    "claim": "libfabric: RMA and atomics: inspected Atomic operations, validity, and limits.",
+    "project": "libfabric",
+    "path": "man/fi_atomic.3.md"
+  },
+  {
+    "id": "libfabric-internals-69",
+    "claim": "libfabric: RMA and atomics: inspected RMA operation-table dispatch.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_rma.h"
+  },
+  {
+    "id": "libfabric-internals-70",
+    "claim": "libfabric: RMA and atomics: inspected Atomic validity and domain query wrappers.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_atomic.h"
+  },
+  {
+    "id": "libfabric-internals-71",
+    "claim": "libfabric: RMA and atomics: inspected Validated atomic correctness paths.",
+    "project": "libfabric",
+    "path": "fabtests/functional/rdm_atomic.c"
+  },
+  {
+    "id": "libfabric-internals-72",
+    "claim": "libfabric: RMA and atomics: inspected Conditional read support and submitted-work assertions.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_rma.c"
+  },
+  {
+    "id": "libfabric-internals-73",
+    "claim": "libfabric: Memory registration: inspected Registration modes, descriptors, keys, and release.",
+    "project": "libfabric",
+    "path": "man/fi_mr.3.md"
+  },
+  {
+    "id": "libfabric-internals-74",
+    "claim": "libfabric: Memory registration: inspected Cache-hit, reference-count, flush, and lifetime tests.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_mr.c"
+  },
+  {
+    "id": "libfabric-internals-75",
+    "claim": "libfabric: Memory registration: inspected Input validation and device registration dispatch.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_mr.c"
+  },
+  {
+    "id": "libfabric-internals-76",
+    "claim": "libfabric: Heterogeneous memory: inspected EFA HMEM interface initialization and P2P decisions.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_hmem.c"
+  },
+  {
+    "id": "libfabric-internals-77",
+    "claim": "libfabric: Heterogeneous memory: inspected P2P disabled and instance-type decision tests.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_hmem.c"
+  },
+  {
+    "id": "libfabric-internals-78",
+    "claim": "libfabric: Completion and progress: inspected CQ read and readerr wrappers.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_eq.h"
+  },
+  {
+    "id": "libfabric-internals-79",
+    "claim": "libfabric: Completion and progress: inspected RDM progress, initial receives, and device CQ polling.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_cq.c"
+  },
+  {
+    "id": "libfabric-internals-80",
+    "claim": "libfabric: Completion and progress: inspected Initial receive and completion/error tests.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_cq.c"
+  },
+  {
+    "id": "libfabric-internals-81",
+    "claim": "libfabric: Completion and progress: inspected Packet completion versus requested send completion.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_eager.c"
+  },
+  {
+    "id": "libfabric-internals-82",
+    "claim": "libfabric: Completion and progress: inspected Remote receipt and release conditions.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_proto.c"
+  },
+  {
+    "id": "libfabric-internals-83",
+    "claim": "libfabric: EFA provider resources: inspected Base domain resources and variant identity.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_domain.h"
+  },
+  {
+    "id": "libfabric-internals-84",
+    "claim": "libfabric: EFA provider resources: inspected RDM packet pools, peer maps, and progress queues.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_ep.h"
+  },
+  {
+    "id": "libfabric-internals-85",
+    "claim": "libfabric: EFA provider resources: inspected Eager TX operation retirement test.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_proto.c"
+  },
+  {
+    "id": "libfabric-internals-86",
+    "claim": "libfabric: EFA message protocols: inspected Medium eligibility and posted-byte accounting.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_medium.c"
+  },
+  {
+    "id": "libfabric-internals-87",
+    "claim": "libfabric: EFA message protocols: inspected All-IOV registration and read eligibility.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_longread.c"
+  },
+  {
+    "id": "libfabric-internals-88",
+    "claim": "libfabric: EFA message protocols: inspected Runt allowance, delivery, and in-flight gates.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_runtread.c"
+  },
+  {
+    "id": "libfabric-internals-89",
+    "claim": "libfabric: EFA message protocols: inspected Forced read functional test and hardware counter assertions.",
+    "project": "libfabric",
+    "path": "fabtests/pytest/efa/test_efa_protocol_selection.py"
+  },
+  {
+    "id": "libfabric-internals-90",
+    "claim": "libfabric: EFA operation trace: inspected Tagged request matching and deferred unexpected callbacks.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_pke_rtm.c"
+  },
+  {
+    "id": "libfabric-internals-91",
+    "claim": "libfabric: Diagnosis and source-reading labs: inspected EFA unit-test scope and setup.",
+    "project": "libfabric",
+    "path": "prov/efa/test/README.md"
+  },
+  {
+    "id": "libfabric-internals-92",
+    "claim": "libfabric: Diagnosis and source-reading labs: inspected RNR retransmission and backoff assertions.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_rnr.c"
+  }
+]

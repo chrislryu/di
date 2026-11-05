@@ -1,0 +1,34 @@
+---
+title: "Where should reusable KV cache live?"
+description: "Choose cache placement by reuse value, transfer cost, ownership, and failure behavior."
+kind: decision
+projects: ["vllm","nixl","mooncake"]
+related: [{"title":"Disaggregation decision","href":"/decisions/disaggregation/"},{"title":"State ownership walkthrough","href":"/walkthroughs/prefill-decode/"}]
+---
+
+## Start with a valid reuse opportunity
+
+The **KV cache** stores attention keys and values from processed tokens. Reuse requires compatible tokens, model state, and cache representation; similar-looking text is insufficient. First distinguish active state needed for current generation from reusable state retained for a later request.
+
+| Situation | Evidence to collect | Options | Tradeoffs | Prerequisites | Deeper explanation |
+| --- | --- | --- | --- | --- | --- |
+| Requests repeat prefixes on one worker | Local hit rate, eviction rate, GPU occupancy | Retain local prefixes | Fast access competes with active requests for memory | Valid cache identity | [KV cache](/concepts/kv-cache/) |
+| Active state must move between stages | Handoff bytes and transfer completion time | Point-to-point connector through NIXL or another supported backend | Avoids recompute while adding lifetime coordination | Compatible layouts and registered memory | [NIXL](/architecture/nixl/) |
+| Prefixes recur across workers | Cross-worker hit rate, lookup/load cost | Shared store such as Mooncake | Pooling adds metadata, placement and transport work | Engine store integration | [Mooncake](/architecture/mooncake/) |
+| GPU cache capacity is expensive or scarce | Reuse distance, tier bandwidth, end-to-end latency | Retain selected state in host memory or configured storage tiers | Larger capacity has slower access and more movement | Supported offload path and explicit fallback | [Performance](/concepts/performance/) |
+
+## Compare saved work with access cost
+
+Suppose many users share a document prefix but requests land on different replicas. Measure how often the state is reusable, how much prompt computation a hit saves, and the complete lookup/load time. Compare against routing requests to workers that already hold it. Include misses, evictions, and failures; a fast warm hit does not describe an entire workload.
+
+The [vLLM cache manager](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/v1/core/kv_cache_manager.py) owns engine-local allocation and lookup. [NIXL transfer requests](https://github.com/ai-dynamo/nixl/blob/c359986fed8bcf7fad6b2fa9b95d98d4b581a8e7/src/core/nixl_agent.cpp) moves specified ranges; it does not choose semantic cache keys. The [Mooncake client](https://github.com/kvcache-ai/Mooncake/blob/748af1a53dba2d57c110de0e7feb5613ddb8835b/mooncake-store/src/client_service.cpp) adds named-object lookup and replica access. Those responsibilities should remain visible in an integration design.
+
+The developer defines keys, layout compatibility, and fallback behavior. The operator chooses capacity and placement. Runtime code must retain source/destination resources until the relevant transfer and ownership handoff complete. On a cache miss, explicitly choose recomputation or request failure according to the serving contract.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [Engine-local blocks](/architecture/vllm/kv-memory/) | Ownership, reuse, and reclamation |
+| [Registered ranges](/architecture/nixl/registration/) | Transfer access and allocation lifetime |
+| [Shared-store placement](/architecture/mooncake/placement-allocation/) | Replica policy and capacity ownership |

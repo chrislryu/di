@@ -1,0 +1,55 @@
+---
+title: "Start with the customer"
+description: "Why inference serving grows from one engine into a distributed system."
+kind: "start"
+related: [{"title":"One inference request","href":"/walkthroughs/one-request/"}]
+---
+
+import SystemMap from '../../../components/SystemMap.astro';
+
+## The problem before the projects
+
+Imagine building a coding assistant. A user submits a long file and expects the first suggestion promptly. Other users need small edits, and traffic arrives unevenly. Buying more GPUs helps only if the service can use their compute and memory effectively.
+
+Three requirements pull on the architecture:
+
+- **Latency:** how long a person waits for the first token and each subsequent token. Queue time, prompt processing, transfer, and generation all contribute.
+- **Throughput:** how much useful work the service finishes per unit time. Filling a GPU with more concurrent work can increase throughput while lengthening individual waits.
+- **Cost and reliability:** how much hardware is needed to meet the target under ordinary traffic and failures. Idle capacity, recomputation, and retries all have costs.
+
+An **[SLO](/glossary/#slo)** is a service-level objective: a measurable target such as a bound on first-token latency for a stated share of requests. Without a workload and an objective, “faster” is too vague to choose an architecture.
+
+## Start with one engine
+
+A model engine turns input text into tokens, queues the work, runs the model, and generates more tokens. [Prefill](/concepts/request-lifecycle/) processes the prompt. Decode advances the response using previously computed attention state, the [KV cache](/concepts/kv-cache/).
+
+An engine manages that state while [batching](/concepts/scheduling/) multiple requests. If weights and live state fit on one GPU and the service meets its objective, this is already a useful architecture. The first walkthrough starts here.
+
+## What forces the next boundary?
+
+When demand outgrows one engine, replicas add throughput and redundancy. Routing decides which replica receives each request. When a model or its state exceeds device capacity, [parallelism](/concepts/parallelism/) spreads work and adds GPU communication. When prompt work interferes with streaming, [disaggregation](/concepts/disaggregation/) separates stages and adds KV transfer. Repeated prefixes can motivate shared caching, provided reuse saves more time than lookup and movement cost.
+
+These are different triggers. A service does not automatically need every project in this guide.
+
+## System map
+
+<SystemMap />
+
+GPU communication happens inside a distributed model step: the engine runs GPU
+computation, exchanges or combines tensors, then continues computation. NCCL
+provides collectives and peer transfers; DeepEP specializes expert dispatch and
+combine. KV-state movement between workers serves a separate purpose.
+
+| Responsibility | Projects | Question to ask |
+| --- | --- | --- |
+| Serving orchestration | [Dynamo](/architecture/dynamo/) | Where should this request run? |
+| Inference engines | [vLLM](/architecture/vllm/), [SGLang](/architecture/sglang/), [DeepInfer](/architecture/deepinfer/) | How does this runtime schedule and execute its supported models? |
+| Data movement and shared state | [NIXL](/architecture/nixl/), [Mooncake](/architecture/mooncake/) | Where does state live, and how does it get to its consumer? |
+| GPU communication | [NCCL](/architecture/nccl/), [DeepEP](/architecture/deepep/) | Which devices must exchange or combine tensors? |
+| Network integration | [AWS OFI NCCL](/architecture/aws-ofi-nccl/), [libfabric](/architecture/libfabric/) | Which software path reaches the selected fabric? |
+
+The categories organize learning rather than defining exclusive capabilities. DeepInfer's public release has a narrower service boundary than a complete hosted product. NIXL and Mooncake overlap in transfer capability; Mooncake also supplies shared storage. DeepEP's pinned release requires NCCL Gin, while the AWS plugin is one optional NCCL network path. Read the [relationship evidence](/start/evidence/) before inferring an integration.
+
+## Choose a next step
+
+Follow [one inference request](/walkthroughs/one-request/) to connect the vocabulary to code. Use the [reading path](/start/reading-path/) for the full progression, or enter any [repository guide](/architecture/) directly. Every guide includes prerequisites and revision metadata.

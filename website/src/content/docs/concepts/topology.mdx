@@ -1,0 +1,43 @@
+---
+title: "GPU and host topology"
+description: "Map processes, device memory, host memory, interconnects, and network adapters before interpreting communication."
+kind: "concept"
+projects: ["nccl","deepep"]
+related: [{"title":"NCCL architecture","href":"/architecture/nccl/"},{"title":"Choose a network path","href":"/decisions/network/"}]
+---
+
+## “Two GPUs” does not describe the path
+
+A process runs host-side code and submits work to a device. Device memory holds model weights, activations, and cached state. Host memory is a separate resource, even when an API makes access look convenient. Different device pairs can have different paths between their memory.
+
+Within a machine, **[PCIe](/glossary/#pcie)** connects devices through a hierarchy of links and switches. **[NVLink](/glossary/#nvlink)** provides another device interconnect on supported systems. Across machines, a **[NIC](/glossary/#nic)**—network interface controller—injects and receives traffic over a network. A host's CPU and memory locality can also affect a device's path to that NIC.
+
+Draw the actual hardware boundaries: process → GPU memory → local interconnect or NIC → peer memory. A logical communicator groups participants; it does not remove these physical boundaries.
+
+## Paths constrain execution
+
+Imagine a tensor-parallel group that exchanges partial results every layer. Placing its GPUs within a fast local domain may produce a different cost from splitting the same group across hosts. Conversely, independent request replicas may communicate little on the generation critical path, making a different placement useful.
+
+NCCL's [topology structures](https://github.com/NVIDIA/nccl/blob/3e46c089f4ae4732722a419eb6096aead7e47a30/src/graph/topo.h) distinguish GPUs, CPUs, PCI nodes, and network nodes, with link/path classifications. [path computation](https://github.com/NVIDIA/nccl/blob/3e46c089f4ae4732722a419eb6096aead7e47a30/src/graph/paths.cc) uses topology to derive usable routes. Treat the code's bandwidth estimates as inputs to an algorithm, not measurements of your deployment's realized bandwidth.
+
+Topology interacts with memory access. A GPU-aware network path can access registered device memory under the required driver/hardware conditions. Another path may stage data through host memory. The same high-level send API therefore does not imply the same number of copies, CPU involvement, or bandwidth.
+
+## Logical domains still need physical evidence
+
+DeepEP distinguishes scale-up and scale-out communication domains in its buffer configuration. The [inspected DeepEP requirements](https://github.com/deepseek-ai/DeepEP/blob/f6aa38fe06cd4a0489e7730365d4e0114970a2f3/README.md) specify NVLink for intranode communication and RDMA for internode communication. Other libraries and releases have different requirements. “Works on multiple GPUs” is too broad to establish a valid deployment.
+
+When investigating performance, record visible GPU/NIC devices, rank placement, device-to-NIC affinity, link capabilities, and the transport actually selected. Check whether multiple transfers share a bottleneck. Two fast links do not guarantee twice the bandwidth if they converge on the same constrained path.
+
+## Questions before adding devices
+
+Ask which data moves, how often, how much, and whether computation can proceed while it moves. Then locate the slowest shared link or synchronization boundary. Adding devices may reduce compute per participant while increasing communication and idle time.
+
+**Check yourself:** Why can two runs with the same model and parallel sizes differ? Their physical placement, memory path, library selection, contention, or negotiated topology can differ even when logical configuration looks identical.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [NCCL topology discovery](/architecture/nccl/topology-discovery/) | GPU/NIC distance and connection planning |
+| [DeepEP communication domains](/architecture/deepep/hybrid-communication/) | Scale-up and scale-out algorithms |
+| [AWS platform policy](/architecture/aws-ofi-nccl/platform-and-topology/) | Platform-specific GPU/NIC decisions |

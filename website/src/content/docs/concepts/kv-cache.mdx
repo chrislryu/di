@@ -1,0 +1,39 @@
+---
+title: "KV cache"
+description: "Attention state that connects prompt processing, generation, prefix reuse, and state transfer."
+kind: "concept"
+projects: ["vllm","sglang","nixl"]
+related: [{"title":"Where should KV state live?","href":"/decisions/kv-cache/"},{"title":"Move state with NIXL","href":"/architecture/nixl/"}]
+---
+
+## Cache intermediate state, not answers
+
+Attention compares the current token's query against keys and values from its context. A **[KV cache](/glossary/#kv-cache)** retains those keys and values so generation can reuse past computation. Model weights describe the learned model; KV state describes a particular context. Keeping weights loaded does not eliminate the need to manage per-request state.
+
+For example, a conversation with a long shared system prompt may reuse compatible prefix state and compute only its new suffix. Reuse depends on more than similar text: token IDs, model state, cache representation, and any relevant namespace must agree. A semantically similar sentence is not automatically a cache hit.
+
+In [SGLang prefix matching](https://github.com/sgl-project/sglang/blob/a16830deb5ea5b1e8c9874ad646f3ba95542191c/python/sglang/srt/mem_cache/radix_cache.py), the radix key includes token IDs and an optional namespace key. This permits deliberate separation of otherwise identical prefixes. In [vLLM computed-block lookup](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/v1/core/kv_cache_manager.py), prefix matching works with full cache blocks and observes a hit-length bound. Even an apparently complete hit can require some computation to obtain output scores.
+
+## Logical state and physical storage
+
+An engine commonly allocates KV state in blocks or pages, allowing requests to refer to noncontiguous storage. A block table maps the logical token positions to physical cache locations. Block allocation reduces the need for a single growing contiguous buffer, while block size introduces alignment and reuse tradeoffs.
+
+For ordinary full attention, more context generally means more retained KV state. The exact footprint depends on layers, KV heads, dimensions, data type, parallel sharding, and model-specific retention. Sliding-window or other stateful architectures require a different calculation. Do not infer a universal “bytes per token” value from one model.
+
+## Ownership becomes harder across boundaries
+
+Local prefix reuse, CPU offload, remote cache pooling, and prefill/decode transfer solve different problems. Local reuse avoids recomputing a matching prefix already available to the engine. Offload exchanges device capacity for movement. Pooling makes compatible state discoverable across instances. Stage separation transfers state so generation can continue on another worker.
+
+A transfer library such as [NIXL’s transfer agent](https://github.com/ai-dynamo/nixl/blob/c359986fed8bcf7fad6b2fa9b95d98d4b581a8e7/src/core/nixl_agent.cpp) moves registered buffers. The serving layer must still decide what those bytes mean, ensure compatible layouts, keep source/destination memory alive, and wait for usable completion. Completion of an API submission is not necessarily completion of the transfer.
+
+Retained reusable state also competes with active requests. Recomputing an inexpensive prefix may cost less than fetching it across a congested link. Treat placement as a measured decision about reuse frequency, capacity, transfer latency, and correctness.
+
+**Check yourself:** What must survive if a client cancels while its KV transfer is still in flight? Any buffer or metadata still needed by the transfer must remain valid until the implementation's completion/cleanup contract permits release.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [vLLM KV ownership](/architecture/vllm/kv-memory/) | Prefix identity, references, and safe publication |
+| [SGLang radix cache](/architecture/sglang/prefix-cache/) | Match, split, lock, and eviction |
+| [Mooncake reads](/architecture/mooncake/read-lifecycle/) | Replica selection and post-transfer validation |

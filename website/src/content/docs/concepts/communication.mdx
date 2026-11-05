@@ -1,0 +1,47 @@
+---
+title: "Communication primitives"
+description: "Distinguish peer transfers, group collectives, and token routing through MoE experts."
+kind: "concept"
+projects: ["nccl","nixl","deepep"]
+related: [{"title":"Choose a communication primitive","href":"/decisions/communication/"},{"title":"DeepEP architecture","href":"/architecture/deepep/"}]
+---
+
+## Choose the operation before the transport
+
+A **point-to-point transfer** moves data between selected peers. A **[collective](/glossary/#collective)** coordinates a defined operation across participants in a group. Their semantics describe what the application needs; the transport describes how bytes cross a particular memory or network path.
+
+Consider two devices holding partial results. Sending one buffer to the other does not automatically sum those results or return the sum to both devices. An all-reduce expresses that group operation. Conversely, moving a specific request's KV blocks to one decode worker does not require a reduction over every worker.
+
+| Operation | Meaning | Typical concern |
+| --- | --- | --- |
+| Send/receive or explicit transfer | Move a selected buffer between peers | Ownership, matching, completion |
+| All-reduce | Combine values and deliver the reduction to all participants | Matching collective order and synchronization |
+| All-gather | Deliver every participant's contribution to all | Output volume and layout |
+| Reduce-scatter | Reduce contributions and distribute result portions | Partition layout and reduction semantics |
+| Expert dispatch/combine | Route token activations to selected experts, then return their contributions | Variable counts, routing metadata, imbalance |
+
+The [NCCL API implementation](https://github.com/NVIDIA/nccl/blob/3e46c089f4ae4732722a419eb6096aead7e47a30/src/collectives.cc) exposes distinct collective and send/receive operations. It packages operation parameters for the enqueue layer, which handles execution planning rather than asking the application to implement every movement step.
+
+## MoE movement is shaped by routing
+
+A [mixture-of-experts](/glossary/#moe) layer selects a small set of experts for each token. With distributed experts, the originating device sends token activations to expert owners. After expert computation, results return and are combined using the model's routing semantics.
+
+[DeepEP EPBuffer](https://github.com/deepseek-ai/DeepEP/blob/f6aa38fe06cd4a0489e7730365d4e0114970a2f3/deep_ep/buffers/ep.py) accepts expert selections and weights and returns a routing handle used by combine. Some experts can receive many more tokens than others. The handle connects the forward movement layout to the return operation; it is not an interchangeable cache key for unrelated routing decisions.
+
+## Completion is part of the interface
+
+An asynchronous call can mean work was accepted, queued, or launched. The consumer must wait for the contract that makes the resulting data usable. Device streams, communication events, request handles, and host polling express different synchronization mechanisms.
+
+[NIXL request creation, posting, and status](https://github.com/ai-dynamo/nixl/blob/c359986fed8bcf7fad6b2fa9b95d98d4b581a8e7/src/core/nixl_agent.cpp) separate transfer submission from status observation. The caller must keep referenced memory valid until safe completion and cleanup. Matching participants also need compatible sizes, layouts, and operation ordering; a network connection alone cannot ensure semantic agreement.
+
+To diagnose a stalled operation, first ask which participant or dependency has not advanced. Then inspect its scheduling, stream ordering, and completion path before assuming the wire is slow.
+
+**Check yourself:** Why is an all-to-all communication pattern insufficient to explain MoE execution? It describes exchange among peers but omits expert selection, variable token counts, expert computation, and the mapping needed to combine outputs.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [NCCL task planning](/architecture/nccl/task-planning/) | Collective intent becoming executable work |
+| [DeepEP dispatch/combine](/architecture/deepep/dispatch-combine-trace/) | Routing, layouts, completion, and ownership |
+| [libfabric messages](/architecture/libfabric/message-and-tagged-operations/) | Matching and asynchronous operation contracts |

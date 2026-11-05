@@ -1,0 +1,482 @@
+[
+  {
+    "id": "aws-ofi-nccl-plugin-contract-01",
+    "claim": "Versioned NVIDIA network exports adapt callbacks into a shared internal network API.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_interface_nvidia.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-plugin-contract-02",
+    "claim": "Common send dispatch validates communicator/output request and invokes the selected communicator send implementation.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_api.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-plugin-contract-03",
+    "claim": "Communicators retain endpoints and endpoints retain domains through shared ownership, while keyed caches use weak references.",
+    "project": "aws-ofi-nccl",
+    "path": "include/nccl_ofi.h"
+  },
+  {
+    "id": "aws-ofi-nccl-plugin-contract-04",
+    "claim": "Concrete SENDRECV uses a plugin MR wrapper and conditionally extracts its underlying fabric descriptor; historical common comments are not a null-wrapper guarantee.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-plugin-contract-05",
+    "claim": "The C loading test checks dlopen/dlclose of the configured built shared library, not peer payload correctness.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/unit/dlopen_c_test.c"
+  },
+  {
+    "id": "aws-ofi-nccl-api-compatibility-01",
+    "claim": "The pinned source exports ncclNetPlugin v6 through v12 tables and version-specific size/configuration wrappers.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_interface_nvidia.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-api-compatibility-02",
+    "claim": "v11/v12 initialization stores traffic-class context and reference-counts repeated calls around one common plugin initialization.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_interface_nvidia.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-api-compatibility-03",
+    "claim": "v10 payload wrappers contain TODO profiling-handle support and exported receive-consumed hooks are null.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_interface_nvidia.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-api-compatibility-04",
+    "claim": "Baseline network properties advertise host-driven net device type and derive CUDA/DMA-BUF pointer support from internal properties.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_interface_nvidia.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-api-compatibility-05",
+    "claim": "Static assertions bound connection-handle layout/size and expected request capacity against the interface limits.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_api.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-initialization-01",
+    "claim": "Parameter initialization visits registered typed parameters and returns the first initialization error.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_param.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-initialization-02",
+    "claim": "Plugin creation initializes page/cache alignment and topology/platform context before transport selection and complete_init.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-initialization-03",
+    "claim": "complete_init separates selected resource creation from candidate protocol construction/probing.",
+    "project": "aws-ofi-nccl",
+    "path": "include/nccl_ofi.h"
+  },
+  {
+    "id": "aws-ofi-nccl-initialization-04",
+    "claim": "A temporary endpoint selected with PID-mod-device and thread key permits concrete endpoint property/platform checks during initialization.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-initialization-05",
+    "claim": "Unsupported GDR can trigger conservative NCCL SIMPLE configuration, separate from the selected plugin SENDRECV/RDMA protocol.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-initialization-06",
+    "claim": "check_sources asserts DEFAULT/API/ENVIRONMENT provenance and check_late_set asserts rejected mutation after access.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/unit/param.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-platform-and-topology-01",
+    "claim": "Platform registration selects compiled policy candidates and initializes the selected platform before protocol construction.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_platform.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-platform-and-topology-02",
+    "claim": "AWS initialization supplies an EFA filter when FI_PROVIDER is absent and applies known-platform protocol defaults only under default provenance/EFA conditions.",
+    "project": "aws-ofi-nccl",
+    "path": "src/platform-aws.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-platform-and-topology-03",
+    "claim": "An existing NCCL_TOPO_FILE is respected; endpoint configuration separately checks actual EFA GDR/native-write/ordering capabilities under guards.",
+    "project": "aws-ofi-nccl",
+    "path": "src/platform-aws.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-platform-and-topology-04",
+    "claim": "NIC lists are sorted/grouped with quotient/remainder distribution and attached accelerator-group metadata.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_topo.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-platform-and-topology-05",
+    "claim": "Synthetic tests distinguish a shared PCIe switch from a shared host bridge and reject missing/disjoint topology objects.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/unit/topo.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-platform-and-topology-06",
+    "claim": "check_gdaki_flags validates opt-in hardware-counter policy separately from successful device resource construction.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/unit/aws_platform_mapper.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-provider-and-protocol-01",
+    "claim": "Explicit nondefault protocol selection takes a direct initializer branch and exits on failure rather than automatically changing protocols.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-provider-and-protocol-02",
+    "claim": "Default selection chooses usable multi-rail RDMA; otherwise it selects SENDRECV and deletes the other RDMA candidate, without the final single-rail fallback listed in a broad comment.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-provider-and-protocol-03",
+    "claim": "Provider discovery calls fi_getinfo, applies inclusion/TCP filters, and retains the selected provider/fabric match.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_ofiutils.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-provider-and-protocol-04",
+    "claim": "SENDRECV requests tagged reliable-datagram capabilities and negotiates memory support through guarded API queries.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-provider-and-protocol-05",
+    "claim": "RDMA requests message/RMA/HMEM and four bytes of CQ data, validates returned CQ size, and guards early completion by progress/eager compatibility.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-provider-and-protocol-06",
+    "claim": "Returned MR virtual-address, endpoint-binding, and data-progress modes affect later behavior; EFA has a provider-specific runtime version check.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-connection-management-01",
+    "claim": "Repeated nonblocking connect reuses the endpoint retained by handle state when its communicator already exists.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_api.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-connection-management-02",
+    "claim": "Connection envelopes carry local/remote connector IDs and connection endpoint information, with appended transport data.",
+    "project": "aws-ofi-nccl",
+    "path": "include/cm/nccl_ofi_cm_types.h"
+  },
+  {
+    "id": "aws-ofi-nccl-connection-management-03",
+    "claim": "SENDRECV connect/accept preserve incomplete state and return communicator outputs only after their handshake readiness path.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-connection-management-04",
+    "claim": "RDMA connection setup exchanges mailbox/key/endpoint data and rejects data/control rail-count mismatch.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-connection-management-05",
+    "claim": "ReuseListenCommTest copies the original exchanged handle each iteration because connect mutates local saved state.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/functional/reuse_listen_comm.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-memory-registration-01",
+    "claim": "Registration validates build-supported memory type and constructs ordinary or DMA-BUF keys with endpoint context.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_api.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-memory-registration-02",
+    "claim": "Ordinary non-Neuron registration keys round address coverage to cache alignment, while Neuron skips that extension.",
+    "project": "aws-ofi-nccl",
+    "path": "include/nccl_ofi_mr.h"
+  },
+  {
+    "id": "aws-ofi-nccl-memory-registration-03",
+    "claim": "MR cache lookup checks covered page intervals and required endpoint identity, increments references, and does not implement an application allocation generation.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_mr.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-memory-registration-04",
+    "claim": "SENDRECV holds cache locking across miss/registration/insertion and rolls back newly registered handles if insertion fails.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-memory-registration-05",
+    "claim": "del_entry returns zero while references remain and one after final removal to signal actual deregistration.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_mr.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-memory-registration-06",
+    "claim": "DMA-BUF viability checks build, disablement, device attributes, and kernel support before selected provider/HMEM/API support is considered.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_dmabuf.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-memory-registration-07",
+    "claim": "MR tests cover subrange hits, overlap misses, duplicate insertion, reference decrements, final deletion, and alignment; endpoint scope is explicitly not exercised by that fixture.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/unit/mr.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-request-resources-01",
+    "claim": "Simple and registration-backed freelists have distinct backing ownership; callbacks may run under caller locks and destruction releases even unreturned entries.",
+    "project": "aws-ofi-nccl",
+    "path": "include/nccl_ofi_freelist.h"
+  },
+  {
+    "id": "aws-ofi-nccl-request-resources-02",
+    "claim": "SENDRECV increments inflight only after accepted posting and uses a false decrement flag when returning a pre-post failed slot.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-request-resources-03",
+    "claim": "RDMA request subclasses own typed post/completion/free responsibilities, per-rail contexts, counts, and child state.",
+    "project": "aws-ofi-nccl",
+    "path": "include/nccl_ofi_rdma.h"
+  },
+  {
+    "id": "aws-ofi-nccl-request-resources-04",
+    "claim": "post_with_pending_retry retains EAGAIN requests internally; repeated EAGAIN returns the request to the front and ends a progress pass.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-request-resources-05",
+    "claim": "ID pools allocate bitmap positions, return FI_KEY_NOTAVAIL on exhaustion, and reject invalid/double frees.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_idpool.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-request-resources-06",
+    "claim": "Freelist tests assert capacity, init/fini counts, lazy registered reserve, and already-satisfied reserve behavior.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/unit/freelist.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-sendrecv-protocol-01",
+    "claim": "SENDRECV posts its negotiated communicator tag rather than callback tags and advertises max_group_receives equal to one.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-sendrecv-protocol-02",
+    "claim": "fi_tsend EAGAIN progresses CQ, returns null request, and retires the temporary slot without inflight decrement.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-sendrecv-protocol-03",
+    "claim": "Payload CQ contexts recover requests, record receive actual length, and mark completion or error.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-sendrecv-protocol-04",
+    "claim": "SENDRECV terminal test reports done and returns the request to its pool, so its pointer is no longer a live operation handle.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-sendrecv-protocol-05",
+    "claim": "GroupedRecvTest skips counts above advertised maxRecvs, preserving the selected transport capability boundary.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/functional/grouped_recv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rdma-protocol-01",
+    "claim": "Receive entries advertise destination offset/capacity/tag/index/sequence and per-rail registration keys through control mailboxes.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rdma-protocol-02",
+    "claim": "has_ctrl_msg validates ready sequence before trusting grouped count and uses acquire fences before dependent reads.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rdma-protocol-03",
+    "claim": "Ordinary sends without usable control return no request; scheduled segment posting advances the cursor only after accepted posts.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rdma-protocol-04",
+    "claim": "Remote-write immediate data maps to communicator, sequence, sub-receive index, and expected segment count before parent aggregation.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rdma-protocol-05",
+    "claim": "Eager data uses staging, ordered/tagged matching, copy children, and later control reconciliation; early completion is separately guarded by NCCL optional receive semantics.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rdma-protocol-06",
+    "claim": "Control tests assert structure/readiness/tag bounds including entries beyond num_recvs remaining invisible.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/unit/ctrl_msg.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rails-and-scheduling-01",
+    "claim": "Forced rail expansion duplicates provider information cyclically and requires a multiple of actual entries; it does not create more physical NICs.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rails-and-scheduling-02",
+    "claim": "Control endpoint count can be one or all rails and remains distinct from data stripe scheduling.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rails-and-scheduling-03",
+    "claim": "Below the strict small-message threshold one rail is chosen with a separate rotation counter; larger messages use bounded stripe count and 128-byte aligned maximum sizes.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_scheduler.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rails-and-scheduling-04",
+    "claim": "With four rails/minimum stripe 4096, an 8193-byte large-branch payload uses two stripes of 4224 and 3969 bytes.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_scheduler.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-rails-and-scheduling-05",
+    "claim": "Threshold tests compare expected rail IDs, offsets, lengths, boundary sizes, and rotation rather than achieved bandwidth.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/unit/scheduler.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-completion-and-progress-01",
+    "claim": "CQ EAGAIN, posting EAGAIN, and readerr EAGAIN have different no-progress/acceptance meanings.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-completion-and-progress-02",
+    "claim": "RDMA progresses CQ rails and pending requests; testing one request can advance unrelated requests sharing endpoint resources.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-completion-and-progress-03",
+    "claim": "RDMA remote-write error handling avoids decoding unreliable CQ data and returns EIO rather than inventing a request context.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-completion-and-progress-04",
+    "claim": "Successful RDMA test frees completed requests, while the shown request-error branch returns an error without using that same success free path.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-completion-and-progress-05",
+    "claim": "SENDRECV flush can skip, invoke GPU flush, or post/test a fabric read according to capability/configuration.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-completion-and-progress-06",
+    "claim": "poll_and_validate flushes CUDA receives but guards its final payload byte comparison with receiver rank and non-CUDA memory.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/functional/functional_test.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-tuner-and-device-interfaces-01",
+    "claim": "Tuner initialization can successfully return a null context for NCCL fallback; region is preferred over model when both are supported unless model is validly forced.",
+    "project": "aws-ofi-nccl",
+    "path": "src/tuner/nccl_ofi_tuner.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-tuner-and-device-interfaces-02",
+    "claim": "Versioned collective/chunk callbacks preserve fallback when a context/internal callback is absent.",
+    "project": "aws-ofi-nccl",
+    "path": "src/tuner/nccl_ofi_tuner.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-tuner-and-device-interfaces-03",
+    "claim": "Gin init requires initialized OFI NET, RDMA protocol, global-registration assumptions, and supported GDRCopy forced PCIe copy.",
+    "project": "aws-ofi-nccl",
+    "path": "src/rdma/gin/nccl_ofi_gin_api.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-tuner-and-device-interfaces-04",
+    "claim": "Direct GDAKI context validation rejects unsupported backend structure versions before resource construction and authorizes each used domain before GDA operations.",
+    "project": "aws-ofi-nccl",
+    "path": "src/rdma/gin/nccl_ofi_gin_gdaki.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-tuner-and-device-interfaces-05",
+    "claim": "The symbol probe verifies proxy/direct export presence under HAVE_GDAKI without proving a fabric transfer.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/functional/gin_gdaki_misconfig_probe.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-tuner-and-device-interfaces-06",
+    "claim": "The layout probe asserts clean rejection of null, negative, zero, and above-maximum backend versions before real communicator use.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/functional/gin_gdaki_backend_version.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-operation-trace-and-diagnosis-01",
+    "claim": "Endpoint invalidation sets inactive and removes the endpoint from its domain cache; it does not mark the entire domain inactive.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-operation-trace-and-diagnosis-02",
+    "claim": "Inflight SENDRECV close aborts endpoint resources before deleting request bookkeeping, without establishing successful payload delivery.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-operation-trace-and-diagnosis-03",
+    "claim": "RDMA close queues inactive communicators for control/close/flush-aware cleanup and blocks on the final open send/receive close until cleanup completes or fails.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-operation-trace-and-diagnosis-04",
+    "claim": "InflightCloseTest exercises interrupted deregistration/close and reconnect, without ordinary completion polling or successful payload-delivery validation.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/functional/inflight_close.cpp"
+  },
+  {
+    "id": "aws-ofi-nccl-operation-trace-and-diagnosis-05",
+    "claim": "Logging bridges to the supplied NCCL logger and TRACE macro emission is compile-time gated.",
+    "project": "aws-ofi-nccl",
+    "path": "include/nccl_ofi_log.h"
+  },
+  {
+    "id": "aws-ofi-nccl-operation-trace-and-diagnosis-06",
+    "claim": "Trace correlation distinguishes callback output, pooled plugin request, and fabric context pointer roles.",
+    "project": "aws-ofi-nccl",
+    "path": "doc/tracing.md"
+  }
+]

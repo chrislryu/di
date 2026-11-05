@@ -1,0 +1,10 @@
+---
+import sources from '../data/sources.json';
+import { getCollection } from 'astro:content';
+import { guides, type ProjectId } from '../data/guides';
+const published = new Set((await getCollection('docs')).filter(page => !page.data.draft).map(page => page.id));
+const complete = new Set(Object.entries(guides).filter(([id,guide]) => guide.chapters.every(chapter => published.has(`architecture/${id}/${chapter.slug}`))).map(([id]) => id));
+const groups = ['Serving orchestration','Inference engines','Data movement and shared state','GPU communication','Network integration'];
+const roles: Record<string,string> = {dynamo:'Route requests and coordinate serving workers.',vllm:'Schedule tokens and execute models with managed KV memory.',sglang:'Coordinate model execution with prefix reuse and overlap.',deepinfer:'Run the released DeepSeek model runtime for offline inference.',nixl:'Move registered data through pluggable transfer backends.',mooncake:'Transfer data and pool reusable state in a distributed store.',nccl:'Coordinate GPU collectives and point-to-point communication.',deepep:'Dispatch tokens to experts and combine their results.','aws-ofi-nccl':'Adapt the NCCL network interface to libfabric.',libfabric:'Expose fabric services through hardware-specific providers.'};
+---
+<div class="project-index not-content">{groups.map((group,i) => <section><p class="eyebrow">0{i+1} / {group}</p><div class="project-grid">{Object.entries(sources).filter(([,p])=>p.group === group).map(([id,p]) => <a class="project-card" href={`/architecture/${id}/`}><strong>{p.name}<span aria-hidden="true"> ↗</span></strong><span>{roles[id]}</span>{complete.has(id) && <small>{guides[id as ProjectId].chapters.length + 1} chapters · Overview and internals</small>}</a>)}</div></section>)}</div>

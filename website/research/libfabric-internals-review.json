@@ -1,0 +1,464 @@
+[
+  {
+    "id": "libfabric-independent-review-01",
+    "claim": "OFI exposes application-facing fabric services and provider-specific implementations rather than inference or collective algorithms.",
+    "project": "libfabric",
+    "path": "README"
+  },
+  {
+    "id": "libfabric-independent-review-02",
+    "claim": "fi_tsend and fi_trecv dispatch through endpoint tagged operations while keeping payload, descriptor, peer, tag, ignore mask, and local context separate.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_tagged.h"
+  },
+  {
+    "id": "libfabric-independent-review-03",
+    "claim": "fi_getinfo rejects an API newer than the loaded library with ENOSYS before provider discovery.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-independent-review-04",
+    "claim": "Core getinfo skips ineligible providers, continues after provider callback failure, joins successful lists, filters/reorders, and returns ENODATA when no result remains.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-independent-review-05",
+    "claim": "ofi_register_provider validates name and mandatory fabric entrypoint, rejects provider API versions older than 1.3, and records provider type and filter visibility.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-independent-review-06",
+    "claim": "Dynamic loading uses dlopen and fi_prov_ini, then passes the returned structure through common registration.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-independent-review-07",
+    "claim": "Provider type classification distinguishes hooks, utilities, offload, LNX, and core providers; common utility helpers do not themselves mean a layered provider was selected.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-independent-review-08",
+    "claim": "ofi_layering_ok enforces exclusion/type/name rules, preserves selected two-provider ordering compatibility, and suppresses implicit layering for selected core providers.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-independent-review-09",
+    "claim": "fi_fabric resolves the top provider component, invokes its fabric callback, publishes the API version, and installs configured hooks after success.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "libfabric-independent-review-10",
+    "claim": "Endpoint creation dispatches through the domain, binding through fid operations, and enablement through control with FI_ENABLE.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_endpoint.h"
+  },
+  {
+    "id": "libfabric-independent-review-11",
+    "claim": "Input modes advertise implemented application obligations; returned modes become requirements, including asynchronous multi-IOV and context lifetime.",
+    "project": "libfabric",
+    "path": "man/fi_getinfo.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-12",
+    "claim": "EFA constructs direct information before protocol-based RDM information; result order is distinct from compatibility.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_prov.c"
+  },
+  {
+    "id": "libfabric-independent-review-13",
+    "claim": "Direct-attribute tests exclude TAGGED and ATOMIC, exclude send-after-send ordering, and assert automatic progress and device-dependent size limits.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_info.c"
+  },
+  {
+    "id": "libfabric-independent-review-14",
+    "claim": "Without FI_CONTEXT2, direct discovery fails for API 2.6 but succeeds at API 2.7 with all three context mode bits clear and inject size zero.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_info.c"
+  },
+  {
+    "id": "libfabric-independent-review-15",
+    "claim": "Without FI_MR_LOCAL, descriptors were ignored before API 1.22 and must be valid or NULL for newer API behavior.",
+    "project": "libfabric",
+    "path": "man/fi_mr.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-16",
+    "claim": "Fabric child resources must be released before the fabric is closed.",
+    "project": "libfabric",
+    "path": "man/fi_fabric.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-17",
+    "claim": "Endpoint close discards outstanding operations without completions; transmission buffers remain valid until completion or returned endpoint close, and scalable contexts precede parent close.",
+    "project": "libfabric",
+    "path": "man/fi_endpoint.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-18",
+    "claim": "Endpoint-associated MRs are bound/enabled explicitly and must close before the endpoint; general MR close requires the application to retire use.",
+    "project": "libfabric",
+    "path": "man/fi_mr.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-19",
+    "claim": "The wrong-info test clears required datagram modes and observes endpoint creation ENODATA with no endpoint returned, then closes domain and fabric.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_info.c"
+  },
+  {
+    "id": "libfabric-independent-review-20",
+    "claim": "Reuse fixtures assert returned live fabric/domain pointers and names under the specific hints and capability/mode combination.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_info.c"
+  },
+  {
+    "id": "libfabric-independent-review-21",
+    "claim": "FI_AV_MAP handles are opaque, whereas FI_AV_TABLE explicitly promises first index zero and sequential insertion-order indices across insert calls; both remain scoped to the AV.",
+    "project": "libfabric",
+    "path": "man/fi_av.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-22",
+    "claim": "Removing an AV address invalidates its handle, leaves in-progress referencing operations undefined, and need not stop receiving peer traffic.",
+    "project": "libfabric",
+    "path": "man/fi_av.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-23",
+    "claim": "EFA map handles are entry addresses; lookup/removal validate them, while ordinary data-transfer address lookup only checks removed entries in strict mode.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_av.h"
+  },
+  {
+    "id": "libfabric-independent-review-24",
+    "claim": "EFA raw endpoint identity includes raw address bytes, QPN, and QKey rather than device identity or application rank alone.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_av.h"
+  },
+  {
+    "id": "libfabric-independent-review-25",
+    "claim": "The reverse AV key interleaves sixteen-bit AHN and QPN fields using portable spreading or optional BMI2 PDEP.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_av.h"
+  },
+  {
+    "id": "libfabric-independent-review-26",
+    "claim": "Direct AV insertion/removal test checks first table index zero, QPN/QKey preservation, successful lookup, removal, and failed lookup afterward.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_av.c"
+  },
+  {
+    "id": "libfabric-independent-review-27",
+    "claim": "EFA duplicate-address tests distinguish equal full addresses from equal GID with different QPN/QKey, while map tests assert pointer representation and strict-mode removal checks.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_av.c"
+  },
+  {
+    "id": "libfabric-independent-review-28",
+    "claim": "FI_EP_MSG uses listening/event-driven connection requests, creates an endpoint from FI_CONNREQ information, and connects or accepts before outbound transfers.",
+    "project": "libfabric",
+    "path": "man/fi_cm.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-29",
+    "claim": "Tag matching masks ignored bits on both values; source restriction applies only to configured directed-receive endpoints.",
+    "project": "libfabric",
+    "path": "man/fi_tagged.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-30",
+    "claim": "Directed-receive functional coverage explicitly selects efa and parameterizes message/tagged operations, three sizes, memory types, and completion semantics.",
+    "project": "libfabric",
+    "path": "fabtests/pytest/efa/test_directed_recv.py"
+  },
+  {
+    "id": "libfabric-independent-review-31",
+    "claim": "Multi-receive can produce several message events and a final buffer-release event even when other successful completions are suppressed.",
+    "project": "libfabric",
+    "path": "man/fi_msg.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-32",
+    "claim": "Direct/datagram injection requires FI_CONTEXT2; absent mode gives zero inject size and unsupported inject calls, unlike protocol-based efa RDM injection.",
+    "project": "libfabric",
+    "path": "man/fi_efa.7.md"
+  },
+  {
+    "id": "libfabric-independent-review-33",
+    "claim": "RMA read passes peer handle, remote address, remote key, local descriptor, and context as distinct arguments to the endpoint operation.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_rma.h"
+  },
+  {
+    "id": "libfabric-independent-review-34",
+    "claim": "Write, fetch, and compare atomic validity dispatch to distinct callbacks with datatype, operation, and supported count.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_atomic.h"
+  },
+  {
+    "id": "libfabric-independent-review-35",
+    "claim": "Atomic test handlers validate each operation/datatype family before posting, optionally verify payload correctness, and treat unsupported combinations separately.",
+    "project": "libfabric",
+    "path": "fabtests/functional/rdm_atomic.c"
+  },
+  {
+    "id": "libfabric-independent-review-36",
+    "claim": "Direct read/readv fixtures condition RMA support on device features, otherwise assert EOPNOTSUPP; supported 4 KiB paths assert one mocked submitted work request.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_rma.c"
+  },
+  {
+    "id": "libfabric-independent-review-37",
+    "claim": "EFA does not advertise FI_RMA_EVENT target events and documents target-side initiator AV insertion for direct and homogeneous-peer RMA.",
+    "project": "libfabric",
+    "path": "man/fi_efa.7.md"
+  },
+  {
+    "id": "libfabric-independent-review-38",
+    "claim": "FI_MR_VIRT_ADDR, PROV_KEY, RAW, ENDPOINT, LOCAL, and HMEM specify independent address, key, association, and local-registration responsibilities.",
+    "project": "libfabric",
+    "path": "man/fi_mr.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-39",
+    "claim": "FI_MR_ALLOCATED requires mapping stability; when absent, the provider must update supported live registrations for coordinated mapping changes, with possible MMU notification duties.",
+    "project": "libfabric",
+    "path": "man/fi_mr.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-40",
+    "claim": "The internal cache-hit fixture acquires the same host range twice, asserts the same cache entry, closes one reference per acquisition, and only then frees the allocation; returned references can alias one embedded MR.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_mr.c"
+  },
+  {
+    "id": "libfabric-independent-review-41",
+    "claim": "Registration validation tests assert EINVAL/no MR for excess IOVs and ENOSYS/no MR for an uninitialized CUDA interface.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_mr.c"
+  },
+  {
+    "id": "libfabric-independent-review-42",
+    "claim": "HMEM setup checks interface bounds and negotiated FI_HMEM initialization; its compatibility branch assumes system memory when FI_HMEM is absent.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_mr.c"
+  },
+  {
+    "id": "libfabric-independent-review-43",
+    "claim": "RDM deregistration bumps generation before base deregistration; cache-backed close instead drops an entry reference through ofi_mr_cache_delete.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_mr.c"
+  },
+  {
+    "id": "libfabric-independent-review-44",
+    "claim": "Generation capture preserves the initial snapshot on repost, and generation validation applies to TX operations rather than RX operations.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_mr.h"
+  },
+  {
+    "id": "libfabric-independent-review-45",
+    "claim": "Generation tests verify slot reuse increments generation, repost does not replace its captured snapshot, and closing the MR makes the queued TX generation check fail.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_mr.c"
+  },
+  {
+    "id": "libfabric-independent-review-46",
+    "claim": "Interface initialization is separate from device P2P support, and protocol thresholds can use system-memory behavior when direct access is unavailable.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_hmem.c"
+  },
+  {
+    "id": "libfabric-independent-review-47",
+    "claim": "Disabled-P2P CUDA test keeps interface initialization true, sets direct-support false, and makes unintended CUDA allocation probing fail the fixture.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_hmem.c"
+  },
+  {
+    "id": "libfabric-independent-review-48",
+    "claim": "CUDA getinfo support is inferred from instance-type data without creating a CUDA context; missing instance data assumes P2P support instead of proving registration.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_hmem.c"
+  },
+  {
+    "id": "libfabric-independent-review-49",
+    "claim": "Instance-type fixtures assert known unsupported, known supported, and missing-type assumption branches without allocation/context probes.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_hmem.c"
+  },
+  {
+    "id": "libfabric-independent-review-50",
+    "claim": "P2P REQUIRED rejects absent/disabled device support; PREFERRED/ENABLED reject global disable; DISABLED is accepted only for CUDA with API at least 1.18.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_hmem.c"
+  },
+  {
+    "id": "libfabric-independent-review-51",
+    "claim": "CQ positive counts, EAGAIN, EAVAIL/readerr, entry formats, and transmit/delivery/target-visibility semantics remain separate contracts.",
+    "project": "libfabric",
+    "path": "man/fi_cq.3.md"
+  },
+  {
+    "id": "libfabric-independent-review-52",
+    "claim": "Zero-count CQ read fixture posts the initial internal receive pool, leaves no pending or held packets, and clears the endpoint-scan flag.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_cq.c"
+  },
+  {
+    "id": "libfabric-independent-review-53",
+    "claim": "RDM CQ progress posts initial receives, polls device CQs, and progresses queued peers/operations with distinct lock scopes; wait support depends on SHM configuration.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_cq.c"
+  },
+  {
+    "id": "libfabric-independent-review-54",
+    "claim": "Injected send/receive device errors yield EAVAIL and readerr entries with nonzero portable error, expected provider errno, and nonempty diagnostics.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_cq.c"
+  },
+  {
+    "id": "libfabric-independent-review-55",
+    "claim": "EFA domain identity distinguishes RDM/direct/datagram, retains device/PD/MR pool and accounting, and selects no-op versus mutex data-progress locks by threading model.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_domain.h"
+  },
+  {
+    "id": "libfabric-independent-review-56",
+    "claim": "Direct/datagram domain close rejects live external child resources with EBUSY while accounting separately for its internal bounce-buffer registration.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_domain.c"
+  },
+  {
+    "id": "libfabric-independent-review-57",
+    "claim": "Fabric-name dispatch selects direct base fabric or the RDM fabric rather than applying one resource/data path to every EFA entry.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_fabric.c"
+  },
+  {
+    "id": "libfabric-independent-review-58",
+    "claim": "RDM endpoint owns protocol packet pools, unexpected/reorder storage, peer maps, queued operations, backoff state, and progress-list membership.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_ep.h"
+  },
+  {
+    "id": "libfabric-independent-review-59",
+    "claim": "RDM peers are endpoint-specific; map cache/peer-map fast paths precede lazy peer construction under the control lock.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_ep_utils.c"
+  },
+  {
+    "id": "libfabric-independent-review-60",
+    "claim": "AV entry teardown removes per-endpoint cached peers and maps before freeing provider entry resources; this does not authorize application use after removal.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_av.c"
+  },
+  {
+    "id": "libfabric-independent-review-61",
+    "claim": "Generic send resolves peers, checks backoff and TX packet capacity, allocates a TX entry, and returns EINVAL/EAGAIN at those admission gates.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_msg.c"
+  },
+  {
+    "id": "libfabric-independent-review-62",
+    "claim": "Normal current protocol order is eager, medium, runtread, longread, then longcts; effective endpoint and operation flags are applied before predicates.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_proto.c"
+  },
+  {
+    "id": "libfabric-independent-review-63",
+    "claim": "Selector may fill missing descriptors once for MR-seeking candidates and releases temporary selection registrations before a no-selection legacy fallback.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_proto.c"
+  },
+  {
+    "id": "libfabric-independent-review-64",
+    "claim": "A recognized force-protocol name bypasses ordinary eligibility predicates; unknown names fall back, while SynapseAI has a separate longread branch.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_proto.c"
+  },
+  {
+    "id": "libfabric-independent-review-65",
+    "claim": "Legacy selector tries recognized override, eligible read family, eager, medium, then longcts; old runtread choice maps to longread and posting checks handshake/extra peer features.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_msg.c"
+  },
+  {
+    "id": "libfabric-independent-review-66",
+    "claim": "Eager capacity subtracts actual request-header size from MTU, constructs one packet with callback, and leaves TX/message-ID cleanup to its caller on construction failure.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_eager.c"
+  },
+  {
+    "id": "libfabric-independent-review-67",
+    "claim": "Medium requests MR preparation, checks interface-specific medium threshold, and reports non-delivery completion only after all payload bytes are acknowledged.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_medium.c"
+  },
+  {
+    "id": "libfabric-independent-review-68",
+    "claim": "Normal longread eligibility requires P2P, every IOV descriptor, interface minimum read size, and peer read interoperability.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_longread.c"
+  },
+  {
+    "id": "libfabric-independent-review-69",
+    "claim": "Runtread adds no-delivery-complete, no read message already in flight, and positive peer runt-allowance gates to read eligibility.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_runtread.c"
+  },
+  {
+    "id": "libfabric-independent-review-70",
+    "claim": "Ordinary eager send completion finishes the operation; delivery-complete eager waits for receipt and the shared release predicate while packet release is separate.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/protocols/efa_rdm_proto_eager.c"
+  },
+  {
+    "id": "libfabric-independent-review-71",
+    "claim": "Receipt/EOR processing validates live TX IDs, reports the required public completion, and retains TX state until local and remote release conditions are satisfied.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_proto.c"
+  },
+  {
+    "id": "libfabric-independent-review-72",
+    "claim": "Tagged RTM processing invokes matched protocol callbacks or saves the callback and queues unmatched tagged work for a future receive.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_pke_rtm.c"
+  },
+  {
+    "id": "libfabric-independent-review-73",
+    "claim": "Small and zero-length selection tests choose eager; simulated ordinary send completion changes one live TX operation to zero.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_proto.c"
+  },
+  {
+    "id": "libfabric-independent-review-74",
+    "claim": "Failed-post regression injects device post failure, asserts a nonzero send result, restores peer next_msg_id exactly once, and leaves zero live TX operations.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_proto.c"
+  },
+  {
+    "id": "libfabric-independent-review-75",
+    "claim": "Repeated RNR test preserves retransmit flags across repost, adds backoff on the second RNR, rejects repost with EAGAIN during backoff, and resets state on completion.",
+    "project": "libfabric",
+    "path": "prov/efa/test/efa_unit_test_rnr.c"
+  },
+  {
+    "id": "libfabric-independent-review-76",
+    "claim": "Forced longread CUDA functional test gates RDMA/HMEM/CUDA/inter-node support, controls protocol/runt settings, moves finalize traffic out of band, and checks read bytes and work-request counters.",
+    "project": "libfabric",
+    "path": "fabtests/pytest/efa/test_efa_protocol_selection.py"
+  },
+  {
+    "id": "libfabric-independent-review-77",
+    "claim": "Current EFA cache-entry registration asserts system memory and documents implicit registrations only; it must not be generalized to caching every public explicit/device MR.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_mr.c"
+  }
+]

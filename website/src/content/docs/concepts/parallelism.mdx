@@ -1,0 +1,47 @@
+---
+title: "Parallelism"
+description: "Choose what to partition: requests, tensor operations, model layers, context, or experts."
+kind: "concept"
+projects: ["vllm","deepep"]
+related: [{"title":"Choose a parallelism strategy","href":"/decisions/parallelism/"},{"title":"Trace an MoE layer","href":"/walkthroughs/moe/"}]
+---
+
+## A rank identifies a cooperating participant
+
+A **[rank](/glossary/#rank)** is a process's identity within a communication group. Group size and physical device placement are related but distinct: rank numbers alone do not reveal whether devices share a host or a fast interconnect. Parallelism describes how work or state is divided across those participants.
+
+| Strategy | What is divided | Communication or cost to watch |
+| --- | --- | --- |
+| Data parallelism | Requests across model replicas | Replica memory cost and routing balance |
+| Tensor parallelism | Tensor operations within model layers | Frequent exchange of partial results |
+| Pipeline parallelism | Layers across stages | Activation transfers and idle pipeline slots |
+| Context parallelism | Sequence/context computation or state | Attention-related exchanges and layout constraints |
+| Expert parallelism | MoE experts across participants | Token dispatch, imbalance, and result combination |
+
+These strategies can be composed, but supported combinations depend on the engine, model, and implementation. [vLLM parallel configuration](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/config/parallel.py) records separate controls and backend choices rather than one generic “number of GPUs” switch.
+
+## Start with the constraint
+
+If a model fits on one device but incoming requests exceed capacity, independent replicas may be useful. This spreads requests while duplicating model weights. If weights or execution state exceed a device's capacity, partitioning model computation can make the job feasible, at the cost of communication and coordination.
+
+Tensor parallelism may exchange partial results within many layers. The same group size can perform differently on devices linked by [NVLink](/glossary/#nvlink) versus a slower network path. Pipeline stages exchange activations at layer boundaries, but useful concurrency depends on having enough work to keep stages busy. Increasing stage count can introduce idle periods instead of delivering proportional speedup.
+
+## MoE introduces a different balance problem
+
+A **[mixture-of-experts](/glossary/#moe)** layer selects a subset of experts for each token. Expert parallelism distributes expert weights. Runtime routing then sends token activations to the selected expert owners and combines results afterward. Uneven choices can overload a participant even when the total token count looks reasonable.
+
+[DeepEP dispatch and combine](https://github.com/deepseek-ai/DeepEP/blob/f6aa38fe06cd4a0489e7730365d4e0114970a2f3/deep_ep/buffers/ep.py) expose the movement operation, routing metadata, and completion handling. They do not choose the model's learned expert assignments or perform expert matrix multiplications. The engine must connect those responsibilities.
+
+## Measure the composition
+
+For every proposed layout, write down group membership, which state is replicated, which state is sharded, and each operation's communication. A larger group can reduce per-device storage while increasing synchronization or movement. Hardware placement and kernel support constrain whether the trade is useful.
+
+**Check yourself:** Why does adding replicas fail to make an oversized model fit? Each replica still needs its own model placement. Partition the model or change its representation before using replica count to address request throughput.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [vLLM distributed execution](/architecture/vllm/distributed-execution/) | Rank groups and layer communication |
+| [DeepInfer groups](/architecture/deepinfer/parallel-groups/) | Attention, context, and expert group geometry |
+| [DeepEP token layouts](/architecture/deepep/token-layouts/) | Expert routing and valid received ranges |

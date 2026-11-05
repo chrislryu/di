@@ -1,0 +1,608 @@
+[
+  {
+    "id": "mooncake-internals-1",
+    "claim": "Simple Client::Get queries metadata before invoking descriptor-based Get; lookup failure returns before payload work.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-2",
+    "claim": "Client::Create connects to the master and resolves configured storage before rpc_only returns without initializing Transfer Engine.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-3",
+    "claim": "MountSegmentAndGetId validates overlap, registers memory, calls master mount, and only then records the local mounted segment UUID.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-4",
+    "claim": "UnmountSegmentImpl withdraws capacity through the master before unregistering memory and erasing local bookkeeping.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-5",
+    "claim": "TransferRequest source is the local buffer field for both READ and WRITE, whose direction is demonstrated by TCP write/read byte comparison.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/tests/tcp_transport_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-6",
+    "claim": "In the TENT-capable facade, MC_USE_TENT or MC_USE_TEV1 selects TENT; installTransport logs a compatibility no-op in that mode.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/transfer_engine.cpp"
+  },
+  {
+    "id": "mooncake-internals-7",
+    "claim": "Scatter waitFor timeout does not cancel transfer, buffers must remain alive, and destruction waits for physical completion.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/transfer_engine.h"
+  },
+  {
+    "id": "mooncake-internals-8",
+    "claim": "Topology entries distinguish preferred and available HCAs; exact getDeviceIndex does not apply fallback selection.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/topology.h"
+  },
+  {
+    "id": "mooncake-internals-9",
+    "claim": "Classic forced TCP requires compiled USE_TCP, while auto-discovery distinguishes EFA devices from ordinary RC RDMA.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/transfer_engine_impl.cpp"
+  },
+  {
+    "id": "mooncake-internals-10",
+    "claim": "Receiver locality tests use receiver-local NUMA/HCA relationships and do not compare NUMA IDs across hosts.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_integration_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-11",
+    "claim": "ReplicaStatus COMPLETE denotes available data; allocated replicas may begin directly in PROCESSING rather than visiting every enum state.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/placement/replica_allocator.cpp"
+  },
+  {
+    "id": "mooncake-internals-12",
+    "claim": "PutEnd verifies initiating client UUID and advances only eligible targeted replica types; completed-target retries are conditional no-ops.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-13",
+    "claim": "General allocator permits nonempty best-effort allocation results below requested count, while strict named allocation prohibits kind fallback.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/placement/replica_allocator.cpp"
+  },
+  {
+    "id": "mooncake-internals-14",
+    "claim": "FailedPreferencesFallBackBestEffort expects two replicas from a request of three and never calls the excluded allocator.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/replica_allocator_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-15",
+    "claim": "Immutable Client::Put returns success on OBJECT_ALREADY_EXISTS after the defined dangling-local-disk healing attempt.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-16",
+    "claim": "Flexible mode is exactly one memory and one NoF replica without DFS; finalization may End one type and revoke the other while succeeding.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/replica.h"
+  },
+  {
+    "id": "mooncake-internals-17",
+    "claim": "DetermineFinalizeDecision separates expected allocation, successful transfers by medium, type-scoped End, and revoke decisions.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-18",
+    "claim": "Query anchors client lease expiry to its steady-clock start before metadata RPC, plus returned TTL.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-19",
+    "claim": "Descriptor Get selects for destination, releases hot-cache reference after transfer, handles transfer errors before checksum, then checks lease expiry.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-20",
+    "claim": "Batch read tests assert copied bytes can still produce LEASE_EXPIRED and preserve TRANSFER_FAIL when both transfer and expiry fail.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_integration_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-21",
+    "claim": "Checksum test verifies 16 logical bytes in a 20-byte destination, ignores a trailing-byte mutation, and rejects a logical-byte mutation.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_integration_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-22",
+    "claim": "Client BufferHandle has allocator-owning and callback-backed view modes and is move-only.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_buffer.h"
+  },
+  {
+    "id": "mooncake-internals-23",
+    "claim": "PinnedBufferPool ordinary Acquire can fall back to pageable memory; AllocatePinned never does; cached buffer count is bounded.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/pinned_buffer_pool.h"
+  },
+  {
+    "id": "mooncake-internals-24",
+    "claim": "Client liveness separates ACTIVE serving from SUSPECTED resource retention and terminal OFFLINE rejection.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_liveness.h"
+  },
+  {
+    "id": "mooncake-internals-25",
+    "claim": "Liveness tests start the suspicion window at actual transition and verify failed wrapped operations do not refresh or recover.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_liveness_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-26",
+    "claim": "Reservation callback executes before OFFLINE publication, while retirement executes outside the transition mutex.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_liveness.h"
+  },
+  {
+    "id": "mooncake-internals-27",
+    "claim": "Grouped ObjectMetadata shares a Lease through the group index, so a member read can extend the shared eviction lease.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/metadata/group_index.h"
+  },
+  {
+    "id": "mooncake-internals-28",
+    "claim": "Evictor checks hard pinning and active lease before policy, and revalidates stale index candidates before reclaiming.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/eviction/evictor.cpp"
+  },
+  {
+    "id": "mooncake-internals-29",
+    "claim": "OffloadingReclaimer pins one queued memory source, records the task, and passes only other replica IDs to immediate inner release.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/eviction/offloading_reclaimer.cpp"
+  },
+  {
+    "id": "mooncake-internals-30",
+    "claim": "Offload tests distinguish rejected offload preservation from configured forced drops and count released bytes separately.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/evictor_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-31",
+    "claim": "Effective master operation logging requires enable_ha, enable_oplog, and backend support.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-32",
+    "claim": "Ordinary PutEnd publishes readable state and uses AppendOpLogVisibleBeforeDurable, logging queue failure rather than universally waiting for durability.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-33",
+    "claim": "OrderedOpLogWriter exposes admission reservations, indivisible grouped commits, and durability futures independent of callbacks.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/ha/oplog/ordered_oplog_writer.h"
+  },
+  {
+    "id": "mooncake-internals-34",
+    "claim": "Snapshot writer verifies artifact size and CRC or readback, then manifest and descriptor, and attempts candidate-prefix cleanup on failure.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/ha/snapshot/batch_oplog/writer.cpp"
+  },
+  {
+    "id": "mooncake-internals-35",
+    "claim": "Snapshot publication requires maintenance ownership and transactional backend support separately from artifact writing.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/ha/snapshot/batch_oplog/batch_oplog_snapshot_publisher.cpp"
+  },
+  {
+    "id": "mooncake-internals-36",
+    "claim": "Rebootstrap builds candidate metadata, replays durable suffix, rechecks compaction floor, and preserves installed state until safe replacement.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/hot_standby_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-37",
+    "claim": "Restore tests verify remount range identity, skip size-invalid object descriptors, and fail closed on ambiguous overlapping ranges.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/master_service_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-38",
+    "claim": "StandbyObjectMetadata deliberately omits read leases and runtime soft pins, while representing hard pin metadata separately.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/metadata_store.h"
+  },
+  {
+    "id": "mooncake-internals-39",
+    "claim": "Raw tensor binding reads device metadata through accelerator abstraction, validates size/overflow, and retains original addresses for staging/IPC.",
+    "project": "mooncake",
+    "path": "mooncake-integration/store/store_py.cpp"
+  },
+  {
+    "id": "mooncake-internals-40",
+    "claim": "Store-observed cache reuse metrics are explicitly distinguished from end-to-end request/token hit ratios.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_metric_manager.cpp"
+  },
+  {
+    "id": "mooncake-internals-41",
+    "claim": "Optional vLLM Store keys include model, rank/group namespaces and format/deployment prefixes before chunk hash.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/layout.py"
+  },
+  {
+    "id": "mooncake-internals-42",
+    "claim": "Optional vLLM sender synchronizes producer events before Store put, receiver maps per-key negative results to block errors, and registration changes require drained transfers.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/worker.py"
+  },
+  {
+    "id": "mooncake-internals-43",
+    "claim": "Rank-local padding test copies logical single-block lengths while a two-block contiguous span retains intervening page padding.",
+    "project": "vllm",
+    "path": "tests/v1/kv_connector/unit/test_mooncake_store_layout.py"
+  },
+  {
+    "id": "mooncake-internals-44",
+    "claim": "Sleep/wake registration tests preserve host registrations, renew device ranges idempotently, and retry unresolved failures.",
+    "project": "vllm",
+    "path": "tests/v1/kv_connector/unit/test_mooncake_store_worker.py"
+  },
+  {
+    "id": "mooncake-internals-45",
+    "claim": "Mooncake: Repository map: inspected Repository entrypoint.",
+    "project": "mooncake",
+    "path": "README.md"
+  },
+  {
+    "id": "mooncake-internals-46",
+    "claim": "Mooncake: Repository map: inspected Store client contract.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_service.h"
+  },
+  {
+    "id": "mooncake-internals-47",
+    "claim": "Mooncake: Repository map: inspected Master operations.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/master_service.h"
+  },
+  {
+    "id": "mooncake-internals-48",
+    "claim": "Mooncake: Repository map: inspected Client::Query and Client::Get.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-49",
+    "claim": "Mooncake: Repository map: inspected Classic/TENT facade selection.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/transfer_engine.cpp"
+  },
+  {
+    "id": "mooncake-internals-50",
+    "claim": "Mooncake: Repository map: inspected Public transfer API.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/transfer_engine.h"
+  },
+  {
+    "id": "mooncake-internals-51",
+    "claim": "Mooncake: Repository map: inspected Store integration assertions.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_integration_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-52",
+    "claim": "Mooncake: Repository map: inspected Transfer-only byte comparison.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/tests/tcp_transport_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-53",
+    "claim": "Mooncake: Store startup: inspected Master process configuration and service startup.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master.cpp"
+  },
+  {
+    "id": "mooncake-internals-54",
+    "claim": "Mooncake: Store startup: inspected Allocator-specific mount validation.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/master_service_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-55",
+    "claim": "Mooncake: Transfer Engine: inspected TransferRequest and completion states.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/transport/transport.h"
+  },
+  {
+    "id": "mooncake-internals-56",
+    "claim": "Mooncake: Transfer Engine: inspected Classic batch allocation, status, and release.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/multi_transport.cpp"
+  },
+  {
+    "id": "mooncake-internals-57",
+    "claim": "Mooncake: Transports and topology: inspected Topology entries and selection API.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/topology.h"
+  },
+  {
+    "id": "mooncake-internals-58",
+    "claim": "Mooncake: Transports and topology: inspected Topology parsing and device selection.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/topology.cpp"
+  },
+  {
+    "id": "mooncake-internals-59",
+    "claim": "Mooncake: Transports and topology: inspected Classic discovery and forced transport branches.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/transfer_engine_impl.cpp"
+  },
+  {
+    "id": "mooncake-internals-60",
+    "claim": "Mooncake: Transports and topology: inspected Receiver locality and allocation hints.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/replica.h"
+  },
+  {
+    "id": "mooncake-internals-61",
+    "claim": "Mooncake: Transports and topology: inspected NIC hint default and retry assertions.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/tests/rdma_transport_submit_task_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-62",
+    "claim": "Mooncake: Store metadata: inspected ObjectMetadata ownership and state.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/object_metadata.h"
+  },
+  {
+    "id": "mooncake-internals-63",
+    "claim": "Mooncake: Store metadata: inspected PutStart admission and PutEnd ownership.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-64",
+    "claim": "Mooncake: Store metadata: inspected Persistence payloads versus live metadata.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/metadata_store.h"
+  },
+  {
+    "id": "mooncake-internals-65",
+    "claim": "Mooncake: Placement and allocation: inspected Placement request and policy types.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/placement/replica_allocator.h"
+  },
+  {
+    "id": "mooncake-internals-66",
+    "claim": "Mooncake: Placement and allocation: inspected Preferred, ranked, local, and fallback allocation.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/placement/replica_allocator.cpp"
+  },
+  {
+    "id": "mooncake-internals-67",
+    "claim": "Mooncake: Placement and allocation: inspected Best-effort and membership reset tests.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/replica_allocator_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-68",
+    "claim": "Mooncake: Placement and allocation: inspected Candidate kinds and allocation interface.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/placement/candidate.h"
+  },
+  {
+    "id": "mooncake-internals-69",
+    "claim": "Mooncake: Placement and allocation: inspected Registration state and strategy assertions.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/allocation_strategy_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-70",
+    "claim": "Mooncake: Object read lifecycle: inspected Complete-copy selection and scoring tests.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/replica_selection_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-71",
+    "claim": "Mooncake: Buffer lifetime: inspected Slice and shared API types.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/types.h"
+  },
+  {
+    "id": "mooncake-internals-72",
+    "claim": "Mooncake: Buffer lifetime: inspected Client allocation and BufferHandle ownership.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_buffer.h"
+  },
+  {
+    "id": "mooncake-internals-73",
+    "claim": "Mooncake: Buffer lifetime: inspected Pinned/pageable fallback and bounded caching.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/pinned_buffer_pool.h"
+  },
+  {
+    "id": "mooncake-internals-74",
+    "claim": "Mooncake: Buffer lifetime: inspected Move ownership, slicing, and DMA allocator tests.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_buffer_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-75",
+    "claim": "Mooncake: Leases and liveness: inspected Lease deadline and monotonic extension.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/lease.h"
+  },
+  {
+    "id": "mooncake-internals-76",
+    "claim": "Mooncake: Leases and liveness: inspected Client liveness states and guards.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_liveness.h"
+  },
+  {
+    "id": "mooncake-internals-77",
+    "claim": "Mooncake: Leases and liveness: inspected Shared lease membership.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/metadata/group_index.h"
+  },
+  {
+    "id": "mooncake-internals-78",
+    "claim": "Mooncake: Leases and liveness: inspected Transition timing and recovery assertions.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_liveness_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-79",
+    "claim": "Mooncake: Leases and liveness: inspected Asynchronous cleanup and retry bookkeeping.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_offboarding.cpp"
+  },
+  {
+    "id": "mooncake-internals-80",
+    "claim": "Mooncake: Leases and liveness: inspected Shared group lease and index behavior.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/eviction_index_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-81",
+    "claim": "Mooncake: Eviction and tiering: inspected Eviction policy and non-overridable guards.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/eviction/policy.h"
+  },
+  {
+    "id": "mooncake-internals-82",
+    "claim": "Mooncake: Eviction and tiering: inspected Candidate walking, fallback, and lease checks.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/eviction/evictor.cpp"
+  },
+  {
+    "id": "mooncake-internals-83",
+    "claim": "Mooncake: Eviction and tiering: inspected Goals, fallback, groups, and incarnation tests.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/evictor_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-84",
+    "claim": "Mooncake: Eviction and tiering: inspected Offload preservation contract.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/eviction/offloading_reclaimer.h"
+  },
+  {
+    "id": "mooncake-internals-85",
+    "claim": "Mooncake: Eviction and tiering: inspected Source pin and reduced release plan.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/eviction/offloading_reclaimer.cpp"
+  },
+  {
+    "id": "mooncake-internals-86",
+    "claim": "Mooncake: Metadata recovery: inspected HA, operation-log, and snapshot configuration.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/master_config.h"
+  },
+  {
+    "id": "mooncake-internals-87",
+    "claim": "Mooncake: Metadata recovery: inspected Compiled backend availability checks.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/ha/kv/ha_kv_backend_factory.cpp"
+  },
+  {
+    "id": "mooncake-internals-88",
+    "claim": "Mooncake: Metadata recovery: inspected Leadership versus service readiness.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/ha/leadership/leader_coordinator.h"
+  },
+  {
+    "id": "mooncake-internals-89",
+    "claim": "Mooncake: Metadata recovery: inspected Reservations, grouped commits, and durability futures.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/ha/oplog/ordered_oplog_writer.h"
+  },
+  {
+    "id": "mooncake-internals-90",
+    "claim": "Mooncake: Metadata recovery: inspected Artifact verification and candidate cleanup.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/ha/snapshot/batch_oplog/writer.cpp"
+  },
+  {
+    "id": "mooncake-internals-91",
+    "claim": "Mooncake: Metadata recovery: inspected Maintenance ownership and pointer publication.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/ha/snapshot/batch_oplog/batch_oplog_snapshot_publisher.cpp"
+  },
+  {
+    "id": "mooncake-internals-92",
+    "claim": "Mooncake: Metadata recovery: inspected Candidate rebootstrap and swap checks.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/hot_standby_service.cpp"
+  },
+  {
+    "id": "mooncake-internals-93",
+    "claim": "Mooncake: Metadata recovery: inspected Durability wait assertions.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/ha/oplog/ordered_oplog_writer_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-94",
+    "claim": "Mooncake: Metadata recovery: inspected Fallback and old-state preservation.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/ha/snapshot/batch_oplog/rebootstrap_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-95",
+    "claim": "Mooncake: Metadata recovery: inspected Failed candidate cleanup.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/ha/snapshot/batch_oplog/writer_test.cpp"
+  },
+  {
+    "id": "mooncake-internals-96",
+    "claim": "Mooncake: Engine cache integration: inspected Optional vLLM Store worker.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/worker.py"
+  },
+  {
+    "id": "mooncake-internals-97",
+    "claim": "Mooncake: Engine cache integration: inspected Mooncake Python binding boundary.",
+    "project": "mooncake",
+    "path": "mooncake-integration/store/store_py.cpp"
+  },
+  {
+    "id": "mooncake-internals-98",
+    "claim": "Mooncake: Engine cache integration: inspected KeyMetadata, PoolKey, and layout-specific keys.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/layout.py"
+  },
+  {
+    "id": "mooncake-internals-99",
+    "claim": "Mooncake: Engine cache integration: inspected Payload geometry and padding assertions.",
+    "project": "vllm",
+    "path": "tests/v1/kv_connector/unit/test_mooncake_store_layout.py"
+  },
+  {
+    "id": "mooncake-internals-100",
+    "claim": "Mooncake: Engine cache integration: inspected Queueing, registration, and failure tests.",
+    "project": "vllm",
+    "path": "tests/v1/kv_connector/unit/test_mooncake_store_worker.py"
+  },
+  {
+    "id": "mooncake-internals-101",
+    "claim": "Mooncake: Diagnosis and source-reading labs: inspected Store-observed metric scope.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_metric_manager.cpp"
+  }
+]

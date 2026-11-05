@@ -1,0 +1,128 @@
+[
+  {
+    "id": "dynamo-vllm",
+    "claim": "Optional control integration: Dynamo’s backend constructs and drives a vLLM engine client. This establishes adapter intent, not compatibility of arbitrary engine revisions.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/main.py"
+  },
+  {
+    "id": "dynamo-vllm-1",
+    "claim": "Optional control integration: Dynamo’s backend constructs and drives a vLLM engine client. This establishes adapter intent, not compatibility of arbitrary engine revisions.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/handlers.py"
+  },
+  {
+    "id": "dynamo-vllm-2",
+    "claim": "Optional control integration: Dynamo’s backend constructs and drives a vLLM engine client. This establishes adapter intent, not compatibility of arbitrary engine revisions.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/async_llm.py"
+  },
+  {
+    "id": "vllm-nixl",
+    "claim": "Optional data integration: configuring the NIXL KV connector introduces scheduler/worker transfer hooks. The pull connector uses READ operations; NIXL exposes registered-memory transfer operations.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py"
+  },
+  {
+    "id": "vllm-nixl-1",
+    "claim": "Optional data integration: configuring the NIXL KV connector introduces scheduler/worker transfer hooks. The pull connector uses READ operations; NIXL exposes registered-memory transfer operations.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/pull_worker.py"
+  },
+  {
+    "id": "vllm-nixl-2",
+    "claim": "Optional data integration: configuring the NIXL KV connector introduces scheduler/worker transfer hooks. The pull connector uses READ operations; NIXL exposes registered-memory transfer operations.",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "vllm-mooncake",
+    "claim": "Optional data integration: the Mooncake Store connector connects engine cache handling to the distributed store. The storage coordinator and the byte transfer engine are distinct responsibilities.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/connector.py"
+  },
+  {
+    "id": "vllm-mooncake-1",
+    "claim": "Optional data integration: the Mooncake Store connector connects engine cache handling to the distributed store. The storage coordinator and the byte transfer engine are distinct responsibilities.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/worker.py"
+  },
+  {
+    "id": "vllm-mooncake-2",
+    "claim": "Optional data integration: the Mooncake Store connector connects engine cache handling to the distributed store. The storage coordinator and the byte transfer engine are distinct responsibilities.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/real_client.cpp"
+  },
+  {
+    "id": "deepep-nccl",
+    "claim": "Required backend dependency for the inspected DeepEP release: the README states its NCCL requirements and communicator handling obtains NCCL handles. The requirement applies to this release; older DeepEP designs used a different backend.",
+    "project": "deepep",
+    "path": "README.md"
+  },
+  {
+    "id": "deepep-nccl-1",
+    "claim": "Required backend dependency for the inspected DeepEP release: the README states its NCCL requirements and communicator handling obtains NCCL handles. The requirement applies to this release; older DeepEP designs used a different backend.",
+    "project": "deepep",
+    "path": "deep_ep/comm/handle.py"
+  },
+  {
+    "id": "deepep-nccl-2",
+    "claim": "Required backend dependency for the inspected DeepEP release: the README states its NCCL requirements and communicator handling obtains NCCL handles. The requirement applies to this release; older DeepEP designs used a different backend.",
+    "project": "nccl",
+    "path": "src/include/nccl_device/gin.h"
+  },
+  {
+    "id": "nccl-ofi",
+    "claim": "Optional network integration: NCCL loads a network plugin interface; AWS OFI NCCL implements the corresponding adapter. Intra-host communication and other network backends do not require this plugin.",
+    "project": "nccl",
+    "path": "src/plugin/net.cc"
+  },
+  {
+    "id": "nccl-ofi-1",
+    "claim": "Optional network integration: NCCL loads a network plugin interface; AWS OFI NCCL implements the corresponding adapter. Intra-host communication and other network backends do not require this plugin.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "nccl-ofi-2",
+    "claim": "Optional network integration: NCCL loads a network plugin interface; AWS OFI NCCL implements the corresponding adapter. Intra-host communication and other network backends do not require this plugin.",
+    "project": "aws-ofi-nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "ofi-fabric",
+    "claim": "Required dependency for this plugin: it creates fabric resources and submits operations through libfabric. The AWS walkthrough selects the efa provider and SENDRECV protocol; other provider/protocol combinations have different paths.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "ofi-fabric-1",
+    "claim": "Required dependency for this plugin: it creates fabric resources and submits operations through libfabric. The AWS walkthrough selects the efa provider and SENDRECV protocol; other provider/protocol combinations have different paths.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "ofi-fabric-2",
+    "claim": "Required dependency for this plugin: it creates fabric resources and submits operations through libfabric. The AWS walkthrough selects the efa provider and SENDRECV protocol; other provider/protocol combinations have different paths.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_msg.c"
+  },
+  {
+    "id": "vllm-nccl",
+    "claim": "Selected model-execution path: a vLLM parallel layer invokes a collective through its group/device communicator; the NCCL implementation calls ncclAllReduce on the execution stream.",
+    "project": "vllm",
+    "path": "vllm/model_executor/layers/linear.py"
+  },
+  {
+    "id": "vllm-nccl-1",
+    "claim": "Selected model-execution path: a vLLM parallel layer invokes a collective through its group/device communicator; the NCCL implementation calls ncclAllReduce on the execution stream.",
+    "project": "vllm",
+    "path": "vllm/distributed/communication_op.py"
+  },
+  {
+    "id": "vllm-nccl-2",
+    "claim": "Selected model-execution path: a vLLM parallel layer invokes a collective through its group/device communicator; the NCCL implementation calls ncclAllReduce on the execution stream.",
+    "project": "vllm",
+    "path": "vllm/distributed/device_communicators/pynccl.py"
+  }
+]

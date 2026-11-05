@@ -1,0 +1,86 @@
+[
+  {
+    "id": "review-vllm-step",
+    "claim": "EngineCore.step schedules work, waits for executor results, drains aborts, then updates scheduler output.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py"
+  },
+  {
+    "id": "review-vllm-generate",
+    "claim": "AsyncLLM.generate receives per-request output collector items and aborts on cancellation or generator exit.",
+    "project": "vllm",
+    "path": "vllm/v1/engine/async_llm.py"
+  },
+  {
+    "id": "review-vllm-http",
+    "claim": "The completion router delegates to the serving adapter and returns JSON or SSE according to the response.",
+    "project": "vllm",
+    "path": "vllm/entrypoints/openai/completion/api_router.py"
+  },
+  {
+    "id": "review-vllm-nixl-alias",
+    "claim": "NixlConnector aliases the pull/READ connector in the inspected revision.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py"
+  },
+  {
+    "id": "review-vllm-nixl-results",
+    "claim": "NIXL transfer results distinguish finished receives from failed receives and retain handles while release is unsafe.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/base_worker.py"
+  },
+  {
+    "id": "review-vllm-nixl-pull",
+    "claim": "The pull worker initiates nonblocking reads and tracks producer heartbeat/expiry state.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/pull_worker.py"
+  },
+  {
+    "id": "review-vllm-nixl-schedule",
+    "claim": "The scheduler handles remote-KV receive failure before publishing reusable cache blocks and leaving the blocked waiting state.",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/scheduler.py"
+  },
+  {
+    "id": "review-dynamo-deferred-abort",
+    "claim": "Dynamo defers early decode-side engine abort until the first generation output to avoid aborting during an in-flight NIXL transfer.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/handlers.py"
+  },
+  {
+    "id": "review-dynamo-disagg-example",
+    "claim": "Dynamo example launches Qwen3-0.6B on separate prefill/decode GPUs with NIXL roles and eager execution.",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/disagg.sh"
+  },
+  {
+    "id": "review-deepep-contract",
+    "claim": "Ordinary dispatch returns five items and combine three; deferred epilogues instead return event wrappers with data-producing wait hooks.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "review-deepep-events",
+    "claim": "EventOverlap.current_stream_wait establishes a current-CUDA-stream wait and runs a registered hook once.",
+    "project": "deepep",
+    "path": "deep_ep/utils/event.py"
+  },
+  {
+    "id": "review-deepep-synthetic",
+    "claim": "DeepEP correctness tests enumerate stream, alignment and precision variants, and use max(1, capacity minus rank) active tokens.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "review-deepep-expert-divisibility",
+    "claim": "EP workspace requires total expert count divisible by rank count.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/layout/ep/workspace.cuh"
+  },
+  {
+    "id": "review-deepep-reduction",
+    "claim": "Combine epilogue accumulates activation values and writes returned top-k weights separately.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine_reduce_epilogue.cuh"
+  }
+]

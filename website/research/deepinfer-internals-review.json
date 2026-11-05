@@ -1,0 +1,122 @@
+[
+  {
+    "id": "deepinfer-review-1",
+    "claim": "Offline wrapper clones each raw native output before advancing and flushes in-flight results after no schedulable sequences remain.",
+    "project": "deepinfer",
+    "path": "deepinfer/entrypoints/llm.py"
+  },
+  {
+    "id": "deepinfer-review-2",
+    "claim": "Owning clone is exported as RequestOutput.clone(uint64 pointer), returning unique_ptr; RequestOutputPool exports release rather than the generic pool.clone mentioned by a docstring.",
+    "project": "deepinfer",
+    "path": "csrc/engine/pybind_output.cpp"
+  },
+  {
+    "id": "deepinfer-review-3",
+    "claim": "Engine step consumes scheduler actions and uses deferred resource retirement; low-level outputs are pool-managed addresses.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/llm_engine.py"
+  },
+  {
+    "id": "deepinfer-review-4",
+    "claim": "Normal scheduling coordinates ALL/ANY prefill votes; ANY wins at coincident positive attempt points, while step zero suppresses ANY.",
+    "project": "deepinfer",
+    "path": "csrc/engine/scheduler.hpp"
+  },
+  {
+    "id": "deepinfer-review-5",
+    "claim": "Block zero is reserved; capacity status distinguishes NEVER, OK, and LATER, and reference ownership controls reuse.",
+    "project": "deepinfer",
+    "path": "csrc/engine/block_manager.hpp"
+  },
+  {
+    "id": "deepinfer-review-6",
+    "claim": "Unified execution orders current forward, prior post-processing, current sample, then immediate prompt/non-ZOS or deferred ZOS result handling.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/worker.py"
+  },
+  {
+    "id": "deepinfer-review-7",
+    "claim": "WorkerStepState retains metadata/events across steps; MetadataZOS remaps current rows to matching prior rows with -1 for fresh sequences.",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/zos_status.py"
+  },
+  {
+    "id": "deepinfer-review-8",
+    "claim": "DP/CP/EP groups use distinct rearrangements; the DP2 CP2 EP4 example has CP pairs01/23 and DP pairs02/13.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/parallel_utils/parallel_state.py"
+  },
+  {
+    "id": "deepinfer-review-9",
+    "claim": "Gather returns output only on destination and bypasses singleton groups; CP dict broadcast separates object metadata from tensor payload.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/parallel_utils/communication_op.py"
+  },
+  {
+    "id": "deepinfer-review-10",
+    "claim": "EPLB uses history-dependent greedy copy/placement policy with stable tie behavior; mapping structure is not a guarantee of global optimality.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/eplb/policy.py"
+  },
+  {
+    "id": "deepinfer-review-11",
+    "claim": "Expert shuffle plans local/remote movement and staging so final physical slots match the logical map.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/eplb/shuffle.py"
+  },
+  {
+    "id": "deepinfer-review-12",
+    "claim": "Compilation workers build matchers; pump attaches results and invokes engine admission callbacks, and replay restores mutable progress.",
+    "project": "deepinfer",
+    "path": "deepinfer/structure_output/so_matcher_builder.py"
+  },
+  {
+    "id": "deepinfer-review-13",
+    "claim": "Model loading resolves architecture/configuration and checks parameter coverage under a loading watchdog before returning eval/no-gradient model.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/model_loader.py"
+  },
+  {
+    "id": "deepinfer-review-14",
+    "claim": "Attention config gates sparse/sliding-window/packed-KV combinations and selected fusion paths.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/models/v4_modules/attn.py"
+  },
+  {
+    "id": "deepinfer-review-15",
+    "claim": "InputMetadata distinguishes original positions, CP mirror views, valid masks, and real request count; views can differ in shape/stride/coordinate meaning.",
+    "project": "deepinfer",
+    "path": "deepinfer/model_executor/input_metadata/input_metadata.py"
+  },
+  {
+    "id": "deepinfer-review-16",
+    "claim": "Optional profiler captures engine/driver process rather than every CP follower, and has bounded request/start/stop/export lifetime.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/profile_server.py"
+  },
+  {
+    "id": "deepinfer-review-17",
+    "claim": "total_tflops includes attention work and feeds MFU aggregation; it is an estimate rather than a timing event.",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/stats_logger.py"
+  },
+  {
+    "id": "deepinfer-review-18",
+    "claim": "Native sequence tests reject incompatible dtype/noncontiguous arrays and validate copied token data.",
+    "project": "deepinfer",
+    "path": "tests/engine/test_sequence.py"
+  },
+  {
+    "id": "deepinfer-review-19",
+    "claim": "Policy tests check forward/reverse mapping/count structure, deterministic results and input preservation.",
+    "project": "deepinfer",
+    "path": "tests/models/test_eplb_policy.py"
+  },
+  {
+    "id": "deepinfer-review-20",
+    "claim": "Synthetic expert-encoded weights verify movement identity independently from full model math.",
+    "project": "deepinfer",
+    "path": "tests/distributed/test_expert_shuffle.py"
+  }
+]

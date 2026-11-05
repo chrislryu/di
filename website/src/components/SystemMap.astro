@@ -1,0 +1,50 @@
+---
+import sources from '../data/sources.json';
+import { relationships } from '../data/relationships';
+interface Props { current?: keyof typeof sources; }
+const {current} = Astro.props;
+const groups = [
+  {label:'Serving orchestration', color:'orchestration', ids:['dynamo']},
+  {label:'Inference engines · alternatives', color:'engine', ids:['vllm','sglang','deepinfer']},
+  {label:'GPU communication', color:'gpu', ids:['nccl','deepep']},
+  {label:'Data movement and shared state', color:'state', ids:['nixl','mooncake']},
+  {label:'Network integration', color:'network', ids:['aws-ofi-nccl','libfabric']},
+];
+const positions = Object.fromEntries(groups.flatMap((g,row)=>g.ids.map((id,col)=>[id,{x:25+col*245,y:55+row*125}])));
+// Only selected arrows are drawn. The complete textual relation list follows.
+const arrows = [
+  {path:'M 135 107 L 10 107 L 10 206 L 25 206',label:'control · optional',x:150,y:138,dashed:true},
+  {path:'M 135 232 L 135 305',label:'model-layer tensors',x:150,y:263,dashed:false},
+  {path:'M 135 232 L 8 232 L 8 456 L 25 456',label:'KV data · optional',x:150,y:398,dashed:true},
+  {path:'M 380 357 L 380 380 L 135 380 L 135 357',label:'requires NCCL Gin',x:180,y:375,dashed:false},
+  {path:'M 135 357 L 17 357 L 17 581 L 25 581',label:'network · optional',x:150,y:523,dashed:true},
+  {path:'M 135 607 L 135 635 L 380 635 L 380 607',label:'requires libfabric',x:180,y:630,dashed:false},
+];
+---
+<figure class="system-map not-content">
+  <div class="map-scroll" tabindex="0" role="region" aria-label="System map; scroll horizontally on small screens">
+    <svg viewBox="0 0 760 650" width="760" height="650" aria-label="Inference engines and GPU communication share the model execution area. Engines invoke communication during distributed model steps. KV-state movement is a separate optional path. Linked projects and selected relationships are described below.">
+      <defs><marker id={`arrow-${current ?? 'overview'}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" /></marker></defs>
+      <rect x="20" y="140" width="724" height="245" rx="10" class="execution-zone" />
+      <text x="530" y="161" class="execution-label">Model execution</text>
+      {groups.map((group,row)=><g style={`--layer:var(--layer-${group.color})`}><text x={group.color === 'gpu' ? 175 : 25} y={35+row*125} class="layer-label">{group.label}</text>{group.ids.map(id=>{const pos=positions[id];const project=sources[id as keyof typeof sources];return <a href={`/architecture/${id}/`} aria-label={`${project.name} architecture guide${id === current ? ', current project' : ''}`}><rect x={pos.x} y={pos.y} width="220" height="52" rx="6" class:list={['node',{selected:id===current}]} /><text x={pos.x+15} y={pos.y+32} class="node-label">{project.name}{id===current?' • current':''}</text></a>;})}</g>)}
+      {arrows.map(a=><g aria-hidden="true"><path d={a.path} stroke="currentColor" stroke-width="1.5" stroke-dasharray={a.dashed?'5 4':undefined} fill="none" marker-end={`url(#arrow-${current ?? 'overview'})`} /><text x={a.x} y={a.y} class="edge-label">{a.label}</text></g>)}
+    </svg>
+  </div>
+  <figcaption>Shaded area: engines use GPU communication within model execution. Solid arrows show selected calls or required dependencies; dashed arrows show optional integrations, including KV-state movement.</figcaption>
+  <details><summary>Read the map as text and inspect the evidence</summary><ul>{relationships.map(r=><li><a href={`/architecture/${r.from}/`}>{sources[r.from].name}</a> → <a href={`/architecture/${r.to}/`}>{sources[r.to].name}</a>. <strong>{r.kind}.</strong> {r.text} <a href={`/start/evidence/#${r.evidence}`}>Source evidence</a>.</li>)}</ul><p>Single-GPU serving can start with one engine. NIXL and Mooncake offer overlapping data-movement capabilities; Mooncake also provides a store. NCCL collectives and DeepEP expert routing solve different communication operations.</p></details>
+</figure>
+<style>
+.system-map { margin:1.5rem 0; border:1px solid var(--sl-color-hairline-light); border-radius:.5rem; padding:1rem; }
+.map-scroll { overflow-x:auto; }
+svg { display:block; width:100%; min-width:600px; height:auto; color:var(--sl-color-gray-2); }
+.node { fill:var(--sl-color-bg); stroke:var(--layer); stroke-width:1.5; }
+.execution-zone { fill:var(--sl-color-gray-6); stroke:var(--sl-color-hairline-light); stroke-width:1; }
+.execution-label { fill:var(--sl-color-gray-2); font-size:13px; font-weight:600; }
+a:hover .node, a:focus .node, .selected { fill:var(--sl-color-accent-low); stroke-width:3; }
+.node-label { fill:var(--sl-color-white); font-size:17px; font-weight:600; }
+.layer-label { fill:var(--layer); font-size:13px; font-weight:600; }
+.edge-label { fill:var(--sl-color-gray-2); font-size:11px; }
+figcaption { font-size:.83rem; color:var(--sl-color-gray-2); margin-top:.7rem; line-height:1.6; }
+details { margin-top:1rem; font-size:.9rem; } li { margin:.8rem 0; }
+</style>

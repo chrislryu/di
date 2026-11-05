@@ -1,0 +1,182 @@
+[
+  {
+    "id": "deepep-review-1",
+    "claim": "Handle retains routing tensor by reference and version-checks ordinary in-place mutation; inference-mode/raw-pointer writes are not fully detectable.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-review-2",
+    "claim": "Expanded cumulative ends include aligned prior starts plus actual current count; actual range starts require aligning the previous end.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-review-3",
+    "claim": "No-CPU-sync allocation reserves capacity rows; meaningful non-expanded total remains in per-scaleup-rank prefix metadata.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-review-4",
+    "claim": "Upstream test trims capacity-sized values and source metadata before asserting exact receive row counts.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-review-5",
+    "claim": "Direct dispatch deduplicates token delivery by destination rank while preserving per-expert contributions.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/dispatch.cuh"
+  },
+  {
+    "id": "deepep-review-6",
+    "claim": "Packed TokenLayout aligns values/scales/metadata and always uses internal 32-bit expert metadata independent of public index width.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/layout/ep/token.cuh"
+  },
+  {
+    "id": "deepep-review-7",
+    "claim": "Cached dispatch reuses destination slots and forbids CPU count synchronization; cached handles must match routing and launch geometry.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-review-8",
+    "claim": "Direct logical scaleup may span physical RDMA peers when hybrid is disabled; physical and logical domains remain distinct.",
+    "project": "deepep",
+    "path": "csrc/kernels/comm/context.cpp"
+  },
+  {
+    "id": "deepep-review-9",
+    "claim": "Host communicator acquisition distinguishes cached borrowed PyTorch pointers from managed fresh NCCL communicators.",
+    "project": "deepep",
+    "path": "deep_ep/comm/handle.py"
+  },
+  {
+    "id": "deepep-review-10",
+    "claim": "NCCL Gin context requests GDAKI capability and selected full/rail/custom-stride arrangements under the runtime configuration.",
+    "project": "deepep",
+    "path": "csrc/kernels/comm/context.cpp"
+  },
+  {
+    "id": "deepep-review-11",
+    "claim": "Buffer sizing uses maximum of dispatch and BF16 combine requirements with allocation alignment and separate workspace.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-review-12",
+    "claim": "BufferAllocator plans meta tensors at aligned offsets and materializes one exact byte storage once.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/allocator.py"
+  },
+  {
+    "id": "deepep-review-13",
+    "claim": "Native EP destruction coordinates GPU barrier, pinned host workspace release, context finalization, and LB view reset.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-review-14",
+    "claim": "Dispatch launcher selects direct/hybrid specializations and derives notify/dispatch/forward warp roles from configuration.",
+    "project": "deepep",
+    "path": "csrc/kernels/ep/dispatch.hpp"
+  },
+  {
+    "id": "deepep-review-15",
+    "claim": "Hybrid forwarding waits for acquire-published tails or finish flags and retains channel route metadata for reverse traversal.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/hybrid_dispatch.cuh"
+  },
+  {
+    "id": "deepep-review-16",
+    "claim": "Hybrid combine replays forwarding route and issues rail return puts after local staging stores complete.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/hybrid_combine.cuh"
+  },
+  {
+    "id": "deepep-review-17",
+    "claim": "Combine activation reduction is separate from returned top-k weight values; no general activation gate multiply is performed.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine_reduce_epilogue.cuh"
+  },
+  {
+    "id": "deepep-review-18",
+    "claim": "Combine helper has limited no-bias BF16-add bypass and float intermediate accumulation for other paths.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine_utils.cuh"
+  },
+  {
+    "id": "deepep-review-19",
+    "claim": "Reference combine models local and scaleup grouping separately, including bias-sensitive numerical ordering.",
+    "project": "deepep",
+    "path": "deep_ep/utils/refs.py"
+  },
+  {
+    "id": "deepep-review-20",
+    "claim": "Previous-event producer waits require comm-stream allocation, while asynchronous epilogue records storage on streams or retains tensors in event.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-review-21",
+    "claim": "EventOverlap waits on current stream, runs deferred hook once, and context manager waits on exit rather than entry.",
+    "project": "deepep",
+    "path": "deep_ep/utils/event.py"
+  },
+  {
+    "id": "deepep-review-22",
+    "claim": "Deferred dispatch and combine return EventOverlap directly, whose first wait produces four or two outputs respectively.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-review-23",
+    "claim": "DeepJIT configuration tracks DeepEP headers and includes NCCL include path/index/Gin defines in compiler options.",
+    "project": "deepep",
+    "path": "csrc/runtime/jit.hpp"
+  },
+  {
+    "id": "deepep-review-24",
+    "claim": "Installation builds host bindings/context/driver sources rather than all GPU specializations.",
+    "project": "deepep",
+    "path": "setup.py"
+  },
+  {
+    "id": "deepep-review-25",
+    "claim": "Weight prefetch mapping is identical within LSA domain, domain-local expert numbering, with redundant destinations in LB storage.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-review-26",
+    "claim": "Gradient exchange adds redundant FP32 gradients into seeded destinations and exactness tests intentionally use small integer patterns.",
+    "project": "deepep",
+    "path": "tests/ep/test_reduce_grads.py"
+  },
+  {
+    "id": "deepep-review-27",
+    "claim": "Prefetch tests verify distinct expert/payload patterns and unchanged sentinel bytes for unused redundant slots.",
+    "project": "deepep",
+    "path": "tests/ep/test_prefetch_weights.py"
+  },
+  {
+    "id": "deepep-review-28",
+    "claim": "Bucket sessions reject nesting, enforce one context, and stage bounded storage while caller owns prior-use completion.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/bucket.py"
+  },
+  {
+    "id": "deepep-review-29",
+    "claim": "PP ring adjacency and Engram indexed fetch are separate experimental operation families from EP handles.",
+    "project": "deepep",
+    "path": "README.md"
+  },
+  {
+    "id": "deepep-review-30",
+    "claim": "Correctness tests compare routing reference identity, valid expanded slots, padding, count metadata, and final activation/weight results.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  }
+]

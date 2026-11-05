@@ -1,0 +1,40 @@
+{
+  "name": "distributed-ai-guide",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "check": "astro check",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check:content": "node scripts/check-content.mjs",
+    "check:sources": "node scripts/check-content.mjs --require-sources",
+    "check:external": "node scripts/check-external.mjs",
+    "check:browser": "node scripts/check-browser.mjs",
+    "check:deployment": "node scripts/check-deployment.mjs",
+    "test": "node --test scripts/check-content.test.mjs scripts/check-guides.test.mjs scripts/site-paths.test.mjs",
+    "validate": "npm run check && npm test && npm run build && npm run check:content && npm run check:guides",
+    "check:guides": "node scripts/check-guides.mjs"
+  },
+  "engines": {
+    "node": ">=22.23.4",
+    "npm": ">=9.6.5"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.8",
+    "astro": "^7.2.10",
+    "astro-mermaid": "^2.2.0",
+    "mermaid": "^12.3.0",
+    "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "parse5": "^8.1.0",
+    "playwright": "^1.64.1",
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.1"
+  }
+}

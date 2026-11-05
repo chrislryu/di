@@ -1,0 +1,158 @@
+[
+  {
+    "id": "concept-vllm-1",
+    "claim": "AsyncLLM.generate()",
+    "project": "vllm",
+    "path": "vllm/v1/engine/async_llm.py"
+  },
+  {
+    "id": "concept-vllm-2",
+    "claim": "EngineCore.step()",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py"
+  },
+  {
+    "id": "concept-vllm-3",
+    "claim": "output collector",
+    "project": "vllm",
+    "path": "vllm/v1/engine/output_processor.py"
+  },
+  {
+    "id": "concept-vllm-4",
+    "claim": "vLLM scheduler",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/scheduler.py"
+  },
+  {
+    "id": "concept-sglang-5",
+    "claim": "normal and overlap event loops",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "concept-sglang-6",
+    "claim": "SGLang prefix matching",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/radix_cache.py"
+  },
+  {
+    "id": "concept-vllm-7",
+    "claim": "vLLM computed-block lookup",
+    "project": "vllm",
+    "path": "vllm/v1/core/kv_cache_manager.py"
+  },
+  {
+    "id": "concept-nixl-8",
+    "claim": "NIXL’s transfer agent",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "concept-vllm-9",
+    "claim": "vLLM parallel configuration",
+    "project": "vllm",
+    "path": "vllm/config/parallel.py"
+  },
+  {
+    "id": "concept-deepep-10",
+    "claim": "DeepEP dispatch and combine",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "concept-dynamo-11",
+    "claim": "two-GPU disaggregated example",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/disagg.sh"
+  },
+  {
+    "id": "concept-vllm-12",
+    "claim": "vLLM connector facade",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py"
+  },
+  {
+    "id": "concept-nccl-13",
+    "claim": "topology structures",
+    "project": "nccl",
+    "path": "src/graph/topo.h"
+  },
+  {
+    "id": "concept-nccl-14",
+    "claim": "path computation",
+    "project": "nccl",
+    "path": "src/graph/paths.cc"
+  },
+  {
+    "id": "concept-deepep-15",
+    "claim": "inspected DeepEP requirements",
+    "project": "deepep",
+    "path": "README.md"
+  },
+  {
+    "id": "concept-nccl-16",
+    "claim": "NCCL API implementation",
+    "project": "nccl",
+    "path": "src/collectives.cc"
+  },
+  {
+    "id": "concept-deepep-17",
+    "claim": "DeepEP EPBuffer",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "concept-nixl-18",
+    "claim": "NIXL request creation, posting, and status",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "concept-libfabric-19",
+    "claim": "libfabric memory-region API",
+    "project": "libfabric",
+    "path": "man/fi_mr.3.md"
+  },
+  {
+    "id": "concept-libfabric-20",
+    "claim": "libfabric completion queues",
+    "project": "libfabric",
+    "path": "man/fi_cq.3.md"
+  },
+  {
+    "id": "concept-libfabric-21",
+    "claim": "provider architecture",
+    "project": "libfabric",
+    "path": "man/fi_provider.7.md"
+  },
+  {
+    "id": "concept-libfabric-22",
+    "claim": "fi_getinfo()",
+    "project": "libfabric",
+    "path": "man/fi_getinfo.3.md"
+  },
+  {
+    "id": "concept-libfabric-23",
+    "claim": "EFA provider",
+    "project": "libfabric",
+    "path": "man/fi_efa.7.md"
+  },
+  {
+    "id": "concept-aws-ofi-nccl-24",
+    "claim": "AWS OFI NCCL",
+    "project": "aws-ofi-nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "concept-vllm-25",
+    "claim": "vLLM statistics implementation",
+    "project": "vllm",
+    "path": "vllm/v1/metrics/stats.py"
+  },
+  {
+    "id": "concept-dynamo-26",
+    "claim": "example worker lifecycle",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/disagg.sh"
+  }
+]

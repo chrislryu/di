@@ -1,0 +1,18 @@
+export const learningPath = [
+  ['start', 'Customer problem and system map'],
+  ['walkthroughs/one-request', 'Follow your first request'],
+  ['architecture/vllm', 'Inside vLLM'],
+  ['architecture/dynamo', 'Serving with Dynamo'],
+  ['walkthroughs/prefill-decode', 'Separate prefill and decode'],
+  ['architecture/nixl', 'Move state with NIXL'],
+  ['architecture/mooncake', 'Share state with Mooncake'],
+  ['architecture/nccl', 'GPU communication with NCCL'],
+  ['architecture/deepep', 'Expert parallelism with DeepEP'],
+  ['walkthroughs/moe', 'Trace an MoE layer'],
+  ['architecture/aws-ofi-nccl', 'The AWS network plugin'],
+  ['architecture/libfabric', 'Fabric services with libfabric'],
+  ['walkthroughs/aws-network', 'Trace the AWS network path'],
+  ['architecture/sglang', 'Compare SGLang'],
+  ['architecture/deepinfer', 'Understand DeepInfer’s boundary'],
+  ['decisions', 'Apply the architecture'],
+] as const;

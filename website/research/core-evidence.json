@@ -1,0 +1,116 @@
+[
+  {
+    "id": "vllm-0",
+    "project": "vllm",
+    "path": "vllm/entrypoints/openai/completion/api_router.py",
+    "claim": "completion router"
+  },
+  {
+    "id": "vllm-1",
+    "project": "vllm",
+    "path": "vllm/entrypoints/openai/completion/serving.py",
+    "claim": "OpenAIServingCompletion"
+  },
+  {
+    "id": "vllm-2",
+    "project": "vllm",
+    "path": "vllm/v1/engine/async_llm.py",
+    "claim": "AsyncLLM"
+  },
+  {
+    "id": "vllm-3",
+    "project": "vllm",
+    "path": "vllm/v1/engine/core.py",
+    "claim": "EngineCore"
+  },
+  {
+    "id": "vllm-4",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/scheduler.py",
+    "claim": "scheduler"
+  },
+  {
+    "id": "vllm-5",
+    "project": "vllm",
+    "path": "vllm/v1/core/kv_cache_manager.py",
+    "claim": "KVCacheManager"
+  },
+  {
+    "id": "vllm-6",
+    "project": "vllm",
+    "path": "vllm/v1/worker/gpu_model_runner.py",
+    "claim": "GPU model runner"
+  },
+  {
+    "id": "vllm-7",
+    "project": "vllm",
+    "path": "vllm/v1/engine/output_processor.py",
+    "claim": "output processor"
+  },
+  {
+    "id": "vllm-8",
+    "project": "vllm",
+    "path": "tests/v1/core/test_scheduler.py",
+    "claim": "scheduler tests"
+  },
+  {
+    "id": "dynamo-9",
+    "project": "dynamo",
+    "path": "README.md",
+    "claim": "project overview"
+  },
+  {
+    "id": "dynamo-10",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/lib.rs",
+    "claim": "KV-router crate"
+  },
+  {
+    "id": "dynamo-11",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/main.py",
+    "claim": "vLLM worker startup"
+  },
+  {
+    "id": "dynamo-12",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/handlers.py",
+    "claim": "vLLM handlers"
+  },
+  {
+    "id": "dynamo-13",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/disagg.sh",
+    "claim": "two-GPU vLLM launch example"
+  },
+  {
+    "id": "deepep-14",
+    "project": "deepep",
+    "path": "README.md",
+    "claim": "release README"
+  },
+  {
+    "id": "deepep-15",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py",
+    "claim": "EPBuffer and EPHandle"
+  },
+  {
+    "id": "deepep-16",
+    "project": "deepep",
+    "path": "deep_ep/buffers/base.py",
+    "claim": "BufferBase"
+  },
+  {
+    "id": "deepep-17",
+    "project": "deepep",
+    "path": "deep_ep/comm/handle.py",
+    "claim": "communicator handling"
+  },
+  {
+    "id": "deepep-18",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py",
+    "claim": "dispatch/combine correctness test"
+  }
+]

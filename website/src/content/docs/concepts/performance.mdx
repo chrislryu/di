@@ -1,0 +1,47 @@
+---
+title: "Performance and reliability"
+description: "Turn customer latency and throughput goals into measurements of queues, compute, state movement, and failures."
+kind: "concept"
+projects: ["vllm","dynamo"]
+related: [{"title":"Apply the decision guides","href":"/decisions/"},{"title":"Dynamo architecture","href":"/architecture/dynamo/"}]
+---
+
+## Define useful output first
+
+A customer wants an answer soon enough to be useful, smooth output while reading, and predictable behavior when the system is busy. A **[service-level objective](/glossary/#slo)** turns that need into a measurable target. State both the metric and the population, such as a latency percentile for requests within a defined input/output length range.
+
+**Time to first token** measures delay until initial output from a stated observation point. **Inter-token latency** measures spacing between subsequent outputs. End-to-end latency covers completion of the whole response. **Throughput** measures completed work per time, such as requests or tokens per second. Always state whether tokens are input, output, cached, or actually computed.
+
+The [vLLM statistics implementation](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/v1/metrics/stats.py) tracks first-token latency, inter-token intervals, queue time, prefill time, and decode time. Read how timestamps and intervals are computed before comparing them with client-side measurements. Some intervals include preemption; network and rendering delays can appear only at the client.
+
+## Follow a bottleneck with evidence
+
+Suppose throughput rises after increasing concurrency but first-token latency degrades. More work may be waiting in a queue, or larger batches may delay individual progress. High utilization alone cannot distinguish productive compute from time spent moving state or waiting on synchronization.
+
+| Observation | Evidence to collect | Candidate constraint |
+| --- | --- | --- |
+| Requests wait before starting | Waiting/running counts, arrival rate, admission limits | Capacity or policy |
+| Long prompts delay output | Prompt lengths, prefill duration, cache hit source | Compute and prefix reuse |
+| Decode becomes irregular | Iteration times, communication waits, batch membership | Scheduling or synchronization |
+| Cache transfers stall progress | Bytes, setup time, completion latency, contention | State movement |
+| One parallel participant lags | Per-rank work and progress | Imbalance or failing path |
+
+A rough transfer estimate is setup cost plus bytes divided by effective bandwidth. It helps frame a hypothesis, but does not capture every overlap, queue, protocol, or topology effect. Measure under the target workload.
+
+## Reliability crosses the same boundaries
+
+A request can fail validation, lose its client, encounter a worker failure, or wait on a transfer whose peer stopped progressing. These events have different owners and cleanup requirements. Retries can duplicate expensive work and increase load while capacity is impaired.
+
+Dynamo's [example worker lifecycle](https://github.com/ai-dynamo/dynamo/blob/73014901d4e7610358fcf28535418ba9c5f50812/examples/backends/vllm/launch/disagg.sh) tears down its local launch group after a worker exits. That illustrates the example's failure boundary; it does not establish a cluster-wide retry or high-availability policy. Production recovery behavior needs separate evidence for the selected deployment.
+
+Benchmark comparisons must hold model, precision, hardware placement, workload lengths, concurrency/arrival process, cache conditions, and measurement window explicit. Include errors and rejected requests; a system that drops work can appear deceptively fast.
+
+**Check yourself:** Is a higher tokens-per-second result sufficient to pick a deployment? Only after checking which tokens were counted, whether latency targets were met, whether requests failed, and what infrastructure cost produced the result.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [vLLM diagnosis](/architecture/vllm/diagnosis-and-tests/) | Map observations to scheduler and execution state |
+| [Dynamo observability](/architecture/dynamo/observability/) | Separate routing, queues, workers, and transfers |
+| [NCCL diagnosis](/architecture/nccl/lifecycle-and-diagnosis/) | Communication lifetime and failure evidence |

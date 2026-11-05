@@ -1,0 +1,58 @@
+---
+title: Project name
+description: The customer problem and architectural role of this project.
+kind: architecture
+projects: [vllm]
+draft: true
+pagefind: false
+sidebar:
+  hidden: true
+prerequisites:
+  - {title: Request lifecycle, href: /concepts/request-lifecycle/}
+related:
+  - {title: Project index, href: /architecture/}
+---
+
+import SystemMap from '../../../components/SystemMap.astro';
+import Source from '../../../components/Source.astro';
+
+## Why it exists
+
+Explain the customer need, a concrete example, and when this project is useful.
+Define unfamiliar terms at first use and link the canonical concept or glossary.
+
+## Where it fits
+
+<SystemMap current="vllm" />
+
+Replace the project ID in frontmatter and the map. Explain inputs, outputs,
+adjacent systems, optional integrations, and alternatives.
+
+## Architecture overview
+
+Explain major components, interfaces, ownership, and process/device/network
+boundaries. Add a diagram with an accompanying prose explanation.
+Give Mermaid diagrams accTitle and accDescr. Label optional alternatives and
+explain what each arrow means; cite the pinned implementation behind the map.
+
+## Follow an operation
+
+Choose a supported configuration. Trace initialization, entrypoint, scheduling,
+data movement, completion, failure, and cleanup into implementation. Use a compact
+sequence or state diagram when the interaction or ownership transition carries
+the lesson. Distinguish submission from its completion. Cite source:
+
+<Source project="vllm" path="vllm/v1/engine/core.py" label="EngineCore" />
+
+## Decision gates
+
+| Choice | Owner | Effect on the path |
+| --- | --- | --- |
+| Consequential architectural choice | Developer, operator, or runtime | What changes and why |
+
+## Explore the code
+
+Give a short ordered route into the main implementation. Include an example or
+test only when it teaches the architecture. Leave specialist options in source.
+Remove draft metadata only after evidence, terminology, links, and diagrams pass
+review. Add each inspected source claim to the appropriate research ledger.

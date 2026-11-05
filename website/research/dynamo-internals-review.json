@@ -1,0 +1,224 @@
+[
+  {
+    "id": "dynamo-review-1",
+    "claim": "Endpoint registrations reject conflicting live specs, share identical users through leases, distinguish owned/adopted entries, and asynchronously release cancelled acquisitions.",
+    "project": "dynamo",
+    "path": "lib/runtime/src/discovery/registration.rs"
+  },
+  {
+    "id": "dynamo-review-2",
+    "claim": "Discovery identity and event-plane transport are explicit types; event transport choice does not identify every request or discovery path.",
+    "project": "dynamo",
+    "path": "lib/runtime/src/discovery/mod.rs"
+  },
+  {
+    "id": "dynamo-review-3",
+    "claim": "LocalEndpointRegistry resolves local engine objects separately from remote discovery and serialization.",
+    "project": "dynamo",
+    "path": "lib/runtime/src/local_endpoint_registry.rs"
+  },
+  {
+    "id": "dynamo-review-4",
+    "claim": "HTTP input construction distinguishes dynamic model watching from directly registered in-process engines.",
+    "project": "dynamo",
+    "path": "lib/llm/src/entrypoint/input/http.rs"
+  },
+  {
+    "id": "dynamo-review-5",
+    "claim": "The frontend links preprocessor, migration, token backend, encoder and prefill forward edges, then corresponding backward edges in reverse order.",
+    "project": "dynamo",
+    "path": "lib/llm/src/entrypoint/input/common.rs"
+  },
+  {
+    "id": "dynamo-review-6",
+    "claim": "Completion handling resolves canonical model identity, creates request context/guards, obtains an engine stream, and preflights its first item before protocol commitment.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/openai.rs"
+  },
+  {
+    "id": "dynamo-review-7",
+    "claim": "Connection handles send configured on-drop signals while armed/disarmed ownership follows handler and response-stream lifetimes.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/disconnect.rs"
+  },
+  {
+    "id": "dynamo-review-8",
+    "claim": "Prompt tokens are Arc-backed with serialization helpers; migration_state and staged_kv_cleanup remain frontend-local serde-skipped bookkeeping.",
+    "project": "dynamo",
+    "path": "lib/llm/src/protocols/common/preprocessor.rs"
+  },
+  {
+    "id": "dynamo-review-9",
+    "claim": "Engine-owned disaggregated_params and framework-owned worker_trace_link are separate wire fields with distinct owners.",
+    "project": "dynamo",
+    "path": "lib/llm/src/protocols/common/llm_backend.rs"
+  },
+  {
+    "id": "dynamo-review-10",
+    "claim": "Query performs queue admission without booking, Book installs a reservation, Lease returns caller-owned armed booking, and Advisory skips admission.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/operation.rs"
+  },
+  {
+    "id": "dynamo-review-11",
+    "claim": "ReservationClaim installs committed booking and affinity lease atomically relative to its claim and drops uncommitted claims on error/cancellation.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/reservations.rs"
+  },
+  {
+    "id": "dynamo-review-12",
+    "claim": "Worker membership/deletion interacts with partitions and live booking cleanup rather than treating a reused worker ID as uninterrupted ownership.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/workers.rs"
+  },
+  {
+    "id": "dynamo-review-13",
+    "claim": "Selection tests cover worker deletion cleanup, same-ID return, indexer/affinity errors and reachability-dependent cache transfer hints.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/selection/core/tests.rs"
+  },
+  {
+    "id": "dynamo-review-14",
+    "claim": "Cache events are normalized before application and gap handling has its own cursor/replay lifecycle.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/indexer/listener.rs"
+  },
+  {
+    "id": "dynamo-review-15",
+    "claim": "Tiered lookup tests prohibit side-only predictions from becoming confirmed lower-tier anchors and avoid double-counting device/lower-tier overlap.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/services/indexer/lookup.rs"
+  },
+  {
+    "id": "dynamo-review-16",
+    "claim": "RequestBlockChain is not Clone; tracker ownership survives compressed-tree splits and dropping one owner preserves surviving handles.",
+    "project": "dynamo",
+    "path": "lib/kv-router/src/sequences/block_tracker.rs"
+  },
+  {
+    "id": "dynamo-review-17",
+    "claim": "Worker startup derives/publishes effective engine cache/scheduling limits; optional KVBM consolidator setup depends on selected connector.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/main.py"
+  },
+  {
+    "id": "dynamo-review-18",
+    "claim": "KVBM detection recognizes DynamoConnector directly or nested in PdConnector; legacy connector configuration is translated separately.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/args.py"
+  },
+  {
+    "id": "dynamo-review-19",
+    "claim": "build_sampling_params applies selected model defaults/request precedence; _DeferredAbort retains/shields real abort and separately cancels parked pre-first-output waiters.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/handlers.py"
+  },
+  {
+    "id": "dynamo-review-20",
+    "claim": "NIXL pull, Mooncake push, and cache-mediated connector strategies produce different stage-continuation contracts.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/kv_connector_protocols.py"
+  },
+  {
+    "id": "dynamo-review-21",
+    "claim": "Deferred-abort tests distinguish pre-first-output intent, later actual abort, and safe waiter close when output never arrives.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/tests/test_vllm_worker_handler.py"
+  },
+  {
+    "id": "dynamo-review-22",
+    "claim": "PrefillRouter tests preserve staged-KV cleanup obligations and independent prefill context across client cancellation.",
+    "project": "dynamo",
+    "path": "lib/llm/src/kv_router/prefill_router/mod.rs"
+  },
+  {
+    "id": "dynamo-review-23",
+    "claim": "Handoff composition separates required prefill metadata from generated tokens and observes stage failures during decode/cleanup.",
+    "project": "dynamo",
+    "path": "lib/llm/src/kv_router/prefill_router/handoff.rs"
+  },
+  {
+    "id": "dynamo-review-24",
+    "claim": "DynamoConnector splits leader/worker hooks and binds generic connector metadata so layer callbacks can execute.",
+    "project": "dynamo",
+    "path": "lib/bindings/kvbm/python/kvbm/vllm_integration/connector/dynamo_connector.py"
+  },
+  {
+    "id": "dynamo-review-25",
+    "claim": "Leader metadata construction and request-finished retention form a separate contract from engine block deallocation.",
+    "project": "dynamo",
+    "path": "lib/bindings/kvbm/python/kvbm/vllm_integration/connector_leader.py"
+  },
+  {
+    "id": "dynamo-review-26",
+    "claim": "KVBM worker registers tensor/event layouts, records current-stream events before save, and reports completion before retained blocks can retire.",
+    "project": "dynamo",
+    "path": "lib/bindings/kvbm/python/kvbm/vllm_integration/connector_worker.py"
+  },
+  {
+    "id": "dynamo-review-27",
+    "claim": "KVBM guard types encode Reset/Staged/Registered transitions and return originating blocks in transition errors.",
+    "project": "dynamo",
+    "path": "lib/kvbm-logical/src/blocks/mod.rs"
+  },
+  {
+    "id": "dynamo-review-28",
+    "claim": "Planner decision uses config lock/generation, admission rechecks generation, one unacknowledged submission is shielded, and unknown outcomes hold later automatic effects.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/core/base.py"
+  },
+  {
+    "id": "dynamo-review-29",
+    "claim": "Runtime patches validate instance/revision/idempotent intent, prepare predictor changes before activation, and recheck under admission/config locks.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/reconfiguration.py"
+  },
+  {
+    "id": "dynamo-review-30",
+    "claim": "Reactive load scaling uses explicit missing-data, capacity-mismatch, scaling-in-progress and budget/floor guards.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/core/load_scaling.py"
+  },
+  {
+    "id": "dynamo-review-31",
+    "claim": "Predictive throughput scaling uses traffic/performance estimates with bounded capacity changes rather than a universal queue threshold.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/core/throughput_scaling.py"
+  },
+  {
+    "id": "dynamo-review-32",
+    "claim": "Runtime reconfiguration tests assert conditional/idempotent scalar updates preserve live state and distinguish preparation failure from activation.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/planner/tests/unit/test_reconfiguration.py"
+  },
+  {
+    "id": "dynamo-review-33",
+    "claim": "HTTP queue includes prefill before first generation; input add versus observe uses different semantics, and first positive token output changes request accounting phase.",
+    "project": "dynamo",
+    "path": "lib/llm/src/http/service/metrics.rs"
+  },
+  {
+    "id": "dynamo-review-34",
+    "claim": "Frontend load frames replace prior snapshots within an incarnation and distinguish gauges from cumulative counters.",
+    "project": "dynamo",
+    "path": "lib/llm/src/frontend_load.rs"
+  },
+  {
+    "id": "dynamo-review-35",
+    "claim": "Forward-pass wall_time approximates execution through scheduler/update boundaries, with special first-idle behavior and zero-valued heartbeat duration.",
+    "project": "dynamo",
+    "path": "components/src/dynamo/vllm/instrumented_scheduler.py"
+  },
+  {
+    "id": "dynamo-review-36",
+    "claim": "Strict tool-schema and unsupported grammar/choice request cases are rejected before backend dispatch in the HTTP test harness.",
+    "project": "dynamo",
+    "path": "lib/llm/tests/frontend_protocol_validation_http.rs"
+  },
+  {
+    "id": "dynamo-review-37",
+    "claim": "HTTP metrics tests cover rejected/failed paths and bounded unknown-model labeling, not only successful token streams.",
+    "project": "dynamo",
+    "path": "lib/llm/tests/http_metrics.rs"
+  }
+]

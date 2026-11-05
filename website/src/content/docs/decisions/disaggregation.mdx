@@ -1,0 +1,34 @@
+---
+title: "When to separate prefill and decode"
+description: "Use measurements of interference and state-transfer cost to decide whether separate worker pools help."
+kind: decision
+projects: ["dynamo","vllm","nixl"]
+related: [{"title":"KV placement","href":"/decisions/kv-cache/"},{"title":"Dynamo architecture","href":"/architecture/dynamo/"}]
+---
+
+## Identify the interference
+
+**Prefill** processes input tokens and creates attention state. **Decode** repeatedly generates subsequent tokens using that state. Separating these stages lets operators scale their workers independently, but requires routing and transferring the **KV cache** between them. A split is useful only when its complete request path meets the customer’s latency and cost objectives.
+
+| Situation | Evidence to collect | Options | Tradeoffs | Prerequisites | Deeper explanation |
+| --- | --- | --- | --- | --- | --- |
+| Long prompts disrupt ongoing generation | Queue delay, first-token time, gaps between output tokens | Tune chunked prefill or evaluate separate pools | Splitting adds handoff and transfer latency | Per-stage timing | [Scheduling](/concepts/scheduling/) |
+| Prompt and output demand scale differently | Stage utilization across realistic traffic | Scale aggregated replicas or separate prefill/decode counts | Independent sizing adds routing and capacity coordination | Stable workload distribution | [Disaggregation](/concepts/disaggregation/) |
+| Large state dominates the handoff | Bytes transferred, effective bandwidth, completion time | Keep stages together, improve locality, or change transfer path | Faster GPUs do not remove state-movement cost | Compatible cache layout and connector | [NIXL](/architecture/nixl/) |
+| Split path shows failures or long tails | Transfer errors, peer lifetime, cancellation traces | Repair lifecycle handling before expanding | In-flight buffers may delay resource reclamation | Observable handoff state | [Walkthrough](/walkthroughs/prefill-decode/) |
+
+## Test the complete request
+
+Suppose a workload mixes large document prompts with short follow-up answers. First measure whether prompt admission actually harms decode latency. Compare an aggregated baseline with a split deployment at equivalent offered load and resource budget. Count the routing, queueing, cache transfer, and decode warm-up in first-token latency. A reduction in prefill compute time alone does not settle the decision.
+
+Dynamo’s [two-GPU example](https://github.com/ai-dynamo/dynamo/blob/73014901d4e7610358fcf28535418ba9c5f50812/examples/backends/vllm/launch/disagg.sh) pins a concrete learning configuration: Qwen3-0.6B, separate workers, and explicit NIXL roles. The [connector facade](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py) distinguishes pull and push implementations. These sources establish the intended handoff, not measured compatibility of every independently pinned package.
+
+The operator chooses the split and pool sizes; the developer verifies cache semantics and cancellation; runtime components select workers and advance transfers. Retain the aggregated baseline so each change can be evaluated against the same customer objective.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [Dynamo handoff](/architecture/dynamo/prefill-decode/) | Placement, control messages, and transfer boundaries |
+| [vLLM connectors](/architecture/vllm/kv-connectors/) | Readiness, failed receives, and reclamation |
+| [NIXL transfers](/architecture/nixl/transfer-lifecycle/) | Posting, progress, and completion |

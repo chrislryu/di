@@ -1,0 +1,308 @@
+[
+  {
+    "id": "mooncake-review-01",
+    "claim": "Reviewed classic/TENT facade selection: MC_USE_TENT or MC_USE_TEV1 selects the TENT-capable branch; TENT installTransport is a compatibility no-op.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/transfer_engine.cpp"
+  },
+  {
+    "id": "mooncake-review-02",
+    "claim": "Reviewed pointer-backed classic BatchID allocation and deferred cleanup ownership; freeBatchID transfers busy batches to the cleanup worker and invalidates the public ID.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/multi_transport.cpp"
+  },
+  {
+    "id": "mooncake-review-03",
+    "claim": "Corrected guide coverage: both OK and BatchCleanupDeferred invalidate the batch handle while deferred cleanup may still have transport-owned buffers.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/transfer_engine.h"
+  },
+  {
+    "id": "mooncake-review-04",
+    "claim": "Reviewed tryFreeBatchID: terminal task status is insufficient for deletion until active completion callbacks are quiescent.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/multi_transport.cpp"
+  },
+  {
+    "id": "mooncake-review-05",
+    "claim": "RealSliceTimeoutDefersBatchCleanup asserts TIMEOUT then deferred cleanup, invalidated ID wording, and eventual internal release after the slice fails.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/tests/transport_uint_test.cpp"
+  },
+  {
+    "id": "mooncake-review-06",
+    "claim": "FinishedBatchWaitsForCompletionCallbackQuiescence asserts a terminal batch is retained while its completion callback remains active.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/tests/transport_uint_test.cpp"
+  },
+  {
+    "id": "mooncake-review-07",
+    "claim": "Reviewed scatter operation move-only ownership, physical-completion destructor, single-consumer waits, and timeout that does not cancel work.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/transfer_engine.h"
+  },
+  {
+    "id": "mooncake-review-08",
+    "claim": "Reviewed classic forced TCP compile guard, SHM single/multi-protocol distinction, and EFA versus RC RDMA discovery branch.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/src/transfer_engine_impl.cpp"
+  },
+  {
+    "id": "mooncake-review-09",
+    "claim": "Reviewed preferred versus available HCA lists and the distinction between exact device lookup and fallback selection.",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/topology.h"
+  },
+  {
+    "id": "mooncake-review-10",
+    "claim": "Reviewed Create order: master connection and storage preparation precede rpc_only early return, and normal clients initialize/reuse Transfer Engine afterward.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-review-11",
+    "claim": "Reviewed mount order: validation and overlap checks precede registration, then master mount, then local UUID bookkeeping; the shown mount-RPC failure does not undo registration.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-review-12",
+    "claim": "Reviewed unmount order: withdraw capacity through master before unregistering local memory and erasing the mounted entry.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-review-13",
+    "claim": "Reviewed general best-effort placement: preferred/excluded entries are deduplicated, candidate allocation can fail, and a nonempty short result can be returned.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/placement/replica_allocator.cpp"
+  },
+  {
+    "id": "mooncake-review-14",
+    "claim": "FailedPreferencesFallBackBestEffort requests three and returns two, with zero allocation calls to the excluded candidate.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/replica_allocator_test.cpp"
+  },
+  {
+    "id": "mooncake-review-15",
+    "claim": "Reviewed preferred-only named/kind allocation as a separate contract that does not silently use a different candidate kind.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/placement/replica_allocator.cpp"
+  },
+  {
+    "id": "mooncake-review-16",
+    "claim": "Reviewed immutable Put: OBJECT_ALREADY_EXISTS becomes success after the defined dangling local-disk healing retry; this is not overwrite success.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-review-17",
+    "claim": "Reviewed flexible write-mode gate: exactly one memory and one NoF replica with no DFS selects FLEXIBLE_DUAL_REPLICA.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/replica.h"
+  },
+  {
+    "id": "mooncake-review-18",
+    "claim": "Reviewed HasExpectedReplicaAllocation: ordinary memory-only writes accept a nonempty allocation, while other reliable media configurations use exact counts.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-review-19",
+    "claim": "Reviewed finalization summary: successful memory with failed NoF can End MEMORY and revoke NOF_SSD while reporting overall success, subject to metadata RPC outcomes.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-review-20",
+    "claim": "Reviewed PutEnd and PutRevoke authority: both compare calling UUID with the initiating metadata client UUID.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-review-21",
+    "claim": "Reviewed PutEnd idempotence: no-primary-write retries succeed only when targeted replicas exist and are already complete; eligible targeted PROCESSING replicas advance.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-review-22",
+    "claim": "PutEndMemoryDoesNotCompleteNoFReplica asserts one complete readable memory copy and preservation after type-specific NoF revoke; ALL case checks both media.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/master_service_test.cpp"
+  },
+  {
+    "id": "mooncake-review-23",
+    "claim": "Reviewed read lookup: absent/all-removed state differs from replicas-not-ready; normal lookup grants a lease and defers follow-up work until its read accessor is released.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-review-24",
+    "claim": "Reviewed Query deadline: steady-clock time is captured before metadata RPC and returned TTL is added to that start.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-review-25",
+    "claim": "Reviewed descriptor Get ordering: select for destination, transfer, release used hot-cache reference, handle transfer error, verify logical checksum, then reject expiry.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-review-26",
+    "claim": "ClientVerifiesOnlyLogicalObjectBytes checks a 16-byte object in 20-byte capacity: trailing-byte mutation passes and logical-byte mutation fails checksum.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_integration_test.cpp"
+  },
+  {
+    "id": "mooncake-review-27",
+    "claim": "BatchGetChecksLeasesWithPreferredNode proves expired results can contain correctly copied bytes; BatchGetPreservesTransferErrorWithExpiredLease preserves transfer-error precedence.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_integration_test.cpp"
+  },
+  {
+    "id": "mooncake-review-28",
+    "claim": "Reviewed move-only BufferHandle allocator-owned mode and callback-backed view mode; slices do not themselves own the referenced allocation.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_buffer.h"
+  },
+  {
+    "id": "mooncake-review-29",
+    "claim": "Reviewed Acquire pageable fallback versus AllocatePinned no-fallback behavior and bounded cached buffer count.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/pinned_buffer_pool.h"
+  },
+  {
+    "id": "mooncake-review-30",
+    "claim": "Reviewed CAS monotonic maximum lease grants and explicit exact SetDeadline test operation; client and server clocks are not interchangeable absolute timestamps.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/lease.h"
+  },
+  {
+    "id": "mooncake-review-31",
+    "claim": "Reviewed grouped objects sharing one Lease pointer, so one member read can extend group protection without changing lookup identity.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/metadata/group_index.h"
+  },
+  {
+    "id": "mooncake-review-32",
+    "claim": "Reviewed ACTIVE serving, SUSPECTED retaining, OFFLINE terminal state, and transition-mutex-backed serving/retaining guards.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_liveness.h"
+  },
+  {
+    "id": "mooncake-review-33",
+    "claim": "Reviewed actual-transition suspicion start and ObserveAndRun committing observation only when wrapped operation succeeds.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_liveness.h"
+  },
+  {
+    "id": "mooncake-review-34",
+    "claim": "Reviewed reservation-before-OFFLINE and retirement-outside-transition-lock assertions, including a concurrent guard probe.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_liveness_test.cpp"
+  },
+  {
+    "id": "mooncake-review-35",
+    "claim": "Reviewed authoritative hard-pin/active-lease checks before policy and stale candidate revalidation before reclaim.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/eviction/evictor.cpp"
+  },
+  {
+    "id": "mooncake-review-36",
+    "claim": "Reviewed offload source pinning, task ownership, reduced immediate-release plan, completed disk preservation, and forced-drop alternatives.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/eviction/offloading_reclaimer.cpp"
+  },
+  {
+    "id": "mooncake-review-37",
+    "claim": "PinsOneReplicaAndReleasesTheRest asserts queued bytes and actual released bytes separately; rejected-offload tests distinguish preservation from forced eviction.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/evictor_test.cpp"
+  },
+  {
+    "id": "mooncake-review-38",
+    "claim": "Reviewed effective operation logging gate requiring enable_ha, enable_oplog, and backend support.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-review-39",
+    "claim": "Reviewed ordinary PutEnd: readability/accounting publication precedes AppendOpLogVisibleBeforeDurable and queue failure is logged rather than universally returned as failed durable commit.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-review-40",
+    "claim": "Reviewed indivisible grouped commits, admission reservations, and AwaitDurable futures independent of callback completion and fulfilled outside writer mutex.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/ha/oplog/ordered_oplog_writer.h"
+  },
+  {
+    "id": "mooncake-review-41",
+    "claim": "Reviewed object size/CRC or readback verification, manifest/descriptor upload, and candidate-prefix cleanup on failure.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/ha/snapshot/batch_oplog/writer.cpp"
+  },
+  {
+    "id": "mooncake-review-42",
+    "claim": "Reviewed publication requiring maintenance ownership token, held lease, transaction support, and cluster identity separately from artifact writing.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/ha/snapshot/batch_oplog/batch_oplog_snapshot_publisher.cpp"
+  },
+  {
+    "id": "mooncake-review-43",
+    "claim": "Reviewed isolated rebootstrap candidate, replay to durable prefix, compaction-floor recheck, stop-aware lock acquisition, and old-state-preserving swap.",
+    "project": "mooncake",
+    "path": "mooncake-store/src/hot_standby_service.cpp"
+  },
+  {
+    "id": "mooncake-review-44",
+    "claim": "Reviewed restore assertions for same-endpoint address identity, skipping size-invalid objects, and failing closed on ambiguous overlapping restored ranges.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/master_service_test.cpp"
+  },
+  {
+    "id": "mooncake-review-45",
+    "claim": "Reviewed corrupt-latest fallback/suffix replay and corrupt-candidate old-state preservation until repaired.",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/ha/snapshot/batch_oplog/rebootstrap_test.cpp"
+  },
+  {
+    "id": "mooncake-review-46",
+    "claim": "Reviewed omission of read leases and runtime soft pins from standby object metadata while hard-pin state is serialized separately.",
+    "project": "mooncake",
+    "path": "mooncake-store/include/metadata_store.h"
+  },
+  {
+    "id": "mooncake-review-47",
+    "claim": "Reviewed model/rank/group/optional format/deployment prefixes before chunk hash and layout-specific physical shard mapping.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/layout.py"
+  },
+  {
+    "id": "mooncake-review-48",
+    "claim": "Reviewed padding assertion: one logical block copies 40 bytes while a two-page contiguous span copies 64+40 bytes.",
+    "project": "vllm",
+    "path": "tests/v1/kv_connector/unit/test_mooncake_store_layout.py"
+  },
+  {
+    "id": "mooncake-review-49",
+    "claim": "Reviewed producer-event synchronization before Store puts, strict result/key/block pairing on reads, failed block reporting, and drained-transfer registration renewal.",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/worker.py"
+  },
+  {
+    "id": "mooncake-review-50",
+    "claim": "Reviewed device unregister/restore idempotence, preserved host registrations, and failed-region retry convergence assertions.",
+    "project": "vllm",
+    "path": "tests/v1/kv_connector/unit/test_mooncake_store_worker.py"
+  },
+  {
+    "id": "mooncake-review-51",
+    "claim": "Reviewed raw tensor metadata copied through accelerator abstraction, bounds/overflow validation, and preservation of original caller addresses for staging/IPC.",
+    "project": "mooncake",
+    "path": "mooncake-integration/store/store_py.cpp"
+  }
+]

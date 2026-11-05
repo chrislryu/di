@@ -1,0 +1,9 @@
+---
+import sources from '../data/sources.json';
+interface Props { project: keyof typeof sources; path: string; lines?: string; label?: string; }
+const {project, path, lines, label} = Astro.props;
+const source = sources[project];
+if (!path || path.startsWith('/') || path.split('/').includes('..')) throw new Error('Source path must be repository-relative');
+const href = `${source.origin}/blob/${source.commit}/${path}${lines ? '#L' + lines.replace('-', '-L') : ''}`;
+---
+<a href={href}><slot>{label ?? `${source.name}: ${path}`}</slot></a>

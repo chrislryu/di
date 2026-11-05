@@ -1,0 +1,742 @@
+{
+  "vllm": {
+    "chapters": [
+      {
+        "slug": "repository-map",
+        "title": "vLLM: Repository map and implementation contracts",
+        "summary": "Locate public entrypoints and the main engine boundaries."
+      },
+      {
+        "slug": "startup",
+        "title": "vLLM: From configuration to a running engine",
+        "summary": "Follow configuration into processes, executors, and initialized workers."
+      },
+      {
+        "slug": "model-loading",
+        "title": "vLLM: Model construction and checkpoint loading",
+        "summary": "Trace model selection, checkpoint loading, and weight ownership."
+      },
+      {
+        "slug": "request-lifecycle",
+        "title": "vLLM: Request admission, streaming, and cancellation",
+        "summary": "Follow rendering, admission, output collection, streaming, and cancellation."
+      },
+      {
+        "slug": "scheduling",
+        "title": "vLLM: Token budgets and scheduling iterations",
+        "summary": "Work through token budgets, preemption, and unified token progress."
+      },
+      {
+        "slug": "kv-memory",
+        "title": "vLLM: KV blocks, prefix reuse, and reclamation",
+        "summary": "Track block identity, allocation, reference counts, and reclamation."
+      },
+      {
+        "slug": "gpu-execution",
+        "title": "vLLM: From an iteration plan to GPU execution",
+        "summary": "Turn an iteration plan into batches, tensors, and model work."
+      },
+      {
+        "slug": "attention-backends",
+        "title": "vLLM: Attention interfaces, metadata, and KV layout",
+        "summary": "Inspect attention interfaces, KV layouts, and a selected implementation."
+      },
+      {
+        "slug": "sampling-and-output",
+        "title": "vLLM: Sampling, stopping, and output assembly",
+        "summary": "Trace logits through sampling, stopping, detokenization, and streaming."
+      },
+      {
+        "slug": "async-and-speculative",
+        "title": "vLLM: Asynchronous scheduling and speculative progress",
+        "summary": "Understand overlap, draft verification, and ordering constraints."
+      },
+      {
+        "slug": "distributed-execution",
+        "title": "vLLM: Executors, rank groups, and communication boundaries",
+        "summary": "Follow ranks, executors, and model communication boundaries."
+      },
+      {
+        "slug": "kv-connectors",
+        "title": "vLLM: External KV state and connector lifetimes",
+        "summary": "Separate connector scheduling, transfer, completion, and failure."
+      },
+      {
+        "slug": "structured-generation",
+        "title": "vLLM: Structured generation and grammar-state coordination",
+        "summary": "Follow grammar compilation, matcher state, and sampling constraints."
+      },
+      {
+        "slug": "diagnosis-and-tests",
+        "title": "vLLM: Diagnosis and source tracing",
+        "summary": "Connect symptoms to request state, memory ownership and source."
+      }
+    ]
+  },
+  "sglang": {
+    "chapters": [
+      {
+        "slug": "repository-map",
+        "title": "SGLang: Repository map",
+        "summary": "Locate SRT packages, messages, and execution boundaries."
+      },
+      {
+        "slug": "startup",
+        "title": "SGLang: Runtime startup",
+        "summary": "Construct HTTP, tokenizer, scheduler, detokenizer, and worker processes."
+      },
+      {
+        "slug": "model-loading",
+        "title": "SGLang: Model loading",
+        "summary": "Follow configuration into model construction and loaded weights."
+      },
+      {
+        "slug": "request-lifecycle",
+        "title": "SGLang: Request lifecycle",
+        "summary": "Trace request normalization, tokenization, messages, and cancellation."
+      },
+      {
+        "slug": "scheduling",
+        "title": "SGLang: Batch scheduling",
+        "summary": "Follow policy, batch selection, progress, and request retirement."
+      },
+      {
+        "slug": "prefix-cache",
+        "title": "SGLang: Radix prefix cache",
+        "summary": "Work through tree matches, splits, locks, reuse, and eviction."
+      },
+      {
+        "slug": "memory-pools",
+        "title": "SGLang: Memory pools",
+        "summary": "Track request slots, token-to-KV mappings, and allocator lifetime."
+      },
+      {
+        "slug": "overlap",
+        "title": "SGLang: Overlapped execution",
+        "summary": "Compare normal and overlapping loops across two iterations."
+      },
+      {
+        "slug": "model-execution",
+        "title": "SGLang: Model execution",
+        "summary": "Trace schedule batches into workers, attention metadata, and model execution."
+      },
+      {
+        "slug": "sampling-and-output",
+        "title": "SGLang: Sampling and output",
+        "summary": "Follow sampling, result processing, and incremental detokenization."
+      },
+      {
+        "slug": "parallel-workers",
+        "title": "SGLang: Parallel workers",
+        "summary": "Separate tensor, data, pipeline, and expert communication roles."
+      },
+      {
+        "slug": "hierarchical-cache",
+        "title": "SGLang: Hierarchical cache",
+        "summary": "Trace state loading and eviction through host and storage tiers."
+      },
+      {
+        "slug": "stage-disaggregation",
+        "title": "SGLang: Stage disaggregation",
+        "summary": "Follow prefill/decode handoff and transfer buffer lifetime."
+      },
+      {
+        "slug": "diagnosis-and-tests",
+        "title": "SGLang: Diagnosis and source tracing",
+        "summary": "Trace a symptom through scheduling, cache ownership and execution."
+      }
+    ]
+  },
+  "deepinfer": {
+    "chapters": [
+      {
+        "slug": "repository-map",
+        "title": "DeepInfer: Public runtime and repository map",
+        "summary": "Locate offline APIs, native boundaries, and external service responsibilities."
+      },
+      {
+        "slug": "startup",
+        "title": "DeepInfer: Engine startup",
+        "summary": "Follow engine arguments into ranks, groups, and workers."
+      },
+      {
+        "slug": "model-loading",
+        "title": "DeepInfer: Model loading",
+        "summary": "Inspect configuration, tokenizer, checkpoint, and model construction."
+      },
+      {
+        "slug": "offline-request-lifecycle",
+        "title": "DeepInfer: Offline request lifecycle",
+        "summary": "Follow generate calls into sequence admission and collected outputs."
+      },
+      {
+        "slug": "native-scheduler",
+        "title": "DeepInfer: Native scheduler",
+        "summary": "Inspect sequence states, budgets, preemption, and scheduling metadata."
+      },
+      {
+        "slug": "state-memory",
+        "title": "DeepInfer: State memory",
+        "summary": "Track blocks, cloning, pinning, and deferred reclamation."
+      },
+      {
+        "slug": "input-metadata",
+        "title": "DeepInfer: Execution input metadata",
+        "summary": "Transform sequence metadata into tensor inputs and load plans."
+      },
+      {
+        "slug": "overlapped-execution",
+        "title": "DeepInfer: Overlapped execution",
+        "summary": "Work through current forward and previous-result processing."
+      },
+      {
+        "slug": "attention-and-model",
+        "title": "DeepInfer: Attention and model execution",
+        "summary": "Trace a selected decoder and attention path consuming cached state."
+      },
+      {
+        "slug": "parallel-groups",
+        "title": "DeepInfer: Parallel groups",
+        "summary": "Inspect attention, context, and expert group boundaries."
+      },
+      {
+        "slug": "experts-and-balancing",
+        "title": "DeepInfer: Experts and balancing",
+        "summary": "Follow expert placement, routing boundaries, and load-balancing changes."
+      },
+      {
+        "slug": "sampling-and-verification",
+        "title": "DeepInfer: Sampling and verification",
+        "summary": "Trace sampling inputs, drafts, verification, and pooled outputs."
+      },
+      {
+        "slug": "structured-output",
+        "title": "DeepInfer: Structured output",
+        "summary": "Follow schema compilation, matcher state, and generation constraints."
+      },
+      {
+        "slug": "diagnosis-and-tests",
+        "title": "DeepInfer: Diagnosis and source tracing",
+        "summary": "Connect profiling, request progress and output lifetime to source."
+      }
+    ]
+  },
+  "dynamo": {
+    "chapters": [
+      {
+        "slug": "repository-map",
+        "title": "Dynamo: Repository map and architectural boundaries",
+        "summary": "Locate Rust libraries, Python adapters, and deployment components."
+      },
+      {
+        "slug": "startup",
+        "title": "Dynamo: Serving startup from launch intent to ready workers",
+        "summary": "Follow a launch configuration into frontend and worker lifecycles."
+      },
+      {
+        "slug": "runtime-discovery",
+        "title": "Dynamo: Runtime, endpoint discovery, and registration ownership",
+        "summary": "Inspect endpoints, registration, discovery, and peer lifecycle."
+      },
+      {
+        "slug": "request-protocols",
+        "title": "Dynamo: Request protocols and streaming contracts",
+        "summary": "Follow request representations and streamed response contracts."
+      },
+      {
+        "slug": "frontend-path",
+        "title": "Dynamo: Frontend request and response pipeline",
+        "summary": "Trace HTTP input through preprocessing and returned output."
+      },
+      {
+        "slug": "routing-selection",
+        "title": "Dynamo: Worker selection, admission, and reservations",
+        "summary": "Work through eligibility, load, pending work, and reservations."
+      },
+      {
+        "slug": "cache-aware-routing",
+        "title": "Dynamo: Cache-aware routing, prefix indexes, and active blocks",
+        "summary": "Connect prefix indexes and block events to worker selection."
+      },
+      {
+        "slug": "backend-adapters",
+        "title": "Dynamo: Engine backend adapters and semantic translation",
+        "summary": "Translate serving requests into engine operations and outputs."
+      },
+      {
+        "slug": "prefill-decode",
+        "title": "Dynamo: Prefill/decode coordination and KV handoff",
+        "summary": "Separate role selection, continuation metadata, and KV movement."
+      },
+      {
+        "slug": "cache-management",
+        "title": "Dynamo: Optional KV block management and engine ownership",
+        "summary": "Distinguish managed cache blocks from routing indexes."
+      },
+      {
+        "slug": "planning-and-reconfiguration",
+        "title": "Dynamo: Capacity planning and reconfiguration",
+        "summary": "Follow capacity metrics, policy decisions, and worker changes."
+      },
+      {
+        "slug": "cancellation-failure",
+        "title": "Dynamo: Cancellation, engine failure, and safe cleanup",
+        "summary": "Trace abort propagation and safe resource release."
+      },
+      {
+        "slug": "observability",
+        "title": "Dynamo: Observability across frontend, router, engine, and transfer",
+        "summary": "Map metrics and traces onto queues, routing, engines, and transfers."
+      },
+      {
+        "slug": "code-labs",
+        "title": "Dynamo: Trace the serving paths",
+        "summary": "Trace aggregated serving, routed work, and a disaggregated handoff."
+      }
+    ]
+  },
+  "nixl": {
+    "chapters": [
+      {
+        "slug": "repository-map",
+        "title": "NIXL: Repository map from inference buffers to transfer backends",
+        "summary": "Locate the public API, core agent, bindings, and plugin implementations."
+      },
+      {
+        "slug": "agent-lifecycle",
+        "title": "NIXL: Agent construction, backend initialization, and teardown",
+        "summary": "Construct an agent and its selected transfer backends."
+      },
+      {
+        "slug": "descriptors",
+        "title": "NIXL: Descriptors, ranges, memory types, and storage identity",
+        "summary": "Translate allocated ranges into registration and transfer descriptors."
+      },
+      {
+        "slug": "registration",
+        "title": "NIXL: Memory registration and caller-owned allocation lifetime",
+        "summary": "Follow backend registration, ownership, and deregistration."
+      },
+      {
+        "slug": "metadata-and-connections",
+        "title": "NIXL: Peer metadata, connection state, refresh, and invalidation",
+        "summary": "Trace peer information, connection setup, caching, and invalidation."
+      },
+      {
+        "slug": "request-preparation",
+        "title": "NIXL: Ordinary requests, prepared lists, and indexed reuse",
+        "summary": "Compare ordinary requests with reusable prepared descriptor lists."
+      },
+      {
+        "slug": "transfer-lifecycle",
+        "title": "NIXL: Posting, progress, status, and request release",
+        "summary": "Follow create, post, progress, status, and release."
+      },
+      {
+        "slug": "notifications",
+        "title": "NIXL: Completion status and application notifications",
+        "summary": "Separate initiator status from target application readiness."
+      },
+      {
+        "slug": "ucx-path",
+        "title": "NIXL: The UCX registration, endpoint, and transfer path",
+        "summary": "Trace one operation through the concrete UCX backend."
+      },
+      {
+        "slug": "other-backends",
+        "title": "NIXL: Libfabric and storage backend contracts",
+        "summary": "Compare libfabric and a storage backend with explicit prerequisites."
+      },
+      {
+        "slug": "python-bindings",
+        "title": "NIXL: Python wrappers, native bindings, and handle ownership",
+        "summary": "Follow wrapper calls into native registrations and request handles."
+      },
+      {
+        "slug": "failure-lifetimes",
+        "title": "NIXL: Failure boundaries and lifetime safety",
+        "summary": "Handle stale registrations, peer changes, and cleanup ordering."
+      },
+      {
+        "slug": "telemetry-performance",
+        "title": "NIXL: Telemetry, trace identity, and measurement boundaries",
+        "summary": "Interpret transfer telemetry and measurement boundaries."
+      },
+      {
+        "slug": "code-labs",
+        "title": "NIXL: Trace a transfer through the code",
+        "summary": "Follow one transfer from setup through completion and reuse."
+      }
+    ]
+  },
+  "mooncake": {
+    "chapters": [
+      {
+        "slug": "repository-map",
+        "title": "Mooncake: Repository map",
+        "summary": "Locate Transfer Engine, Store, services and integration boundaries."
+      },
+      {
+        "slug": "startup",
+        "title": "Mooncake: Store startup",
+        "summary": "Follow master, client initialization, and mounted segments."
+      },
+      {
+        "slug": "transfer-engine",
+        "title": "Mooncake: Transfer Engine",
+        "summary": "Inspect registration, segments, batches, submission, and completion."
+      },
+      {
+        "slug": "transports-topology",
+        "title": "Mooncake: Transports and topology",
+        "summary": "Trace transport selection and device-locality decisions."
+      },
+      {
+        "slug": "store-metadata",
+        "title": "Mooncake: Store metadata",
+        "summary": "Inspect object keys, replicas, master records, and state transitions."
+      },
+      {
+        "slug": "placement-allocation",
+        "title": "Mooncake: Placement and allocation",
+        "summary": "Follow replica policy, mounted capacity, and allocation decisions."
+      },
+      {
+        "slug": "write-lifecycle",
+        "title": "Mooncake: Object write lifecycle",
+        "summary": "Trace allocation, replica transfers, and publication."
+      },
+      {
+        "slug": "read-lifecycle",
+        "title": "Mooncake: Object read lifecycle",
+        "summary": "Follow query, replica selection, transfer, checksum, and lease validation."
+      },
+      {
+        "slug": "buffer-lifetimes",
+        "title": "Mooncake: Buffer lifetime",
+        "summary": "Separate registered pools, caller slices, and GPU visibility."
+      },
+      {
+        "slug": "leases-liveness",
+        "title": "Mooncake: Leases and liveness",
+        "summary": "Inspect expiry, heartbeats, offboarding, and unavailable replicas."
+      },
+      {
+        "slug": "eviction-tiering",
+        "title": "Mooncake: Eviction and tiering",
+        "summary": "Follow capacity reclamation and configured storage paths."
+      },
+      {
+        "slug": "metadata-recovery",
+        "title": "Mooncake: Metadata recovery",
+        "summary": "Inspect persistence, snapshots, and operation logs under selected features."
+      },
+      {
+        "slug": "engine-integration",
+        "title": "Mooncake: Engine cache integration",
+        "summary": "Map KV identity and engine layout onto stored objects."
+      },
+      {
+        "slug": "diagnosis-and-code-labs",
+        "title": "Mooncake: Diagnosis and source tracing",
+        "summary": "Investigate missing objects, transfer failures, and lease expiry."
+      }
+    ]
+  },
+  "nccl": {
+    "chapters": [
+      {
+        "slug": "public-api",
+        "title": "NCCL: Public API contracts",
+        "summary": "Understand collective and point-to-point inputs and completion contracts."
+      },
+      {
+        "slug": "communicators",
+        "title": "NCCL: Communicator lifecycle",
+        "summary": "Follow ranks, bootstrap, initialization, and communicator state."
+      },
+      {
+        "slug": "topology-discovery",
+        "title": "NCCL: Topology discovery",
+        "summary": "Inspect GPU/NIC discovery, distances, and connectivity."
+      },
+      {
+        "slug": "communication-graphs",
+        "title": "NCCL: Communication graphs",
+        "summary": "Build rings, trees, channels, and connections from topology."
+      },
+      {
+        "slug": "enqueue-and-groups",
+        "title": "NCCL: Enqueue and groups",
+        "summary": "Transform public calls into grouped host work."
+      },
+      {
+        "slug": "task-planning",
+        "title": "NCCL: Task planning",
+        "summary": "Follow classification, preparation, and scheduling of collective work."
+      },
+      {
+        "slug": "algorithm-selection",
+        "title": "NCCL: Algorithm selection",
+        "summary": "Inspect cost models and algorithm/protocol decisions."
+      },
+      {
+        "slug": "device-kernels",
+        "title": "NCCL: Device kernels",
+        "summary": "Follow GPU work descriptors and reduction primitives."
+      },
+      {
+        "slug": "device-protocols",
+        "title": "NCCL: Device protocols",
+        "summary": "Compare Simple, LL, and LL128 movement and synchronization."
+      },
+      {
+        "slug": "local-transports",
+        "title": "NCCL: Local transports",
+        "summary": "Inspect P2P, shared memory, and local resource lifetime."
+      },
+      {
+        "slug": "network-and-proxy",
+        "title": "NCCL: Network and proxy",
+        "summary": "Follow plugin connections and host-side communication progress."
+      },
+      {
+        "slug": "device-networking",
+        "title": "NCCL: Device networking",
+        "summary": "Understand Gin and device-initiated communication boundaries."
+      },
+      {
+        "slug": "all-reduce-trace",
+        "title": "NCCL: All-reduce source trace",
+        "summary": "Follow one operation across API, planning, kernel, and transport."
+      },
+      {
+        "slug": "lifecycle-and-diagnosis",
+        "title": "NCCL: Lifetime and diagnosis",
+        "summary": "Follow resource lifetime and locate the owner of a stalled collective."
+      }
+    ]
+  },
+  "deepep": {
+    "chapters": [
+      {
+        "slug": "public-contracts",
+        "title": "DeepEP: Public EP contracts",
+        "summary": "Understand tensors, returned values, and caller responsibilities."
+      },
+      {
+        "slug": "groups-and-communicators",
+        "title": "DeepEP: Groups and communicators",
+        "summary": "Inspect process groups and managed or reused NCCL communicators."
+      },
+      {
+        "slug": "buffer-lifecycle",
+        "title": "DeepEP: Buffer lifecycle",
+        "summary": "Track workspace capacity, symmetric allocation, and destruction."
+      },
+      {
+        "slug": "routing-and-handles",
+        "title": "DeepEP: Routing and handles",
+        "summary": "Inspect top-k selections, routing identity, and handle reuse rules."
+      },
+      {
+        "slug": "token-layouts",
+        "title": "DeepEP: Token layouts",
+        "summary": "Work through expansion, expert alignment, valid ranges, and metadata."
+      },
+      {
+        "slug": "dispatch-host-path",
+        "title": "DeepEP: Dispatch host path",
+        "summary": "Follow Python calls into native runtime and dispatch launch."
+      },
+      {
+        "slug": "dispatch-kernels",
+        "title": "DeepEP: Dispatch kernels",
+        "summary": "Inspect direct token movement and copy epilogues."
+      },
+      {
+        "slug": "combine-kernels",
+        "title": "DeepEP: Combine kernels",
+        "summary": "Follow return routing, reductions, and combine epilogues."
+      },
+      {
+        "slug": "hybrid-communication",
+        "title": "DeepEP: Hybrid communication",
+        "summary": "Separate scale-up and scale-out domains and algorithms."
+      },
+      {
+        "slug": "streams-and-events",
+        "title": "DeepEP: Streams and events",
+        "summary": "Establish waits, overlap, deferred epilogues, and tensor lifetime."
+      },
+      {
+        "slug": "precision-and-capacity",
+        "title": "DeepEP: Precision and capacity",
+        "summary": "Compare BF16/FP8 representation, counts, and SM/QP sizing."
+      },
+      {
+        "slug": "jit-and-runtime",
+        "title": "DeepEP: JIT and runtime",
+        "summary": "Follow DeepJIT compilation, driver boundaries, and runtime dispatch."
+      },
+      {
+        "slug": "expert-replication-and-extensions",
+        "title": "DeepEP: Replication and extensions",
+        "summary": "Inspect expert weight exchange and bounded experimental API families."
+      },
+      {
+        "slug": "dispatch-combine-trace",
+        "title": "DeepEP: Dispatch/combine source trace",
+        "summary": "Follow routing, expert computation and result combination."
+      }
+    ]
+  },
+  "aws-ofi-nccl": {
+    "chapters": [
+      {
+        "slug": "plugin-contract",
+        "title": "AWS OFI NCCL: Network callbacks and the plugin contract",
+        "summary": "Inspect network callbacks and adapter responsibilities."
+      },
+      {
+        "slug": "api-compatibility",
+        "title": "AWS OFI NCCL: Plugin interfaces and compatibility",
+        "summary": "Follow NCCL callbacks across the plugin and library boundary."
+      },
+      {
+        "slug": "initialization",
+        "title": "AWS OFI NCCL: Initialization, parameters, and resource hierarchy",
+        "summary": "Trace parameters and the resource hierarchy."
+      },
+      {
+        "slug": "platform-and-topology",
+        "title": "AWS OFI NCCL: Platform policy and GPU/NIC topology",
+        "summary": "Connect AWS platform policy to GPU/NIC relationships."
+      },
+      {
+        "slug": "provider-and-protocol",
+        "title": "AWS OFI NCCL: Provider capabilities and protocol selection",
+        "summary": "Separate capability negotiation from SENDRECV/RDMA precedence."
+      },
+      {
+        "slug": "connection-management",
+        "title": "AWS OFI NCCL: Listen, connect, accept, and peer state",
+        "summary": "Follow listen, connect, accept, addresses, and state."
+      },
+      {
+        "slug": "memory-registration",
+        "title": "AWS OFI NCCL: Memory registration, cache references, and DMA-BUF",
+        "summary": "Inspect registration caching, DMA-BUF, and GPU buffers."
+      },
+      {
+        "slug": "request-resources",
+        "title": "AWS OFI NCCL: Request pools, identifiers, and ownership",
+        "summary": "Track request pools, free lists, IDs, and ownership."
+      },
+      {
+        "slug": "sendrecv-protocol",
+        "title": "AWS OFI NCCL: SENDRECV tagged messages and asynchronous requests",
+        "summary": "Trace tagged submission, matching, and asynchronous requests."
+      },
+      {
+        "slug": "rdma-protocol",
+        "title": "AWS OFI NCCL: RDMA control mailboxes, data writes, and eager messages",
+        "summary": "Inspect segmentation, remote addressing, and transfer state."
+      },
+      {
+        "slug": "rails-and-scheduling",
+        "title": "AWS OFI NCCL: Rails, topology groups, and byte schedules",
+        "summary": "Follow multi-rail organization and transfer scheduling."
+      },
+      {
+        "slug": "completion-and-progress",
+        "title": "AWS OFI NCCL: CQ progress, retries, errors, and GPU visibility",
+        "summary": "Inspect CQ polling, retries, errors, and request completion."
+      },
+      {
+        "slug": "tuner-and-device-interfaces",
+        "title": "AWS OFI NCCL: Optional tuner, Gin proxy, and GDAKI interfaces",
+        "summary": "Keep optional tuner and Gin interfaces distinct from baseline networking."
+      },
+      {
+        "slug": "operation-trace-and-diagnosis",
+        "title": "AWS OFI NCCL: Transfer trace and diagnosis",
+        "summary": "Follow a transfer through completion, resource release and diagnosis."
+      }
+    ]
+  },
+  "libfabric": {
+    "chapters": [
+      {
+        "slug": "public-api",
+        "title": "libfabric: Public fabric contracts",
+        "summary": "Understand fabric-service vocabulary and application contracts."
+      },
+      {
+        "slug": "capability-negotiation",
+        "title": "libfabric: Capability negotiation",
+        "summary": "Inspect fi_getinfo hints, returned capabilities, and provider matching."
+      },
+      {
+        "slug": "provider-loading",
+        "title": "libfabric: Provider loading",
+        "summary": "Follow core registration, selection, dispatch, and utility layers."
+      },
+      {
+        "slug": "resource-hierarchy",
+        "title": "libfabric: Resource hierarchy",
+        "summary": "Track fabrics, domains, endpoints, bindings, and lifetime."
+      },
+      {
+        "slug": "addressing-and-connections",
+        "title": "libfabric: Addressing and connections",
+        "summary": "Inspect address vectors, peer identity, and connection models."
+      },
+      {
+        "slug": "message-and-tagged-operations",
+        "title": "libfabric: Messages and tagged operations",
+        "summary": "Follow matching and asynchronous submission contracts."
+      },
+      {
+        "slug": "rma-and-atomics",
+        "title": "libfabric: RMA and atomics",
+        "summary": "Inspect remote keys, operation semantics, and ordering."
+      },
+      {
+        "slug": "memory-registration",
+        "title": "libfabric: Memory registration",
+        "summary": "Understand modes, descriptors, caches, and lifetime."
+      },
+      {
+        "slug": "heterogeneous-memory",
+        "title": "libfabric: Heterogeneous memory",
+        "summary": "Inspect HMEM, GPU support, and direct-access constraints."
+      },
+      {
+        "slug": "completion-and-progress",
+        "title": "libfabric: Completion and progress",
+        "summary": "Follow queues, counters, errors, and progress models."
+      },
+      {
+        "slug": "efa-provider-resources",
+        "title": "libfabric: EFA provider resources",
+        "summary": "Trace devices, domains, endpoints, registrations, and peers."
+      },
+      {
+        "slug": "efa-message-protocols",
+        "title": "libfabric: EFA message protocols",
+        "summary": "Compare eager, medium, and long-message protocol choices."
+      },
+      {
+        "slug": "efa-operation-trace",
+        "title": "libfabric: EFA operation trace",
+        "summary": "Follow tagged work through packets, progress, and completion."
+      },
+      {
+        "slug": "diagnosis-and-code-labs",
+        "title": "libfabric: Diagnosis and source tracing",
+        "summary": "Investigate capabilities, resource pressure, and provider errors."
+      }
+    ]
+  }
+}

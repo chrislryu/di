@@ -1,0 +1,16 @@
+---
+import sources from '../data/sources.json';
+import { guideContext, isGuidePublished } from '../data/guides';
+const { entry } = Astro.locals.starlightRoute;
+const data = entry.data;
+const section = entry.id.split('/')[0];
+const guide = guideContext(entry.id);
+const completeGuide = guide?.position === 0 && await isGuidePublished(guide.project);
+const labels: Record<string, string> = {start:'Start here',concepts:'Core concepts',architecture:'Architecture guides',walkthroughs:'End-to-end walkthroughs',decisions:'Decision guides',glossary:'Glossary'};
+---
+<nav aria-label="Breadcrumb" class="crumbs"><a href="/">Field guide</a>{labels[section] && <> / <a href={`/${section}/`}>{labels[section]}</a></>}{guide && guide.position > 0 && <> / <a href={guide.overviewHref}>{guide.name}</a> / <span aria-current="page">{data.title.replace(`${guide.name}: `,'')}</span></>}</nav>
+<h1 id="_top">{data.title}</h1>
+{data.description && <p class="standfirst">{data.description}</p>}
+{guide && <p class="guide-position" data-pagefind-ignore>Chapter {guide.position + 1} of {guide.total} · {guide.position > 0 ? <a href={guide.overviewHref}>{guide.name} guide overview</a> : 'Overview'}{completeGuide && <> · <a href="#guide-chapters">Browse all chapters ↓</a></>}</p>}
+{(data.prerequisites ?? []).length > 0 && <aside class="prerequisites" aria-label="Prerequisites"><strong>Before you begin</strong><ul>{data.prerequisites.map(item => <li><a href={item.href}>{item.title}</a></li>)}</ul></aside>}
+{(data.projects ?? []).length > 0 && <details class="source-baseline" data-pagefind-ignore><summary>Inspected source · {(data.projects ?? []).length} {(data.projects ?? []).length === 1 ? 'repository' : 'repositories'}</summary><ul>{data.projects.map(id => { const source = sources[id]; return <li><a href={`${source.origin}/tree/${source.commit}`}>{source.name} <code>{source.commit.slice(0,12)}</code></a> · reviewed <time datetime={source.reviewed}>{source.reviewed}</time></li>; })}</ul><p>These guides describe pinned local snapshots. Source inspection does not establish runtime compatibility between independently pinned repositories.</p></details>}

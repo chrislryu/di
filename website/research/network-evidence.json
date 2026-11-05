@@ -1,0 +1,158 @@
+[
+  {
+    "id": "network-1",
+    "claim": "Collective API constructs work intent and forwards it to enqueue processing.",
+    "project": "nccl",
+    "path": "src/collectives.cc"
+  },
+  {
+    "id": "network-2",
+    "claim": "NCCL loads and initializes external network interfaces and assigns one to a communicator.",
+    "project": "nccl",
+    "path": "src/plugin/net.cc"
+  },
+  {
+    "id": "network-3",
+    "claim": "Communicator initialization prepares distributed execution resources.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "network-4",
+    "claim": "Enqueue checks and grouping prepare communication launch work.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "network-5",
+    "claim": "Runtime tuning evaluates communication execution choices.",
+    "project": "nccl",
+    "path": "src/tuning/tuning.cc"
+  },
+  {
+    "id": "network-6",
+    "claim": "NCCL network transport connects execution to selected network operations.",
+    "project": "nccl",
+    "path": "src/transport/net.cc"
+  },
+  {
+    "id": "network-7",
+    "claim": "Network interface defines registration, asynchronous operations, and request testing.",
+    "project": "nccl",
+    "path": "src/include/plugin/nccl_net.h"
+  },
+  {
+    "id": "network-8",
+    "claim": "NCCL benchmark tests are maintained in the separate nccl-tests project.",
+    "project": "nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "network-9",
+    "claim": "Plugin adapts NCCL network operations to libfabric and describes provider requirements.",
+    "project": "aws-ofi-nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "network-10",
+    "claim": "Plugin initialization applies explicit protocol selection before platform/runtime defaults.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "network-11",
+    "claim": "SENDRECV submits tagged operations, handles retryable EAGAIN, and progresses requests through CQ testing.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_sendrecv.cpp"
+  },
+  {
+    "id": "network-12",
+    "claim": "RDMA protocol implements remote-memory transport operations separately from SENDRECV.",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_rdma.cpp"
+  },
+  {
+    "id": "network-13",
+    "claim": "OFI_NCCL_PROTOCOL permits SENDRECV and RDMA values.",
+    "project": "aws-ofi-nccl",
+    "path": "include/nccl_ofi_param.h"
+  },
+  {
+    "id": "network-14",
+    "claim": "Functional checks require the documented MPI and hardware environment.",
+    "project": "aws-ofi-nccl",
+    "path": "tests/functional/README.md"
+  },
+  {
+    "id": "network-15",
+    "claim": "Source installation has explicit build dependencies and configuration requirements.",
+    "project": "aws-ofi-nccl",
+    "path": "INSTALL.md"
+  },
+  {
+    "id": "network-16",
+    "claim": "libfabric exposes application-oriented fabric interfaces across providers.",
+    "project": "libfabric",
+    "path": "README"
+  },
+  {
+    "id": "network-17",
+    "claim": "EFA provider registers getinfo and fabric operations.",
+    "project": "libfabric",
+    "path": "prov/efa/src/efa_prov.c"
+  },
+  {
+    "id": "network-18",
+    "claim": "Core fi_getinfo performs API/provider discovery before fabric resource construction.",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  },
+  {
+    "id": "network-19",
+    "claim": "Endpoint interfaces expose operation and resource contracts.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_endpoint.h"
+  },
+  {
+    "id": "network-20",
+    "claim": "Domains scope resource allocation and memory-registration operations.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_domain.h"
+  },
+  {
+    "id": "network-21",
+    "claim": "Tagged inline API dispatches sends and receives through provider operation tables.",
+    "project": "libfabric",
+    "path": "include/rdma/fi_tagged.h"
+  },
+  {
+    "id": "network-22",
+    "claim": "Registration describes memory access and heterogeneous-memory attributes.",
+    "project": "libfabric",
+    "path": "man/fi_mr.3.md"
+  },
+  {
+    "id": "network-23",
+    "claim": "EFA RDM tagged operation table binds public API to provider message implementation.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_msg.c"
+  },
+  {
+    "id": "network-24",
+    "claim": "EFA efa and efa-direct fabrics have different capabilities; tagged messages use the efa path.",
+    "project": "libfabric",
+    "path": "man/fi_efa.7.md"
+  },
+  {
+    "id": "network-25",
+    "claim": "Completion reads distinguish pending entries and errors retrieved with fi_cq_readerr.",
+    "project": "libfabric",
+    "path": "man/fi_cq.3.md"
+  },
+  {
+    "id": "network-26",
+    "claim": "EFA RDM completion handling progresses provider operations.",
+    "project": "libfabric",
+    "path": "prov/efa/src/rdm/efa_rdm_cq.c"
+  }
+]

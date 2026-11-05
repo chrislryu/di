@@ -1,0 +1,152 @@
+[
+  {
+    "id": "sglang-1",
+    "claim": "SGLang contains serving runtime plus broader model and diffusion capabilities",
+    "project": "sglang",
+    "path": "README.md"
+  },
+  {
+    "id": "sglang-2",
+    "claim": "HTTP server",
+    "project": "sglang",
+    "path": "python/sglang/srt/entrypoints/http_server.py"
+  },
+  {
+    "id": "sglang-3",
+    "claim": "TokenizerManager",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tokenizer_manager.py"
+  },
+  {
+    "id": "sglang-4",
+    "claim": "scheduler",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-5",
+    "claim": "radix cache",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/radix_cache.py"
+  },
+  {
+    "id": "sglang-6",
+    "claim": "model worker",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tp_worker.py"
+  },
+  {
+    "id": "sglang-7",
+    "claim": "ModelRunner",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_executor/model_runner.py"
+  },
+  {
+    "id": "sglang-8",
+    "claim": "detokenizer manager",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/detokenizer_manager.py"
+  },
+  {
+    "id": "sglang-9",
+    "claim": "generate_request()",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tokenizer_manager.py"
+  },
+  {
+    "id": "sglang-10",
+    "claim": "handle_generate_request()",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-11",
+    "claim": "match_prefix()",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/radix_cache.py"
+  },
+  {
+    "id": "sglang-12",
+    "claim": "event_loop_normal() and run_batch()",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-13",
+    "claim": "radix walker tests",
+    "project": "sglang",
+    "path": "test/registered/kv_canary/test_self_unit_radix_walker.py"
+  },
+  {
+    "id": "deepinfer-14",
+    "claim": "DeepInfer public release provides offline inference for DeepSeek-V4.1-Flash on listed SM100 and Ascend 950 hardware",
+    "project": "deepinfer",
+    "path": "README.md"
+  },
+  {
+    "id": "deepinfer-15",
+    "claim": "LLM wrapper",
+    "project": "deepinfer",
+    "path": "deepinfer/entrypoints/llm.py"
+  },
+  {
+    "id": "deepinfer-16",
+    "claim": "LLMEngine",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/llm_engine.py"
+  },
+  {
+    "id": "deepinfer-17",
+    "claim": "C++ scheduler",
+    "project": "deepinfer",
+    "path": "csrc/engine/scheduler.hpp"
+  },
+  {
+    "id": "deepinfer-18",
+    "claim": "BlockManager",
+    "project": "deepinfer",
+    "path": "csrc/engine/block_manager.hpp"
+  },
+  {
+    "id": "deepinfer-19",
+    "claim": "worker execution path",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/worker.py"
+  },
+  {
+    "id": "deepinfer-20",
+    "claim": "offline inference example",
+    "project": "deepinfer",
+    "path": "examples/offline_inference.py"
+  },
+  {
+    "id": "deepinfer-21",
+    "claim": "LLM.generate() and _add_request()",
+    "project": "deepinfer",
+    "path": "deepinfer/entrypoints/llm.py"
+  },
+  {
+    "id": "deepinfer-22",
+    "claim": "LLMEngine.step()",
+    "project": "deepinfer",
+    "path": "deepinfer/engine/llm_engine.py"
+  },
+  {
+    "id": "deepinfer-23",
+    "claim": "scheduler constructor and queues",
+    "project": "deepinfer",
+    "path": "csrc/engine/scheduler.hpp"
+  },
+  {
+    "id": "deepinfer-24",
+    "claim": "execute_model_step()",
+    "project": "deepinfer",
+    "path": "deepinfer/worker/worker.py"
+  },
+  {
+    "id": "deepinfer-25",
+    "claim": "offline inference model test",
+    "project": "deepinfer",
+    "path": "tests/models/test_offline_inference.py"
+  }
+]

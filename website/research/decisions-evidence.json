@@ -1,0 +1,104 @@
+[
+  {
+    "id": "decision-vllm-1",
+    "claim": "vLLM scheduling allocates tokens subject to resource budgets",
+    "project": "vllm",
+    "path": "vllm/v1/core/sched/scheduler.py"
+  },
+  {
+    "id": "decision-sglang-2",
+    "claim": "SGLang implements normal and overlap scheduling loops",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "decision-deepinfer-3",
+    "claim": "DeepInfer public release provides offline inference and lists external requirements for a complete service",
+    "project": "deepinfer",
+    "path": "README.md"
+  },
+  {
+    "id": "decision-dynamo-4",
+    "claim": "Dynamo example configures distinct prefill/decode workers and a NIXL connector",
+    "project": "dynamo",
+    "path": "examples/backends/vllm/launch/disagg.sh"
+  },
+  {
+    "id": "decision-vllm-5",
+    "claim": "vLLM NIXL facade separates pull/read and push/write implementations",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py"
+  },
+  {
+    "id": "decision-vllm-6",
+    "claim": "vLLM config exposes and validates tensor, pipeline, data and expert parallel settings",
+    "project": "vllm",
+    "path": "vllm/config/parallel.py"
+  },
+  {
+    "id": "decision-deepep-7",
+    "claim": "DeepEP EPBuffer dispatch and combine operate on expert-routing layouts and capacity limits",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "decision-vllm-8",
+    "claim": "vLLM KVCacheManager performs prefix lookup and cache block allocation/freeing",
+    "project": "vllm",
+    "path": "vllm/v1/core/kv_cache_manager.py"
+  },
+  {
+    "id": "decision-nixl-9",
+    "claim": "NIXL transfers registered ranges and validates remote registration lifetime",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "decision-mooncake-10",
+    "claim": "Mooncake client queries replicas and validates transfer completion and lease lifetime",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "decision-nccl-11",
+    "claim": "NCCL collective APIs package operation semantics and enqueue work on a communicator/stream",
+    "project": "nccl",
+    "path": "src/collectives.cc"
+  },
+  {
+    "id": "decision-nixl-12",
+    "claim": "NIXL example distinguishes posting from local completion and target notification",
+    "project": "nixl",
+    "path": "examples/cpp/nixl_example.cpp"
+  },
+  {
+    "id": "decision-deepep-13",
+    "claim": "DeepEP dispatch returns a routing handle and supports explicit event/stream coordination",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "decision-nccl-14",
+    "claim": "NCCL can load versioned external network plugins alongside internal options",
+    "project": "nccl",
+    "path": "src/plugin/net.cc"
+  },
+  {
+    "id": "decision-aws-ofi-nccl-15",
+    "claim": "AWS OFI NCCL initialization selects platform, protocol and libfabric resources",
+    "project": "aws-ofi-nccl",
+    "path": "src/nccl_ofi_net.cpp"
+  },
+  {
+    "id": "decision-aws-ofi-nccl-16",
+    "claim": "AWS OFI NCCL requires libfabric and describes FI_EP_RDM and GPU-memory capability requirements",
+    "project": "aws-ofi-nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "decision-libfabric-17",
+    "claim": "libfabric discovers provider interfaces through fi_getinfo",
+    "project": "libfabric",
+    "path": "src/fabric.c"
+  }
+]

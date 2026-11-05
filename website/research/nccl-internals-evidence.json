@@ -1,0 +1,788 @@
+[
+  {
+    "id": "nccl-internals-algorithm-selection-1",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Default task selector builds current tuning input.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-2",
+    "claim": "Enabled raw-task preparation executes pre-tuning, common tuning, classification, then post-tuning. Chapter evidence: Enabled preparation invokes the same common tuning layer.",
+    "project": "nccl",
+    "path": "src/enqueue/task_prep/task_prep.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-3",
+    "claim": "Tuning filters eligible candidates, permits supported tuner modification, selects modeled cost, computes channels, and errors if no implementation remains. Chapter evidence: Candidate masking, expansion, and validity filtering.",
+    "project": "nccl",
+    "path": "src/tuning/tuning.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-4",
+    "claim": "General tree model enables all-reduce and applies size-dependent bandwidth correction. Chapter evidence: General tree model function-eligibility gate.",
+    "project": "nccl",
+    "path": "src/tuning/tree.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-5",
+    "claim": "General tuning combines latency and byte/bandwidth cost with precision considerations and implementation-specific channel/thread choices. Chapter evidence: Modeled time and precision preference term.",
+    "project": "nccl",
+    "path": "src/tuning/tuning_general.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-6",
+    "claim": "Ring model applies validity gates and conditional topology/architecture/size latency adjustments. Chapter evidence: Ring validity and conditional modeled-latency adjustments.",
+    "project": "nccl",
+    "path": "src/tuning/ring.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-7",
+    "claim": "General tree model enables all-reduce and applies size-dependent bandwidth correction. Chapter evidence: Tree size correction and simulated time.",
+    "project": "nccl",
+    "path": "src/tuning/tree.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-8",
+    "claim": "Tuning filters eligible candidates, permits supported tuner modification, selects modeled cost, computes channels, and errors if no implementation remains. Chapter evidence: Tuner cost table, callback, and best-result selection.",
+    "project": "nccl",
+    "path": "src/tuning/tuning.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-9",
+    "claim": "Tuning filters eligible candidates, permits supported tuner modification, selects modeled cost, computes channels, and errors if no implementation remains. Chapter evidence: No-eligible-implementation diagnostics and override-sensitive error.",
+    "project": "nccl",
+    "path": "src/tuning/tuning.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-10",
+    "claim": "General tuning combines latency and byte/bandwidth cost with precision considerations and implementation-specific channel/thread choices. Chapter evidence: Channel/thread calculation after implementation choice.",
+    "project": "nccl",
+    "path": "src/tuning/tuning_general.cc"
+  },
+  {
+    "id": "nccl-internals-algorithm-selection-11",
+    "claim": "Standard collective correctness/performance tests are documented as separate nccl-tests; no external test bodies or hardware execution were verified here. Chapter evidence: Standard test-suite provenance.",
+    "project": "nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-1",
+    "claim": "General ring reduces then distributes aligned chunks; tree uses parent/child reductions and broadcast roles. Chapter evidence: Ring-relative identity, partitioning, and aligned tail chunk sizes.",
+    "project": "nccl",
+    "path": "src/device/all_reduce.h"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-2",
+    "claim": "All-reduce builds ncclInfo and enters enqueue rather than hardcoding ring execution. Chapter evidence: Public all-reduce handoff.",
+    "project": "nccl",
+    "path": "src/collectives.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-3",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Enqueue checks and internal group completion.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-4",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Default-zero rearchitecture switch.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-5",
+    "claim": "Enabled raw-task preparation executes pre-tuning, common tuning, classification, then post-tuning. Chapter evidence: Enabled branch's actual preparation pipeline.",
+    "project": "nccl",
+    "path": "src/enqueue/task_prep/task_prep.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-6",
+    "claim": "Thread-local nested group state reaches outermost processing; enabled rearchitecture preparation explicitly bridges into current phased doLaunches. Chapter evidence: Enabled branch shares current phased launcher.",
+    "project": "nccl",
+    "path": "src/group.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-7",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Common tuning input and algorithm/protocol result.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-8",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Plan packing and launch preparation.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-9",
+    "claim": "General ring reduces then distributes aligned chunks; tree uses parent/child reductions and broadcast roles. Chapter evidence: Initial send, intermediate reductions, final reduction, and distribution.",
+    "project": "nccl",
+    "path": "src/device/all_reduce.h"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-10",
+    "claim": "Simple waits for receive production/send credit and selects buffer pointers according to connection/registration/FIFO modes. Chapter evidence: Simple step window and selected data pointers.",
+    "project": "nccl",
+    "path": "src/device/prims_simple.h"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-11",
+    "claim": "NET proxy waits for GPU readiness, posts/tests accepted network requests, returns send credit, and conditionally flushes receives for GPU visibility. Chapter evidence: Network send acceptance/completion and credit publication.",
+    "project": "nccl",
+    "path": "src/transport/net.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-12",
+    "claim": "NET proxy waits for GPU readiness, posts/tests accepted network requests, returns send credit, and conditionally flushes receives for GPU visibility. Chapter evidence: Receive completion and conditional GPU visibility work.",
+    "project": "nccl",
+    "path": "src/transport/net.cc"
+  },
+  {
+    "id": "nccl-internals-all-reduce-trace-13",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Asynchronous error sources and linked group-job observation.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-communication-graphs-1",
+    "claim": "ncclTopoGraph separates requested pattern/channel limits from computed channels, paths, bandwidth estimates, and local/inter-domain layouts. Chapter evidence: Topology graph input/output fields and channel layout arrays.",
+    "project": "nccl",
+    "path": "src/include/graph.h"
+  },
+  {
+    "id": "nccl-internals-communication-graphs-2",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Ring, balanced tree, collective-network, and NVLS graph construction.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-communication-graphs-3",
+    "claim": "Communication graph search uses topology constraints, channel/bandwidth bounds, optional overrides, and bounded exploration rather than measuring each operation. Chapter evidence: Graph bounds, XML override, search budgets, and fallback exploration.",
+    "project": "nccl",
+    "path": "src/graph/search.cc"
+  },
+  {
+    "id": "nccl-internals-communication-graphs-4",
+    "claim": "Communication graph search uses topology constraints, channel/bandwidth bounds, optional overrides, and bounded exploration rather than measuring each operation. Chapter evidence: Split-NVLink graph channel constraint.",
+    "project": "nccl",
+    "path": "src/graph/search.cc"
+  },
+  {
+    "id": "nccl-internals-communication-graphs-5",
+    "claim": "Thread-local nested group state reaches outermost processing; enabled rearchitecture preparation explicitly bridges into current phased doLaunches. Chapter evidence: Algorithm-specific preconnection branches.",
+    "project": "nccl",
+    "path": "src/group.cc"
+  },
+  {
+    "id": "nccl-internals-communication-graphs-6",
+    "claim": "Computed graphs are translated into channel ring/tree relationships. Chapter evidence: Graph results converted into channel ring/tree relationships.",
+    "project": "nccl",
+    "path": "src/graph/connect.cc"
+  },
+  {
+    "id": "nccl-internals-communication-graphs-7",
+    "claim": "Standard collective correctness/performance tests are documented as separate nccl-tests; no external test bodies or hardware execution were verified here. Chapter evidence: Separate standard collective test-suite boundary.",
+    "project": "nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "nccl-internals-communicators-1",
+    "claim": "Public API distinguishes element-count/output ownership, group enqueue semantics, communicator management, and registered-window contracts. Chapter evidence: Communicator ID, rank uniqueness, and device association.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-internals-communicators-2",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Public rank initialization and current CUDA device.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-communicators-3",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Peer-info fill and bootstrap all-gather.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-communicators-4",
+    "claim": "Bootstrap exchanges setup/control information before ordinary collective payload paths. Chapter evidence: Bootstrap control transport and peer exchange implementation.",
+    "project": "nccl",
+    "path": "src/bootstrap.cc"
+  },
+  {
+    "id": "nccl-internals-communicators-5",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Topology, graph, and specialized transport setup.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-communicators-6",
+    "claim": "Communicator holds distinct topology, planner, shared-resource, registration, device, and asynchronous state. Chapter evidence: Communicator, shared resources, planner, and asynchronous state.",
+    "project": "nccl",
+    "path": "src/include/comm.h"
+  },
+  {
+    "id": "nccl-internals-communicators-7",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Readiness and async-state checks at communication entry.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-communicators-8",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Finalize readiness, double-finalize guard, and management job.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-communicators-9",
+    "claim": "Public API distinguishes element-count/output ownership, group enqueue semantics, communicator management, and registered-window contracts. Chapter evidence: Finalize, local destroy, abort, and revoke contracts.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-internals-communicators-10",
+    "claim": "Contributed custom-kernel consumer checks its own equality, registers/deregisters windows, and separately measures ordinary all-reduce baseline. Chapter evidence: Example window deregistration and communicator retirement order.",
+    "project": "nccl",
+    "path": "contrib/custom_algos/allreduce/main.cu"
+  },
+  {
+    "id": "nccl-internals-device-kernels-1",
+    "claim": "Common device entry loads channel work batches and specializes dispatch; diagnostic counters do not mark aborted work complete. Chapter evidence: Common kernel entry, channel mapping, batch dispatch, and generated entry macros.",
+    "project": "nccl",
+    "path": "src/device/common.h"
+  },
+  {
+    "id": "nccl-internals-device-kernels-2",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Host plan work-storage and budget choices.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-device-kernels-3",
+    "claim": "Build generation determines available general collective/type/operator/algorithm/protocol kernel combinations. Chapter evidence: Generated general collective kernel combinations.",
+    "project": "nccl",
+    "path": "src/device/generate.py"
+  },
+  {
+    "id": "nccl-internals-device-kernels-4",
+    "claim": "General ring reduces then distributes aligned chunks; tree uses parent/child reductions and broadcast roles. Chapter evidence: General ring reduction and final-chunk distribution.",
+    "project": "nccl",
+    "path": "src/device/all_reduce.h"
+  },
+  {
+    "id": "nccl-internals-device-kernels-5",
+    "claim": "General ring reduces then distributes aligned chunks; tree uses parent/child reductions and broadcast roles. Chapter evidence: Tree parent/child roles and split execution.",
+    "project": "nccl",
+    "path": "src/device/all_reduce.h"
+  },
+  {
+    "id": "nccl-internals-device-kernels-6",
+    "claim": "Algorithm primitives specialize by protocol, reduction datatype, and incoming/outgoing fan. Chapter evidence: Protocol-specialized primitive interface.",
+    "project": "nccl",
+    "path": "src/device/primitives.h"
+  },
+  {
+    "id": "nccl-internals-device-kernels-7",
+    "claim": "Common device entry loads channel work batches and specializes dispatch; diagnostic counters do not mark aborted work complete. Chapter evidence: Aborted work and diagnostic completion counters.",
+    "project": "nccl",
+    "path": "src/device/common.h"
+  },
+  {
+    "id": "nccl-internals-device-kernels-8",
+    "claim": "Standard collective correctness/performance tests are documented as separate nccl-tests; no external test bodies or hardware execution were verified here. Chapter evidence: Core collective validation provenance.",
+    "project": "nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "nccl-internals-device-networking-1",
+    "claim": "Device API source is organized into public declarations, types, and inline implementations. Chapter evidence: Public declarations, types, and implementation header organization.",
+    "project": "nccl",
+    "path": "src/include/nccl_device/README.md"
+  },
+  {
+    "id": "nccl-internals-device-networking-2",
+    "claim": "Device requirements request capabilities/resources; Gin context count is a hint and signal exclusions constrain later kernel use. Chapter evidence: Property, device-communicator, and window-pointer APIs.",
+    "project": "nccl",
+    "path": "src/include/nccl_device/host.h"
+  },
+  {
+    "id": "nccl-internals-device-networking-3",
+    "claim": "Device communicator/window creation validates initializer/version, capability, readiness, pointer/size, and flag contracts. Chapter evidence: Device communicator initializer, version, readiness, and capability gates.",
+    "project": "nccl",
+    "path": "src/dev_runtime.cc"
+  },
+  {
+    "id": "nccl-internals-device-networking-4",
+    "claim": "Gin selects eligible active backends by requested type and signal requirements, with explicit setup failures. Chapter evidence: Requested Gin type, signal validation, candidate setup, and failure.",
+    "project": "nccl",
+    "path": "src/gin/gin_host.cc"
+  },
+  {
+    "id": "nccl-internals-device-networking-5",
+    "claim": "Gin implementation headers are included only under their compile-time enable defines. Chapter evidence: Conditional inclusion of Gin device implementations.",
+    "project": "nccl",
+    "path": "src/include/nccl_device/gin/gin_device_api.h"
+  },
+  {
+    "id": "nccl-internals-device-networking-6",
+    "claim": "Public API distinguishes element-count/output ownership, group enqueue semantics, communicator management, and registered-window contracts. Chapter evidence: Window registration and deregistration contract.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-internals-device-networking-7",
+    "claim": "Device communicator/window creation validates initializer/version, capability, readiness, pointer/size, and flag contracts. Chapter evidence: Window registration entry and validation.",
+    "project": "nccl",
+    "path": "src/dev_runtime.cc"
+  },
+  {
+    "id": "nccl-internals-device-networking-8",
+    "claim": "Strong completion signals settle preceding puts while weak actions guarantee only their bundled put. Chapter evidence: Strong versus weak virtual-address signal contracts.",
+    "project": "nccl",
+    "path": "src/include/nccl_device/gin.h"
+  },
+  {
+    "id": "nccl-internals-device-networking-9",
+    "claim": "Device requirements request capabilities/resources; Gin context count is a hint and signal exclusions constrain later kernel use. Chapter evidence: Gin context hints and signal capability promises.",
+    "project": "nccl",
+    "path": "src/include/nccl_device/host.h"
+  },
+  {
+    "id": "nccl-internals-device-networking-10",
+    "claim": "Contributed custom-kernel consumer checks its own equality, registers/deregisters windows, and separately measures ordinary all-reduce baseline. Chapter evidence: Concrete consumer communicator and window setup.",
+    "project": "nccl",
+    "path": "contrib/custom_algos/allreduce/main.cu"
+  },
+  {
+    "id": "nccl-internals-device-networking-11",
+    "claim": "Contributed custom-kernel consumer checks its own equality, registers/deregisters windows, and separately measures ordinary all-reduce baseline. Chapter evidence: Consumer-specific output equality check.",
+    "project": "nccl",
+    "path": "contrib/custom_algos/allreduce/main.cu"
+  },
+  {
+    "id": "nccl-internals-device-protocols-1",
+    "claim": "Connection buffers and finite steps support protocol flow control; LL and LL128 define different payload/flag layouts. Chapter evidence: Finite protocol step count.",
+    "project": "nccl",
+    "path": "src/include/device.h"
+  },
+  {
+    "id": "nccl-internals-device-protocols-2",
+    "claim": "Connection buffers and finite steps support protocol flow control; LL and LL128 define different payload/flag layouts. Chapter evidence: Connection buffers and progress pointers.",
+    "project": "nccl",
+    "path": "src/include/device.h"
+  },
+  {
+    "id": "nccl-internals-device-protocols-3",
+    "claim": "Simple waits for receive production/send credit and selects buffer pointers according to connection/registration/FIFO modes. Chapter evidence: Simple wait condition, FIFO publication, and pointer-mode selection.",
+    "project": "nccl",
+    "path": "src/device/prims_simple.h"
+  },
+  {
+    "id": "nccl-internals-device-protocols-4",
+    "claim": "Connection buffers and finite steps support protocol flow control; LL and LL128 define different payload/flag layouts. Chapter evidence: LL line data/flag representation.",
+    "project": "nccl",
+    "path": "src/include/device.h"
+  },
+  {
+    "id": "nccl-internals-device-protocols-5",
+    "claim": "LL checks paired flags against expected step and cleans flags at wrap conditions while enforcing finite send credits. Chapter evidence: LL paired-flag readiness check.",
+    "project": "nccl",
+    "path": "src/device/prims_ll.h"
+  },
+  {
+    "id": "nccl-internals-device-protocols-6",
+    "claim": "LL checks paired flags against expected step and cleans flags at wrap conditions while enforcing finite send credits. Chapter evidence: LL send window and flag-wrap cleanup.",
+    "project": "nccl",
+    "path": "src/device/prims_ll.h"
+  },
+  {
+    "id": "nccl-internals-device-protocols-7",
+    "claim": "Connection buffers and finite steps support protocol flow control; LL and LL128 define different payload/flag layouts. Chapter evidence: LL128 line size and payload-element count.",
+    "project": "nccl",
+    "path": "src/include/device.h"
+  },
+  {
+    "id": "nccl-internals-device-protocols-8",
+    "claim": "LL128 coordinates designated flag threads and 128-byte-line packing with receive readiness and flag-bearing stores. Chapter evidence: LL128 flag checks during receive.",
+    "project": "nccl",
+    "path": "src/device/prims_ll128.h"
+  },
+  {
+    "id": "nccl-internals-device-protocols-9",
+    "claim": "LL128 coordinates designated flag threads and 128-byte-line packing with receive readiness and flag-bearing stores. Chapter evidence: LL128 flag-bearing stores.",
+    "project": "nccl",
+    "path": "src/device/prims_ll128.h"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-1",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Communicator validation, nested grouping, and task append.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-2",
+    "claim": "All-reduce builds ncclInfo and enters enqueue rather than hardcoding ring execution. Chapter evidence: All-reduce intent before enqueue.",
+    "project": "nccl",
+    "path": "src/collectives.cc"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-3",
+    "claim": "Thread-local nested group state reaches outermost processing; enabled rearchitecture preparation explicitly bridges into current phased doLaunches. Chapter evidence: Outermost group-end and accumulated-error gates.",
+    "project": "nccl",
+    "path": "src/group.cc"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-4",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Enqueue rearchitecture default is disabled.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-5",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Raw-task versus default append and early collective gates.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-6",
+    "claim": "Public API distinguishes element-count/output ownership, group enqueue semantics, communicator management, and registered-window contracts. Chapter evidence: Group semantics, enqueue guarantee, and dependent operations.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-7",
+    "claim": "Thread-local nested group state reaches outermost processing; enabled rearchitecture preparation explicitly bridges into current phased doLaunches. Chapter evidence: Enabled branch's current legacy-launch bridge and branch selection.",
+    "project": "nccl",
+    "path": "src/group.cc"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-8",
+    "claim": "Thread-local nested group state reaches outermost processing; enabled rearchitecture preparation explicitly bridges into current phased doLaunches. Chapter evidence: Thread-local group state and blocking-mode consistency.",
+    "project": "nccl",
+    "path": "src/group.cc"
+  },
+  {
+    "id": "nccl-internals-enqueue-and-groups-9",
+    "claim": "Standard collective correctness/performance tests are documented as separate nccl-tests; no external test bodies or hardware execution were verified here. Chapter evidence: External test-suite provenance.",
+    "project": "nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-1",
+    "claim": "Ordinary registration can successfully skip, otherwise caches aligned covered intervals and local/graph references until cleanup. Chapter evidence: Conditional ordinary and graph registration entrypoints.",
+    "project": "nccl",
+    "path": "src/register/register.cc"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-2",
+    "claim": "Ordinary registration can successfully skip, otherwise caches aligned covered intervals and local/graph references until cleanup. Chapter evidence: Range alignment, memory checks, covering cache entry, and reference counts.",
+    "project": "nccl",
+    "path": "src/register/register.cc"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-3",
+    "claim": "Operation-specific transport registration preparation determines actual available registered access paths. Chapter evidence: Operation/transport-specific registration preparation.",
+    "project": "nccl",
+    "path": "src/register/coll_reg.cc"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-4",
+    "claim": "Ordinary registration can successfully skip, otherwise caches aligned covered intervals and local/graph references until cleanup. Chapter evidence: Handle lookup, local/graph references, cleanup, and removal.",
+    "project": "nccl",
+    "path": "src/register/register.cc"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-5",
+    "claim": "Device communicator/window creation validates initializer/version, capability, readiness, pointer/size, and flag contracts. Chapter evidence: Window registration validation and distinct handle contract.",
+    "project": "nccl",
+    "path": "src/dev_runtime.cc"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-6",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Plan callback/reclaim path and persistent references.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-7",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Async status sources and linked job completion.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-8",
+    "claim": "Diagnostic kernels write/read deterministic peer patterns rather than executing arbitrary model collectives. Chapter evidence: Concrete diagnostic write/read pattern kernels.",
+    "project": "nccl",
+    "path": "src/diagnostics/device/p2p.cu"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-9",
+    "claim": "P2P diagnostics compare expected peer patterns, record mismatch reasons, and synchronize before cleanup. Chapter evidence: Pattern comparisons, mismatch reasons, and cleanup ordering.",
+    "project": "nccl",
+    "path": "src/diagnostics/p2p.cc"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-10",
+    "claim": "Contributed custom-kernel consumer checks its own equality, registers/deregisters windows, and separately measures ordinary all-reduce baseline. Chapter evidence: Named consumer output check.",
+    "project": "nccl",
+    "path": "contrib/custom_algos/allreduce/main.cu"
+  },
+  {
+    "id": "nccl-internals-lifecycle-and-diagnosis-11",
+    "claim": "Contributed custom-kernel consumer checks its own equality, registers/deregisters windows, and separately measures ordinary all-reduce baseline. Chapter evidence: Consumer window and communicator cleanup.",
+    "project": "nccl",
+    "path": "contrib/custom_algos/allreduce/main.cu"
+  },
+  {
+    "id": "nccl-internals-local-transports-1",
+    "claim": "Transport selection traverses P2P, SHM, NET, and collective-network candidates through canConnect and setup. Chapter evidence: Transport candidate order and canConnect/setup handoff.",
+    "project": "nccl",
+    "path": "src/transport.cc"
+  },
+  {
+    "id": "nccl-internals-local-transports-2",
+    "claim": "P2P validates topology/access and distinguishes same-process direct addressing from imported shareable mappings. Chapter evidence: P2P topology, locality, visibility, and CUDA peer-access gates.",
+    "project": "nccl",
+    "path": "src/transport/p2p.cc"
+  },
+  {
+    "id": "nccl-internals-local-transports-3",
+    "claim": "P2P validates topology/access and distinguishes same-process direct addressing from imported shareable mappings. Chapter evidence: Peer memory mapping and shareable-buffer import.",
+    "project": "nccl",
+    "path": "src/transport/p2p.cc"
+  },
+  {
+    "id": "nccl-internals-local-transports-4",
+    "claim": "P2P validates topology/access and distinguishes same-process direct addressing from imported shareable mappings. Chapter evidence: P2P sender setup and same-process direct branch.",
+    "project": "nccl",
+    "path": "src/transport/p2p.cc"
+  },
+  {
+    "id": "nccl-internals-local-transports-5",
+    "claim": "SHM requires compatible host/shared-memory domain and supports conditional shareable host allocation paths. Chapter evidence: SHM host and shared-memory-domain checks.",
+    "project": "nccl",
+    "path": "src/transport/shm.cc"
+  },
+  {
+    "id": "nccl-internals-local-transports-6",
+    "claim": "SHM requires compatible host/shared-memory domain and supports conditional shareable host allocation paths. Chapter evidence: Shareable host allocation alternatives.",
+    "project": "nccl",
+    "path": "src/transport/shm.cc"
+  },
+  {
+    "id": "nccl-internals-local-transports-7",
+    "claim": "Diagnostic kernels write/read deterministic peer patterns rather than executing arbitrary model collectives. Chapter evidence: Diagnostic remote write/read pattern kernels.",
+    "project": "nccl",
+    "path": "src/diagnostics/device/p2p.cu"
+  },
+  {
+    "id": "nccl-internals-local-transports-8",
+    "claim": "P2P diagnostics compare expected peer patterns, record mismatch reasons, and synchronize before cleanup. Chapter evidence: Pattern mismatch checks and cleanup synchronization.",
+    "project": "nccl",
+    "path": "src/diagnostics/p2p.cc"
+  },
+  {
+    "id": "nccl-internals-network-and-proxy-1",
+    "claim": "Optional external network loading probes supported interface versions and tracks initialization/load state. Chapter evidence: External network plugin version discovery and load state.",
+    "project": "nccl",
+    "path": "src/plugin/net.cc"
+  },
+  {
+    "id": "nccl-internals-network-and-proxy-2",
+    "claim": "Network interface defines registration, nullable asynchronous post acceptance, GPU visibility flush, and request testing. Chapter evidence: Registration, nonaccepted asynchronous posts, flush, and request test contract.",
+    "project": "nccl",
+    "path": "src/include/plugin/net/net_v12.h"
+  },
+  {
+    "id": "nccl-internals-network-and-proxy-3",
+    "claim": "NET proxy waits for GPU readiness, posts/tests accepted network requests, returns send credit, and conditionally flushes receives for GPU visibility. Chapter evidence: Connection progress requirement from selected network device.",
+    "project": "nccl",
+    "path": "src/transport/net.cc"
+  },
+  {
+    "id": "nccl-internals-network-and-proxy-4",
+    "claim": "Proxy infrastructure owns communication service/progress and asynchronous error state separately from the framework scheduler. Chapter evidence: Proxy creation, service, progress, and asynchronous error ownership.",
+    "project": "nccl",
+    "path": "src/proxy.cc"
+  },
+  {
+    "id": "nccl-internals-network-and-proxy-5",
+    "claim": "NET proxy waits for GPU readiness, posts/tests accepted network requests, returns send credit, and conditionally flushes receives for GPU visibility. Chapter evidence: Ready-slice send, accepted request, completion test, and credit return.",
+    "project": "nccl",
+    "path": "src/transport/net.cc"
+  },
+  {
+    "id": "nccl-internals-network-and-proxy-6",
+    "claim": "NET proxy waits for GPU readiness, posts/tests accepted network requests, returns send credit, and conditionally flushes receives for GPU visibility. Chapter evidence: Receive completion, conditional visibility flush, and flush request testing.",
+    "project": "nccl",
+    "path": "src/transport/net.cc"
+  },
+  {
+    "id": "nccl-internals-network-and-proxy-7",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Asynchronous communicator and proxy error observation.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-network-and-proxy-8",
+    "claim": "Standard collective correctness/performance tests are documented as separate nccl-tests; no external test bodies or hardware execution were verified here. Chapter evidence: Separate collective test suite and runtime verification boundary.",
+    "project": "nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "nccl-internals-public-api-1",
+    "claim": "Public API distinguishes element-count/output ownership, group enqueue semantics, communicator management, and registered-window contracts. Chapter evidence: All-reduce and reduce-scatter public semantics and in-place contracts.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-internals-public-api-2",
+    "claim": "Public API distinguishes element-count/output ownership, group enqueue semantics, communicator management, and registered-window contracts. Chapter evidence: Unique ID distribution, rank uniqueness, and current-device setup.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-internals-public-api-3",
+    "claim": "All-reduce builds ncclInfo and enters enqueue rather than hardcoding ring execution. Chapter evidence: All-reduce ncclInfo construction and enqueue handoff.",
+    "project": "nccl",
+    "path": "src/collectives.cc"
+  },
+  {
+    "id": "nccl-internals-public-api-4",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Communicator gates, argument checks, task append, and internal group scope.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-public-api-5",
+    "claim": "Argument validation checks root/datatype and configured pointer/global checks without replacing caller collective ordering. Chapter evidence: Argument and pointer-check branches.",
+    "project": "nccl",
+    "path": "src/misc/argcheck.cc"
+  },
+  {
+    "id": "nccl-internals-public-api-6",
+    "claim": "Public API distinguishes element-count/output ownership, group enqueue semantics, communicator management, and registered-window contracts. Chapter evidence: Group-end enqueue guarantee and dependent-work placement.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-internals-public-api-7",
+    "claim": "Standard collective correctness/performance tests are documented as separate nccl-tests; no external test bodies or hardware execution were verified here. Chapter evidence: Project scope and separate nccl-tests guidance.",
+    "project": "nccl",
+    "path": "README.md"
+  },
+  {
+    "id": "nccl-internals-public-api-8",
+    "claim": "Contributed custom-kernel consumer checks its own equality, registers/deregisters windows, and separately measures ordinary all-reduce baseline. Chapter evidence: Example checkAllEqual helper with bounded custom-kernel scope.",
+    "project": "nccl",
+    "path": "contrib/custom_algos/allreduce/main.cu"
+  },
+  {
+    "id": "nccl-internals-task-planning-1",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Actual default for the enqueue rearchitecture switch.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-2",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Default collective preparation, grouping, and tuning handoff.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-3",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Default selector invokes common current tuning implementation.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-4",
+    "claim": "Raw intent is tagged by collective, peer, RMA, and all-gather-like families with explicit queues. Chapter evidence: Raw task families and queues.",
+    "project": "nccl",
+    "path": "src/include/enqueue/raw_task.h"
+  },
+  {
+    "id": "nccl-internals-task-planning-5",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Enabled raw capture and early validation.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-6",
+    "claim": "Enabled raw-task preparation executes pre-tuning, common tuning, classification, then post-tuning. Chapter evidence: Enabled preparation stages in actual order.",
+    "project": "nccl",
+    "path": "src/enqueue/task_prep/task_prep.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-7",
+    "claim": "Pre-tuning prepares operation-specific inputs and merges eligible broadcast work. Chapter evidence: Raw-task tuning inputs and compatible broadcast aggregation.",
+    "project": "nccl",
+    "path": "src/enqueue/task_prep/task_pretuning.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-8",
+    "claim": "Classification routes prepared/tuned work among supported execution families. Chapter evidence: Capability/result-driven task family classification.",
+    "project": "nccl",
+    "path": "src/enqueue/task_prep/task_classify.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-9",
+    "claim": "Post-tuning has a simulation branch and converts classified families in the order expected by current launch preparation. Chapter evidence: Post-tuning family traversal and simulation branch.",
+    "project": "nccl",
+    "path": "src/enqueue/task_prep/task_posttuning.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-10",
+    "claim": "Thread-local nested group state reaches outermost processing; enabled rearchitecture preparation explicitly bridges into current phased doLaunches. Chapter evidence: Enabled branch explicitly falls back to current phased launch.",
+    "project": "nccl",
+    "path": "src/group.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-11",
+    "claim": "Active scheduler entry calls doLaunches; separated scheduler orchestration remains commented future code. Chapter evidence: Scheduler implementation versus commented future orchestration.",
+    "project": "nccl",
+    "path": "src/enqueue/task_sched/task_sched.cc"
+  },
+  {
+    "id": "nccl-internals-task-planning-12",
+    "claim": "Default-zero rearchitecture switch selects existing task append/preparation; common tuning and bounded launch plans connect API intent to device work. Chapter evidence: Plan allocation, budgets, and collective-before-peer ordering invariant.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-internals-topology-discovery-1",
+    "claim": "Communicator initialization exchanges peer facts, builds topology/graphs, manages lifecycle jobs, and reports communicator/proxy/Gin asynchronous errors. Chapter evidence: Discovery, path computation, trimming, recomputation, and search setup.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-internals-topology-discovery-2",
+    "claim": "Topology construction combines XML inputs, local GPU detection, peer fusion, and selected network/Gin device properties. Chapter evidence: Topology XML handling, local GPU detection, and imported network devices.",
+    "project": "nccl",
+    "path": "src/graph/topo.cc"
+  },
+  {
+    "id": "nccl-internals-topology-discovery-3",
+    "claim": "Paths are rebuilt, checked for usable access, trimmed to the relevant local domain, and recomputed without removing communicator ranks. Chapter evidence: Path rebuilding and P2P-dependent route adjustment.",
+    "project": "nccl",
+    "path": "src/graph/paths.cc"
+  },
+  {
+    "id": "nccl-internals-topology-discovery-4",
+    "claim": "Paths are rebuilt, checked for usable access, trimmed to the relevant local domain, and recomputed without removing communicator ranks. Chapter evidence: Reachable-domain trimming and inter-node flag.",
+    "project": "nccl",
+    "path": "src/graph/paths.cc"
+  },
+  {
+    "id": "nccl-internals-topology-discovery-5",
+    "claim": "Communication graph search uses topology constraints, channel/bandwidth bounds, optional overrides, and bounded exploration rather than measuring each operation. Chapter evidence: Graph search consumes path bounds and device/topology properties.",
+    "project": "nccl",
+    "path": "src/graph/search.cc"
+  },
+  {
+    "id": "nccl-internals-topology-discovery-6",
+    "claim": "Standard collective correctness/performance tests are documented as separate nccl-tests; no external test bodies or hardware execution were verified here. Chapter evidence: Runtime validation and external collective test-suite boundary.",
+    "project": "nccl",
+    "path": "README.md"
+  }
+]

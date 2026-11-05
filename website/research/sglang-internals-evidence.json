@@ -1,0 +1,662 @@
+[
+  {
+    "id": "sglang-internals-1",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for request timing structures.",
+    "project": "sglang",
+    "path": "python/sglang/srt/observability/req_time_stats.py"
+  },
+  {
+    "id": "sglang-internals-2",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for SchedulerMetricsReporter.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler_components/metrics_reporter.py"
+  },
+  {
+    "id": "sglang-internals-3",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for load publishing.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler_components/load_publisher.py"
+  },
+  {
+    "id": "sglang-internals-4",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for memory reporting.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler_components/memory_usage.py"
+  },
+  {
+    "id": "sglang-internals-5",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for SchedulerInvariantChecker.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler_components/invariant_checker.py"
+  },
+  {
+    "id": "sglang-internals-6",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for scheduler timeout tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/test_scheduler_timeouts.py"
+  },
+  {
+    "id": "sglang-internals-7",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for invariant-checker tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/scheduler_components/test_invariant_checker.py"
+  },
+  {
+    "id": "sglang-internals-8",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for radix tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/test_radix_cache_unit.py"
+  },
+  {
+    "id": "sglang-internals-9",
+    "claim": "\"SGLang: Diagnosis and tests\": inspected implementation/test anchor for incremental output tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/test_incremental_detokenize.py"
+  },
+  {
+    "id": "sglang-internals-10",
+    "claim": "\"SGLang: Hierarchical cache\": inspected implementation/test anchor for HiCacheStorage.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/hicache_storage.py"
+  },
+  {
+    "id": "sglang-internals-11",
+    "claim": "\"SGLang: Hierarchical cache\": inspected implementation/test anchor for unified radix cache.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/unified_radix_cache.py"
+  },
+  {
+    "id": "sglang-internals-12",
+    "claim": "\"SGLang: Hierarchical cache\": inspected implementation/test anchor for hybrid cache controller.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/hybrid_cache/hybrid_cache_controller.py"
+  },
+  {
+    "id": "sglang-internals-13",
+    "claim": "\"SGLang: Hierarchical cache\": inspected implementation/test anchor for load-back tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/unified_radix_cache/test_unified_radix_cache_load_back.py"
+  },
+  {
+    "id": "sglang-internals-14",
+    "claim": "\"SGLang: Hierarchical cache\": inspected implementation/test anchor for storage integration tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/unified_radix_cache/test_unified_radix_cache_storage.py"
+  },
+  {
+    "id": "sglang-internals-15",
+    "claim": "\"SGLang: Hierarchical cache\": inspected implementation/test anchor for writeback/eviction batching tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/test_write_back_eviction_batching.py"
+  },
+  {
+    "id": "sglang-internals-16",
+    "claim": "\"SGLang: Memory pools\": inspected implementation/test anchor for ReqToTokenPool.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/memory_pool.py"
+  },
+  {
+    "id": "sglang-internals-17",
+    "claim": "\"SGLang: Memory pools\": inspected implementation/test anchor for TokenToKVPoolAllocator.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/allocator/token.py"
+  },
+  {
+    "id": "sglang-internals-18",
+    "claim": "\"SGLang: Memory pools\": inspected implementation/test anchor for PagedTokenToKVPoolAllocator.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/allocator/paged.py"
+  },
+  {
+    "id": "sglang-internals-19",
+    "claim": "\"SGLang: Memory pools\": inspected implementation/test anchor for paged segment tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/test_paged_free_segment.py"
+  },
+  {
+    "id": "sglang-internals-20",
+    "claim": "\"SGLang: Model execution\": inspected implementation/test anchor for ScheduleBatch.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/schedule_batch.py"
+  },
+  {
+    "id": "sglang-internals-21",
+    "claim": "\"SGLang: Model execution\": inspected implementation/test anchor for TpModelWorker.forward_batch_generation.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tp_worker.py"
+  },
+  {
+    "id": "sglang-internals-22",
+    "claim": "\"SGLang: Model execution\": inspected implementation/test anchor for ForwardBatch definitions and init_new.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_executor/forward_batch_info.py"
+  },
+  {
+    "id": "sglang-internals-23",
+    "claim": "\"SGLang: Model execution\": inspected implementation/test anchor for ModelRunner.forward.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_executor/model_runner.py"
+  },
+  {
+    "id": "sglang-internals-24",
+    "claim": "\"SGLang: Model execution\": inspected implementation/test anchor for attention-backend setup.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_executor/model_runner_components/attention_backend_setup.py"
+  },
+  {
+    "id": "sglang-internals-25",
+    "claim": "\"SGLang: Model execution\": inspected implementation/test anchor for graph setup.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_executor/model_runner_components/cuda_graph_setup.py"
+  },
+  {
+    "id": "sglang-internals-26",
+    "claim": "\"SGLang: Model execution\": inspected implementation/test anchor for prefill graph-padding tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/model_executor/runner/test_prefill_cuda_graph_padding.py"
+  },
+  {
+    "id": "sglang-internals-27",
+    "claim": "\"SGLang: Model execution\": inspected implementation/test anchor for graph-runner helper tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/model_executor/test_prefill_cuda_graph_runner_helpers.py"
+  },
+  {
+    "id": "sglang-internals-28",
+    "claim": "\"SGLang: Model loading\": inspected implementation/test anchor for get_model entrypoint.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_loader/__init__.py"
+  },
+  {
+    "id": "sglang-internals-29",
+    "claim": "\"SGLang: Model loading\": inspected implementation/test anchor for model architecture helpers.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_loader/utils.py"
+  },
+  {
+    "id": "sglang-internals-30",
+    "claim": "\"SGLang: Model loading\": inspected implementation/test anchor for loader implementations.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_loader/loader.py"
+  },
+  {
+    "id": "sglang-internals-31",
+    "claim": "\"SGLang: Model loading\": inspected implementation/test anchor for ModelRunner.initialize and load_model.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_executor/model_runner.py"
+  },
+  {
+    "id": "sglang-internals-32",
+    "claim": "\"SGLang: Model loading\": inspected implementation/test anchor for Qwen2 model loading.",
+    "project": "sglang",
+    "path": "python/sglang/srt/models/qwen2.py"
+  },
+  {
+    "id": "sglang-internals-33",
+    "claim": "\"SGLang: Model loading\": inspected implementation/test anchor for parallel linear layers.",
+    "project": "sglang",
+    "path": "python/sglang/srt/layers/linear.py"
+  },
+  {
+    "id": "sglang-internals-34",
+    "claim": "\"SGLang: Model loading\": inspected implementation/test anchor for startup weight-loading tests.",
+    "project": "sglang",
+    "path": "test/registered/model_loading/test_startup_weight_load.py"
+  },
+  {
+    "id": "sglang-internals-35",
+    "claim": "\"SGLang: Overlapped execution\": inspected implementation/test anchor for Scheduler.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-internals-36",
+    "claim": "\"SGLang: Overlapped execution\": inspected implementation/test anchor for overlap utilities.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/overlap_utils.py"
+  },
+  {
+    "id": "sglang-internals-37",
+    "claim": "\"SGLang: Overlapped execution\": inspected implementation/test anchor for deferred output handling.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/deferred_output.py"
+  },
+  {
+    "id": "sglang-internals-38",
+    "claim": "\"SGLang: Overlapped execution\": inspected implementation/test anchor for deferred-output tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/test_deferred_output.py"
+  },
+  {
+    "id": "sglang-internals-39",
+    "claim": "\"SGLang: Overlapped execution\": inspected implementation/test anchor for prefill shared-read completion tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/model_executor/runner/test_prefill_shared_read_done.py"
+  },
+  {
+    "id": "sglang-internals-40",
+    "claim": "\"SGLang: Parallel workers\": inspected implementation/test anchor for DataParallelController.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/data_parallel_controller.py"
+  },
+  {
+    "id": "sglang-internals-41",
+    "claim": "\"SGLang: Parallel workers\": inspected implementation/test anchor for TpModelWorker.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tp_worker.py"
+  },
+  {
+    "id": "sglang-internals-42",
+    "claim": "\"SGLang: Parallel workers\": inspected implementation/test anchor for parallel groups.",
+    "project": "sglang",
+    "path": "python/sglang/srt/distributed/parallel_state.py"
+  },
+  {
+    "id": "sglang-internals-43",
+    "claim": "\"SGLang: Parallel workers\": inspected implementation/test anchor for parallel linear layers.",
+    "project": "sglang",
+    "path": "python/sglang/srt/layers/linear.py"
+  },
+  {
+    "id": "sglang-internals-44",
+    "claim": "\"SGLang: Parallel workers\": inspected implementation/test anchor for pipeline scheduling.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler_pp_mixin.py"
+  },
+  {
+    "id": "sglang-internals-45",
+    "claim": "\"SGLang: Parallel workers\": inspected implementation/test anchor for controller unit tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/test_data_parallel_controller.py"
+  },
+  {
+    "id": "sglang-internals-46",
+    "claim": "\"SGLang: Parallel workers\": inspected implementation/test anchor for parallel-state tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/distributed/test_parallel_state.py"
+  },
+  {
+    "id": "sglang-internals-47",
+    "claim": "\"SGLang: Parallel workers\": inspected implementation/test anchor for parallel linear-layer tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/layers/test_linear_parallel_groups.py"
+  },
+  {
+    "id": "sglang-internals-48",
+    "claim": "\"SGLang: Radix prefix cache\": inspected implementation/test anchor for RadixCache implementation.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/radix_cache.py"
+  },
+  {
+    "id": "sglang-internals-49",
+    "claim": "\"SGLang: Radix prefix cache\": inspected implementation/test anchor for radix-cache unit tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/test_radix_cache_unit.py"
+  },
+  {
+    "id": "sglang-internals-50",
+    "claim": "\"SGLang: Radix prefix cache\": inspected implementation/test anchor for decode lock-reference tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/test_decode_radix_lock_ref.py"
+  },
+  {
+    "id": "sglang-internals-51",
+    "claim": "\"SGLang: Repository map\": inspected implementation/test anchor for Engine entrypoint.",
+    "project": "sglang",
+    "path": "python/sglang/srt/entrypoints/engine.py"
+  },
+  {
+    "id": "sglang-internals-52",
+    "claim": "\"SGLang: Repository map\": inspected implementation/test anchor for HTTP server.",
+    "project": "sglang",
+    "path": "python/sglang/srt/entrypoints/http_server.py"
+  },
+  {
+    "id": "sglang-internals-53",
+    "claim": "\"SGLang: Repository map\": inspected implementation/test anchor for IPC structures.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/io_struct.py"
+  },
+  {
+    "id": "sglang-internals-54",
+    "claim": "\"SGLang: Repository map\": inspected implementation/test anchor for RadixKey and RadixCache.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/radix_cache.py"
+  },
+  {
+    "id": "sglang-internals-55",
+    "claim": "\"SGLang: Repository map\": inspected implementation/test anchor for multi-tokenizer engine tests.",
+    "project": "sglang",
+    "path": "test/registered/e2e/entrypoints/test_engine_multi_tokenizer.py"
+  },
+  {
+    "id": "sglang-internals-56",
+    "claim": "\"SGLang: Request lifecycle\": inspected implementation/test anchor for TokenizerManager.generate_request.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tokenizer_manager.py"
+  },
+  {
+    "id": "sglang-internals-57",
+    "claim": "\"SGLang: Request lifecycle\": inspected implementation/test anchor for IPC generation structures.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/io_struct.py"
+  },
+  {
+    "id": "sglang-internals-58",
+    "claim": "\"SGLang: Request lifecycle\": inspected implementation/test anchor for handle_generate_request.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-internals-59",
+    "claim": "\"SGLang: Request lifecycle\": inspected implementation/test anchor for request retirement tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/scheduler_components/test_request_retirer.py"
+  },
+  {
+    "id": "sglang-internals-60",
+    "claim": "\"SGLang: Request lifecycle\": inspected implementation/test anchor for engine entrypoint tests.",
+    "project": "sglang",
+    "path": "test/registered/e2e/entrypoints/test_engine_multi_tokenizer.py"
+  },
+  {
+    "id": "sglang-internals-61",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for SamplingParams.",
+    "project": "sglang",
+    "path": "python/sglang/srt/sampling/sampling_params.py"
+  },
+  {
+    "id": "sglang-internals-62",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for SamplingBatchInfo.",
+    "project": "sglang",
+    "path": "python/sglang/srt/sampling/sampling_batch_info.py"
+  },
+  {
+    "id": "sglang-internals-63",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for Sampler.forward.",
+    "project": "sglang",
+    "path": "python/sglang/srt/layers/sampler.py"
+  },
+  {
+    "id": "sglang-internals-64",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for penalizer orchestration.",
+    "project": "sglang",
+    "path": "python/sglang/srt/sampling/penaltylib/orchestrator.py"
+  },
+  {
+    "id": "sglang-internals-65",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for DetokenizerManager.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/detokenizer_manager.py"
+  },
+  {
+    "id": "sglang-internals-66",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for incremental decoding state.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/incremental_detokenize.py"
+  },
+  {
+    "id": "sglang-internals-67",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for response waiting and coalescing.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tokenizer_manager.py"
+  },
+  {
+    "id": "sglang-internals-68",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for sampling-batch tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/sampling/test_sampling_batch_info.py"
+  },
+  {
+    "id": "sglang-internals-69",
+    "claim": "\"SGLang: Sampling and output\": inspected implementation/test anchor for incremental detokenization tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/test_incremental_detokenize.py"
+  },
+  {
+    "id": "sglang-internals-70",
+    "claim": "\"SGLang: Batch scheduling\": inspected implementation/test anchor for scheduler event loop.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-internals-71",
+    "claim": "\"SGLang: Batch scheduling\": inspected implementation/test anchor for Req and ScheduleBatch.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/schedule_batch.py"
+  },
+  {
+    "id": "sglang-internals-72",
+    "claim": "\"SGLang: Batch scheduling\": inspected implementation/test anchor for SchedulePolicy and PrefillAdder.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/schedule_policy.py"
+  },
+  {
+    "id": "sglang-internals-73",
+    "claim": "\"SGLang: Batch scheduling\": inspected implementation/test anchor for request retirement.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler_components/request_retirer.py"
+  },
+  {
+    "id": "sglang-internals-74",
+    "claim": "\"SGLang: Batch scheduling\": inspected implementation/test anchor for prefill memory-budget tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/mem_cache/test_prefill_memory_budget.py"
+  },
+  {
+    "id": "sglang-internals-75",
+    "claim": "\"SGLang: Batch scheduling\": inspected implementation/test anchor for retirement coordination tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/managers/scheduler_components/test_request_retirer.py"
+  },
+  {
+    "id": "sglang-internals-76",
+    "claim": "\"SGLang: Stage disaggregation\": inspected implementation/test anchor for prefill coordination.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/prefill.py"
+  },
+  {
+    "id": "sglang-internals-77",
+    "claim": "\"SGLang: Stage disaggregation\": inspected implementation/test anchor for decode coordination.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/decode.py"
+  },
+  {
+    "id": "sglang-internals-78",
+    "claim": "\"SGLang: Stage disaggregation\": inspected implementation/test anchor for base transfer contracts.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/base/conn.py"
+  },
+  {
+    "id": "sglang-internals-79",
+    "claim": "\"SGLang: Stage disaggregation\": inspected implementation/test anchor for StagingAllocator.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/common/staging_buffer.py"
+  },
+  {
+    "id": "sglang-internals-80",
+    "claim": "\"SGLang: Stage disaggregation\": inspected implementation/test anchor for NixlKVManager and transfer implementation.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/nixl/conn.py"
+  },
+  {
+    "id": "sglang-internals-81",
+    "claim": "\"SGLang: Stage disaggregation\": inspected implementation/test anchor for Mooncake connection backend.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/mooncake/conn.py"
+  },
+  {
+    "id": "sglang-internals-82",
+    "claim": "\"SGLang: Stage disaggregation\": inspected implementation/test anchor for decode queue cleanup tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/disaggregation/test_decode_queue_cleanup.py"
+  },
+  {
+    "id": "sglang-internals-83",
+    "claim": "\"SGLang: Stage disaggregation\": inspected implementation/test anchor for prefill result/abort cleanup tests.",
+    "project": "sglang",
+    "path": "test/registered/unit/disaggregation/test_prefill_abort_result_cleanup.py"
+  },
+  {
+    "id": "sglang-internals-84",
+    "claim": "\"SGLang: Runtime startup\": inspected implementation/test anchor for Engine launcher.",
+    "project": "sglang",
+    "path": "python/sglang/srt/entrypoints/engine.py"
+  },
+  {
+    "id": "sglang-internals-85",
+    "claim": "\"SGLang: Runtime startup\": inspected implementation/test anchor for io_struct.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/io_struct.py"
+  },
+  {
+    "id": "sglang-internals-86",
+    "claim": "\"SGLang: Runtime startup\": inspected implementation/test anchor for scheduler initialization.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-internals-87",
+    "claim": "\"SGLang: Runtime startup\": inspected implementation/test anchor for model worker construction.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tp_worker.py"
+  },
+  {
+    "id": "sglang-internals-88",
+    "claim": "\"SGLang: Runtime startup\": inspected implementation/test anchor for TokenizerManager initialization.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tokenizer_manager.py"
+  },
+  {
+    "id": "sglang-internals-89",
+    "claim": "\"SGLang: Runtime startup\": inspected implementation/test anchor for ModelRunner.initialize.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_executor/model_runner.py"
+  },
+  {
+    "id": "sglang-internals-90",
+    "claim": "\"SGLang: Runtime startup\": inspected implementation/test anchor for multi-tokenizer engine tests.",
+    "project": "sglang",
+    "path": "test/registered/e2e/entrypoints/test_engine_multi_tokenizer.py"
+  },
+  {
+    "id": "sglang-internals-91",
+    "claim": "Baseline Engine runtime separates tokenizer/main process, scheduler subprocess, and detokenizer subprocess; alternate layouts are selected explicitly.",
+    "project": "sglang",
+    "path": "python/sglang/srt/entrypoints/engine.py"
+  },
+  {
+    "id": "sglang-internals-92",
+    "claim": "Startup resolves and validates arguments before publishing context; failures restore prior context and selected partial-initialization paths clean created workers/transports.",
+    "project": "sglang",
+    "path": "python/sglang/srt/entrypoints/engine.py"
+  },
+  {
+    "id": "sglang-internals-93",
+    "claim": "Default loader delegates named weights to model.load_weights; bypass loaders must preserve model post-load fixup requirements.",
+    "project": "sglang",
+    "path": "python/sglang/srt/model_loader/loader.py"
+  },
+  {
+    "id": "sglang-internals-94",
+    "claim": "Qwen2 loading maps separate q/k/v projection checkpoint names into packed qkv_proj with shard identities.",
+    "project": "sglang",
+    "path": "python/sglang/srt/models/qwen2.py"
+  },
+  {
+    "id": "sglang-internals-95",
+    "claim": "Frontend creates per-request state before tokenization, distinguishing undelivered cleanup from dispatched scheduler abort.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tokenizer_manager.py"
+  },
+  {
+    "id": "sglang-internals-96",
+    "claim": "Incremental response draining coalesces queued deltas to preserve token IDs while cumulative output has different semantics.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tokenizer_manager.py"
+  },
+  {
+    "id": "sglang-internals-97",
+    "claim": "NextBatchPlan separates maintained running state from current execution batch; chunked requests are excluded from premature prefill-to-decode merge.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-internals-98",
+    "claim": "Radix matching includes namespaces/salt and page alignment; matching can split nodes and clone index slices without copying underlying attention payloads.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/radix_cache.py"
+  },
+  {
+    "id": "sglang-internals-99",
+    "claim": "Lock-reference zero/nonzero transitions transfer segment counts between evictable and protected accounting while walking shared ancestors.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/radix_cache.py"
+  },
+  {
+    "id": "sglang-internals-100",
+    "claim": "ReqToTokenPool reserves row zero for padding, reuses rows with monotonic generation counters, and distinguishes request rows from KV locations.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/memory_pool.py"
+  },
+  {
+    "id": "sglang-internals-101",
+    "claim": "Paged allocation and free_segment operate with page boundaries; grouped/staged frees need retained page representatives and duplicate-release safety.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/allocator/paged.py"
+  },
+  {
+    "id": "sglang-internals-102",
+    "claim": "Overlap loop fences shared reads, retains batch snapshots/results, and processes prior results before dependent current sampling.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler.py"
+  },
+  {
+    "id": "sglang-internals-103",
+    "claim": "Ordinary decode preparation allocates output locations and creates new length tensors to avoid racing queued overlap references.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/schedule_batch.py"
+  },
+  {
+    "id": "sglang-internals-104",
+    "claim": "TpModelWorker converts ScheduleBatch into ForwardBatch, with optional adjusted replay work before ModelRunner execution.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/tp_worker.py"
+  },
+  {
+    "id": "sglang-internals-105",
+    "claim": "SamplingBatchInfo filtering updates row-specific tensors and state to preserve request sampling semantics through batch changes.",
+    "project": "sglang",
+    "path": "python/sglang/srt/sampling/sampling_batch_info.py"
+  },
+  {
+    "id": "sglang-internals-106",
+    "claim": "DPBudget skips unchanged timestamp snapshots and tracks request/token estimates separately for selected placement policies.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/data_parallel_controller.py"
+  },
+  {
+    "id": "sglang-internals-107",
+    "claim": "Trailing auxiliary pools can have nonmonotonic restorable boundary sets; callers intersect rank-local compatible boundaries instead of reducing only maxima.",
+    "project": "sglang",
+    "path": "python/sglang/srt/mem_cache/hicache_storage.py"
+  },
+  {
+    "id": "sglang-internals-108",
+    "claim": "KVPoll distinguishes bootstrap/input/transfer/success/failure; KVArgs carries model state layout and auxiliary components.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/base/conn.py"
+  },
+  {
+    "id": "sglang-internals-109",
+    "claim": "Staging ring assignment overcommits across rounds; remote writer safety depends on watermark/round protocol before RDMA.",
+    "project": "sglang",
+    "path": "python/sglang/srt/disaggregation/common/staging_buffer.py"
+  },
+  {
+    "id": "sglang-internals-110",
+    "claim": "Pool accounting checks available+evictable+protected+session-held+uncached against total, supplemented by alignment and ownership checks.",
+    "project": "sglang",
+    "path": "python/sglang/srt/managers/scheduler_components/invariant_checker.py"
+  }
+]

@@ -1,0 +1,80 @@
+---
+title: "Relationship evidence"
+description: "The source contracts behind the selected arrows in the system map."
+kind: "start"
+projects: ["aws-ofi-nccl","deepep","deepinfer","dynamo","libfabric","mooncake","nccl","nixl","sglang","vllm"]
+---
+
+## How to interpret this evidence
+
+The map shows selected, inspected relationships rather than a complete support matrix. A dependency is required only for the specified implementation or path. An optional integration must be selected and configured. Alternatives can solve related problems while exposing different APIs and deployment scopes.
+
+Each linked revision is independently pinned. Source inspection establishes responsibilities and handoffs; a runtime experiment must also record compatible package versions, build features, drivers, hardware, model artifacts, and configuration. None of these traces is a measured performance comparison.
+
+<h2 id="dynamo-vllm">Dynamo → vLLM</h2>
+
+Optional control integration: Dynamo’s backend constructs and drives a vLLM engine client. This establishes adapter intent, not compatibility of arbitrary engine revisions.
+
+- [Dynamo: components/src/dynamo/vllm/main.py](https://github.com/ai-dynamo/dynamo/blob/73014901d4e7610358fcf28535418ba9c5f50812/components/src/dynamo/vllm/main.py)
+- [Dynamo: components/src/dynamo/vllm/handlers.py](https://github.com/ai-dynamo/dynamo/blob/73014901d4e7610358fcf28535418ba9c5f50812/components/src/dynamo/vllm/handlers.py)
+- [vLLM: vllm/v1/engine/async_llm.py](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/v1/engine/async_llm.py)
+
+<h2 id="vllm-nccl">vLLM → NCCL during model execution</h2>
+
+A distributed model layer can produce partial outputs that need a collective.
+vLLM routes that operation through its group/device communicator. The NCCL
+implementation calls `ncclAllReduce` on the execution stream. GPU communication
+is part of the model's execution path; the selected communicator determines its
+implementation.
+
+- [vLLM: parallel model layers](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/model_executor/layers/linear.py)
+- [vLLM: collective wrappers](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/distributed/communication_op.py)
+- [vLLM: NCCL communicator](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/distributed/device_communicators/pynccl.py)
+
+<h2 id="vllm-nixl">vLLM → NIXL</h2>
+
+Optional data integration: configuring the NIXL KV connector introduces scheduler/worker transfer hooks. The pull connector uses READ operations; NIXL exposes registered-memory transfer operations.
+
+- [vLLM: vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/distributed/kv_transfer/kv_connector/v1/nixl/connector.py)
+- [vLLM: vllm/distributed/kv_transfer/kv_connector/v1/nixl/pull_worker.py](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/distributed/kv_transfer/kv_connector/v1/nixl/pull_worker.py)
+- [NIXL: src/core/nixl_agent.cpp](https://github.com/ai-dynamo/nixl/blob/c359986fed8bcf7fad6b2fa9b95d98d4b581a8e7/src/core/nixl_agent.cpp)
+
+<h2 id="vllm-mooncake">vLLM → Mooncake</h2>
+
+Optional data integration: the Mooncake Store connector connects engine cache handling to the distributed store. The storage coordinator and the byte transfer engine are distinct responsibilities.
+
+- [vLLM: vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/connector.py](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/connector.py)
+- [vLLM: vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/worker.py](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/worker.py)
+- [Mooncake: mooncake-store/src/real_client.cpp](https://github.com/kvcache-ai/Mooncake/blob/748af1a53dba2d57c110de0e7feb5613ddb8835b/mooncake-store/src/real_client.cpp)
+
+<h2 id="deepep-nccl">DeepEP → NCCL</h2>
+
+Required backend dependency for the inspected DeepEP release: the README states its NCCL requirements and communicator handling obtains NCCL handles. The requirement applies to this release; older DeepEP designs used a different backend.
+
+- [DeepEP: README.md](https://github.com/deepseek-ai/DeepEP/blob/f6aa38fe06cd4a0489e7730365d4e0114970a2f3/README.md)
+- [DeepEP: deep_ep/comm/handle.py](https://github.com/deepseek-ai/DeepEP/blob/f6aa38fe06cd4a0489e7730365d4e0114970a2f3/deep_ep/comm/handle.py)
+- [NCCL: src/include/nccl_device/gin.h](https://github.com/NVIDIA/nccl/blob/3e46c089f4ae4732722a419eb6096aead7e47a30/src/include/nccl_device/gin.h)
+
+<h2 id="nccl-ofi">NCCL → AWS OFI NCCL</h2>
+
+Optional network integration: NCCL loads a network plugin interface; AWS OFI NCCL implements the corresponding adapter. Intra-host communication and other network backends do not require this plugin.
+
+- [NCCL: src/plugin/net.cc](https://github.com/NVIDIA/nccl/blob/3e46c089f4ae4732722a419eb6096aead7e47a30/src/plugin/net.cc)
+- [AWS OFI NCCL: src/nccl_ofi_net.cpp](https://github.com/aws/aws-ofi-nccl/blob/df4474a3882224df168f89c69e2450bbfe5f4536/src/nccl_ofi_net.cpp)
+- [AWS OFI NCCL: README.md](https://github.com/aws/aws-ofi-nccl/blob/df4474a3882224df168f89c69e2450bbfe5f4536/README.md)
+
+<h2 id="ofi-fabric">AWS OFI NCCL → libfabric</h2>
+
+Required dependency for this plugin: it creates fabric resources and submits operations through libfabric. The AWS walkthrough selects the efa provider and SENDRECV protocol; other provider/protocol combinations have different paths.
+
+- [AWS OFI NCCL: src/nccl_ofi_sendrecv.cpp](https://github.com/aws/aws-ofi-nccl/blob/df4474a3882224df168f89c69e2450bbfe5f4536/src/nccl_ofi_sendrecv.cpp)
+- [libfabric: src/fabric.c](https://github.com/ofiwg/libfabric/blob/bf5aafceb0eba8043217dbf26c4427e059501e72/src/fabric.c)
+- [libfabric: prov/efa/src/rdm/efa_rdm_msg.c](https://github.com/ofiwg/libfabric/blob/bf5aafceb0eba8043217dbf26c4427e059501e72/prov/efa/src/rdm/efa_rdm_msg.c)
+
+## Known limits of the review
+
+- The public DeepInfer release omits parts of a full hosted service, including the external KV system and service-level disaggregation/load balancing. Its internal attention cache is still necessary for model execution.
+- The DeepEP MoE trace isolates communication with synthetic tensors; it does not claim a complete serving-engine integration.
+- The AWS path is selected explicitly. Merely using an AWS instance, an EFA-capable device, or NCCL does not prove the plugin/provider was selected.
+- NIXL backend selection and available integrations depend on the build and configuration. A plugin source directory does not establish that every distribution includes it.
+- GPU execution, multi-node behavior, and performance were not tested while writing the website. The exercises remain usable through source inspection.

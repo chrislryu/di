@@ -1,0 +1,89 @@
+---
+title: 'DeepInfer: Public runtime and repository map'
+description: "Locate offline APIs, native boundaries, and external service responsibilities."
+kind: architecture
+projects: [deepinfer]
+---
+
+import Source from '../../../../components/Source.astro';
+
+## Start at the offline request boundary
+
+DeepInfer's public wrapper accepts a batch of prompts and drives the engine until
+results are ready. Follow that operation before exploring optimized model code:
+it explains why scheduling, cache ownership, workers and output processing exist.
+
+The released engine has a defined model/hardware scope. Its repository contains
+both Python orchestration and native C++ request state; the boundary between them
+is a useful organizing principle for a new developer.
+
+## Map representations to owners
+
+```mermaid
+flowchart TD
+  accTitle: DeepInfer offline request representations and owners
+  accDescr: The offline wrapper prepares tokens and preserves results. The engine coordinates native persistent sequences, per-step scheduler metadata, worker inputs and model execution. Returned uint64 handles reference pooled native outputs rather than owning permanent Python results. External service routing and shared KV infrastructure are outside this released job boundary.
+  Job["Offline LLM wrapper"] --> Tokens["Prepared int32 prompt tokens"]
+  Tokens --> Engine["LLMEngine coordination"]
+  Engine --> Native["Native Sequence and Scheduler"]
+  Native --> Step["Per-step SequenceMetadata"]
+  Step --> Worker["Worker and model runner"]
+  Worker --> Device["Model, cache and accelerator kernels"]
+  Device -->|"driver result-processing callback"| Engine
+  Engine --> Output["Native pooled RequestOutput handles"]
+  Output --> Clone["Wrapper clones results before advancing"]
+  Native <--> Blocks["BlockManager logical ownership"]
+```
+
+The arrows connect representations used by different owners. Prepared tokens,
+persistent sequences, one iteration's metadata and returned outputs serve different
+lifetimes even when they describe the same logical request.
+
+| Area | Responsibility |
+| --- | --- |
+| `entrypoints/llm.py` | Normalize input, drive the offline loop and preserve results. |
+| `engine/llm_engine.py` | Coordinate requests, workers, cache actions and result reconciliation. |
+| `csrc/engine` | Own sequences, scheduling queues, block references and native outputs. |
+| `worker` | Prepare a step, execute it, and retain results needed by later processing. |
+| `model_executor` | Construct the model, prepare tensors and run attention/expert/sampling code. |
+
+Start with the owner of the behavior you want to change. A token-admission question
+belongs to scheduling; a wrong tensor layout belongs to worker input preparation;
+a result that changes after another step points to the output ownership boundary.
+
+## Follow one iteration through the repository
+
+`LLM.generate()` adds requests and calls engine `step()`. Native scheduling returns
+sequence metadata and allocation actions. The engine coordinates state copies and
+worker execution; workers build inputs, run the model and sample. Result processing
+then updates native sequence progress and creates request outputs.
+
+Under overlap, part of that return path belongs to the preceding step. Keeping
+iteration and request identity attached to retained metadata explains which owner
+can safely update or release it.
+
+The Python/native boundary deserves one concrete detail: returned `uint64` values
+are addresses of pooled `RequestOutput` objects. Copying the address array does not
+copy those objects. The public wrapper calls `RequestOutput.clone(raw_handle)` to
+retain an owning result before another step can release pooled storage.
+
+## Choose a focused source route
+
+For a first trace, read wrapper → engine step → scheduler → worker → output
+collection. Then branch into one subsystem instead of reading every backend:
+
+- Admission or stopping: native `Scheduler` and `Sequence`.
+- Capacity or reuse: `BlockManager` and engine deferred release.
+- Model computation: the selected model builder and worker model runner.
+- Distributed work: process groups and communication operations.
+
+External serving and shared-cache infrastructure remain outside this offline job
+boundary. Treat workspace projects as neighboring capabilities, then inspect the
+actual build/integration before assuming a particular combination is supported.
+
+## Read the code
+
+<Source project="deepinfer" path="deepinfer/entrypoints/llm.py" label="LLM wrapper" />
+<Source project="deepinfer" path="deepinfer/engine/llm_engine.py" label="Engine coordination" />
+<Source project="deepinfer" path="csrc/engine/scheduler.hpp" label="Scheduler and step metadata" />
+<Source project="deepinfer" path="csrc/engine/pybind_output.cpp" label="Raw output handles and owning clone" />

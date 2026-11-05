@@ -1,0 +1,72 @@
+{
+  "aws-ofi-nccl": {
+    "name": "AWS OFI NCCL",
+    "group": "Network integration",
+    "origin": "https://github.com/aws/aws-ofi-nccl",
+    "commit": "df4474a3882224df168f89c69e2450bbfe5f4536",
+    "reviewed": "2026-11-04"
+  },
+  "deepep": {
+    "name": "DeepEP",
+    "group": "GPU communication",
+    "origin": "https://github.com/deepseek-ai/DeepEP",
+    "commit": "f6aa38fe06cd4a0489e7730365d4e0114970a2f3",
+    "reviewed": "2026-11-04"
+  },
+  "deepinfer": {
+    "name": "DeepInfer",
+    "group": "Inference engines",
+    "origin": "https://github.com/deepseek-ai/DeepInfer",
+    "commit": "a679bb86ce36e883a98a97733492b686e5b9a08e",
+    "reviewed": "2026-11-04"
+  },
+  "dynamo": {
+    "name": "Dynamo",
+    "group": "Serving orchestration",
+    "origin": "https://github.com/ai-dynamo/dynamo",
+    "commit": "73014901d4e7610358fcf28535418ba9c5f50812",
+    "reviewed": "2026-11-04"
+  },
+  "libfabric": {
+    "name": "libfabric",
+    "group": "Network integration",
+    "origin": "https://github.com/ofiwg/libfabric",
+    "commit": "bf5aafceb0eba8043217dbf26c4427e059501e72",
+    "reviewed": "2026-11-04"
+  },
+  "mooncake": {
+    "name": "Mooncake",
+    "group": "Data movement and shared state",
+    "origin": "https://github.com/kvcache-ai/Mooncake",
+    "commit": "748af1a53dba2d57c110de0e7feb5613ddb8835b",
+    "reviewed": "2026-11-04"
+  },
+  "nccl": {
+    "name": "NCCL",
+    "group": "GPU communication",
+    "origin": "https://github.com/NVIDIA/nccl",
+    "commit": "3e46c089f4ae4732722a419eb6096aead7e47a30",
+    "reviewed": "2026-11-04"
+  },
+  "nixl": {
+    "name": "NIXL",
+    "group": "Data movement and shared state",
+    "origin": "https://github.com/ai-dynamo/nixl",
+    "commit": "c359986fed8bcf7fad6b2fa9b95d98d4b581a8e7",
+    "reviewed": "2026-11-04"
+  },
+  "sglang": {
+    "name": "SGLang",
+    "group": "Inference engines",
+    "origin": "https://github.com/sgl-project/sglang",
+    "commit": "a16830deb5ea5b1e8c9874ad646f3ba95542191c",
+    "reviewed": "2026-11-04"
+  },
+  "vllm": {
+    "name": "vLLM",
+    "group": "Inference engines",
+    "origin": "https://github.com/vllm-project/vllm",
+    "commit": "9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619",
+    "reviewed": "2026-11-04"
+  }
+}

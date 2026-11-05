@@ -1,0 +1,20 @@
+---
+title: "Decision guides"
+description: "Turn a workload constraint into evidence, options, and a code-reading path."
+kind: index
+projects: []
+related: [{"title":"Performance and reliability","href":"/concepts/performance/"}]
+---
+
+Use these questions after following at least [one request](/walkthroughs/one-request/). Each guide states what to measure before changing the architecture. Hardware support and integration claims refer to inspected revisions, rather than every version of a project.
+
+| Engineering question | Begin here |
+| --- | --- |
+| Which model runtime fits the service? | [Choose an inference engine](/decisions/engine/) |
+| Should prompt processing and generation use different workers? | [Separate prefill and decode](/decisions/disaggregation/) |
+| How should the model or requests be partitioned? | [Choose parallelism](/decisions/parallelism/) |
+| Where should reusable state live? | [Place the KV cache](/decisions/kv-cache/) |
+| What must the participants exchange? | [Choose a communication operation](/decisions/communication/) |
+| Which transport is actually being used? | [Verify the network path](/decisions/network/) |
+
+A good decision record names the customer objective, the observed constraint, the options compared, the chosen configuration, and the result under a repeatable workload. Record failures and tail latency alongside averages. Revisit the decision when model, hardware, or traffic assumptions change.

@@ -1,0 +1,13 @@
+---
+title: "End-to-end walkthroughs"
+description: "Follow work across boundaries while tracking the owner of each piece of state."
+---
+
+| Operation | What you will learn | Participating source |
+| --- | --- | --- |
+| [One inference request](/walkthroughs/one-request/) | Arrival, scheduling, GPU execution, and streamed tokens | vLLM |
+| [Separate prefill and decode](/walkthroughs/prefill-decode/) | Worker handoff and KV transfer | Dynamo, vLLM, NIXL |
+| [Trace an MoE layer](/walkthroughs/moe/) | Expert dispatch and result combination | DeepEP and NCCL |
+| [A network operation on AWS](/walkthroughs/aws-network/) | Plugin adaptation and EFA provider operations | NCCL, AWS OFI NCCL, libfabric |
+
+Each walkthrough states an exact source-reading configuration, participating revisions, state ownership, failure boundaries, and a check-your-understanding exercise. The MoE trace uses synthetic tensors to isolate the communication contract. Runtime extensions need the specified hardware and compatible installed dependencies; no cluster is required to read the traces.

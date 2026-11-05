@@ -1,0 +1,39 @@
+---
+title: "Networking and RDMA"
+description: "How registered memory, fabric providers, and completion queues connect an application to the network."
+kind: "concept"
+projects: ["libfabric","aws-ofi-nccl"]
+related: [{"title":"Trace the AWS network path","href":"/walkthroughs/aws-network/"},{"title":"libfabric architecture","href":"/architecture/libfabric/"}]
+---
+
+## The NIC needs a memory and completion contract
+
+**[RDMA](/glossary/#rdma)** means remote direct memory access: supported hardware and software can transfer data involving registered memory without requiring the remote application CPU to copy each payload. Setup, coordination, protection, and completion still matter. RDMA does not mean every operation is one-sided or every transfer has zero CPU work.
+
+Memory registration establishes a region's access information for fabric operations. Registration is not the same thing as allocating the buffer. The caller must keep the underlying storage valid. The local [libfabric memory-region API](https://github.com/ofiwg/libfabric/blob/bf5aafceb0eba8043217dbf26c4427e059501e72/man/fi_mr.3.md) defines descriptors, remote keys, registration, and deregistration operations.
+
+For an asynchronous transfer, submitting a request and observing completion are separate events. A **completion queue** reports completed operations and errors according to the selected interface. [libfabric completion queues](https://github.com/ofiwg/libfabric/blob/bf5aafceb0eba8043217dbf26c4427e059501e72/man/fi_cq.3.md) expose ordinary reads and a distinct error-read path. The exact completion guarantee matters when deciding whether to reuse a source buffer or consume a destination.
+
+## A provider implements an interface
+
+libfabric is the library implementing Open Fabrics Interfaces (OFI). A **[provider](/glossary/#provider)** maps requested fabric operations onto lower-level hardware or software. Providers differ in capabilities and required modes. [provider architecture](https://github.com/ofiwg/libfabric/blob/bf5aafceb0eba8043217dbf26c4427e059501e72/man/fi_provider.7.md) also describes utility providers that layer functionality over another provider.
+
+Discovery asks which implementations satisfy a capability request. [fi_getinfo()](https://github.com/ofiwg/libfabric/blob/bf5aafceb0eba8043217dbf26c4427e059501e72/man/fi_getinfo.3.md) returns matching interface information; it does not make all installed providers interchangeable. Tagged messaging, remote reads/writes, endpoint types, and device-memory support are separate capabilities.
+
+## Place EFA at the right boundary
+
+**[EFA](/glossary/#efa)** is Amazon's Elastic Fabric Adapter. The [EFA provider](https://github.com/ofiwg/libfabric/blob/bf5aafceb0eba8043217dbf26c4427e059501e72/man/fi_efa.7.md) supplies userspace-accessible fabric operations for EFA devices. In this snapshot it distinguishes `efa` and `efa-direct` fabrics with different capabilities and requirements; a fabric name is therefore a meaningful part of the path.
+
+[AWS OFI NCCL](https://github.com/aws/aws-ofi-nccl/blob/df4474a3882224df168f89c69e2450bbfe5f4536/README.md) adapts NCCL's network plugin interface to libfabric. An application using NCCL can select that plugin, which in turn selects a fabric provider. This is an optional NCCL network integration, not a requirement of every NCCL deployment or GPU transfer.
+
+For a concrete example, the application requests a collective; NCCL plans GPU communication; its selected plugin submits fabric operations; the provider drives the device path. A successful operation does not prove which path was used. Inspect plugin/provider initialization and operation logs alongside configuration.
+
+**Check yourself:** Does installing libfabric prove a GPU job uses EFA? No. The job must load the intended network implementation, discover the right capabilities, select the EFA path, and complete work with that configuration.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [Plugin provider and protocol](/architecture/aws-ofi-nccl/provider-and-protocol/) | Capability negotiation versus transport selection |
+| [libfabric capabilities](/architecture/libfabric/capability-negotiation/) | Hints, returned semantics, and provider matching |
+| [NIXL UCX path](/architecture/nixl/ucx-path/) | A concrete transfer backend and its progress |

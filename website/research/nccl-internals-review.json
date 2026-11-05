@@ -1,0 +1,272 @@
+[
+  {
+    "id": "nccl-review-1",
+    "claim": "AllReduce count is datatype elements and returns reduced arrays on every rank; ReduceScatter input requires rank count times recvcount.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-review-2",
+    "claim": "Public all-reduce builds ncclInfo and enters common enqueue rather than choosing ring directly.",
+    "project": "nccl",
+    "path": "src/collectives.cc"
+  },
+  {
+    "id": "nccl-review-3",
+    "claim": "Enqueue checks communicator/revoked/readiness/arguments, appends task, updates opCount and completes an internal nested group scope.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-review-4",
+    "claim": "Group end guarantees enqueueing rather than effective GPU completion; dependent work belongs after the outer group end.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-review-5",
+    "claim": "Current CUDA device and communicator rank are separate identities established during rank initialization.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-review-6",
+    "claim": "Bootstrap exchanges peer control information separately from payload transport connections and can add RAS observations.",
+    "project": "nccl",
+    "path": "src/bootstrap.cc"
+  },
+  {
+    "id": "nccl-review-7",
+    "claim": "Topology XML refreshes host hashes and discovers local GPU while other GPU information arrives through fusion.",
+    "project": "nccl",
+    "path": "src/graph/topo.cc"
+  },
+  {
+    "id": "nccl-review-8",
+    "claim": "Topology paths are recomputed after trimming and unavailable GPU P2P paths can route through CPU intermediate nodes.",
+    "project": "nccl",
+    "path": "src/graph/paths.cc"
+  },
+  {
+    "id": "nccl-review-9",
+    "claim": "Topology trimming retains the local reachable domain without changing communicator membership.",
+    "project": "nccl",
+    "path": "src/graph/paths.cc"
+  },
+  {
+    "id": "nccl-review-10",
+    "claim": "Communication graph channel and bandwidth fields are modeled search results, not measured payload throughput.",
+    "project": "nccl",
+    "path": "src/include/graph.h"
+  },
+  {
+    "id": "nccl-review-11",
+    "claim": "Graph search applies path/topology/budget constraints, XML override, NVLS gates and split-NVLink channel adjustment.",
+    "project": "nccl",
+    "path": "src/graph/search.cc"
+  },
+  {
+    "id": "nccl-review-12",
+    "claim": "EnqueueRearchEnable defaults to zero; rawTaskAppend only runs when explicitly selected.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-review-13",
+    "claim": "Enabled preparation order is pretuning, eligible common tuning, classification, then posttuning.",
+    "project": "nccl",
+    "path": "src/enqueue/task_prep/task_prep.cc"
+  },
+  {
+    "id": "nccl-review-14",
+    "claim": "Active task scheduler calls doLaunches while separated scheduler calls remain commented future work.",
+    "project": "nccl",
+    "path": "src/enqueue/task_sched/task_sched.cc"
+  },
+  {
+    "id": "nccl-review-15",
+    "claim": "Enabled group branch explicitly falls back to the current phased doLaunches and suppresses launch during simulation.",
+    "project": "nccl",
+    "path": "src/group.cc"
+  },
+  {
+    "id": "nccl-review-16",
+    "claim": "General plans bound nonpersistent output work to half the FIFO and drain collectives before P2P to preserve rank-consistent cuts.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-review-17",
+    "claim": "Default ncclGetAlgoInfo reaches common tuning and distinguishes forced per-call errors from soft fallback and hard tuning failures.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-review-18",
+    "claim": "Common tuning masks/validates candidates, accepts optional tuner cost updates, then selects modeled results/resources.",
+    "project": "nccl",
+    "path": "src/tuning/tuning.cc"
+  },
+  {
+    "id": "nccl-review-19",
+    "claim": "General tree model hard-disables non-AllReduce functions under its eligibility model.",
+    "project": "nccl",
+    "path": "src/tuning/tree.cc"
+  },
+  {
+    "id": "nccl-review-20",
+    "claim": "Modeled tuning time combines latency aggregation, byte/bandwidth term, and FP8 precision preference where applicable.",
+    "project": "nccl",
+    "path": "src/tuning/tuning_general.cc"
+  },
+  {
+    "id": "nccl-review-21",
+    "claim": "Ring final reduced chunk belongs to ring-relative index; small tails align chunk count to 16 bytes divided by element size.",
+    "project": "nccl",
+    "path": "src/device/all_reduce.h"
+  },
+  {
+    "id": "nccl-review-22",
+    "claim": "Ring reduction circulation and final distribution use different fused primitives, while tree follows parent/child roles.",
+    "project": "nccl",
+    "path": "src/device/all_reduce.h"
+  },
+  {
+    "id": "nccl-review-23",
+    "claim": "Common kernel maps active blocks to channels and does not report aborted work as diagnostic completed progress.",
+    "project": "nccl",
+    "path": "src/device/common.h"
+  },
+  {
+    "id": "nccl-review-24",
+    "claim": "Simple waits distinguish send credits from receive readiness over finite step slots and selected direct/FIFO modes.",
+    "project": "nccl",
+    "path": "src/device/prims_simple.h"
+  },
+  {
+    "id": "nccl-review-25",
+    "claim": "LL pairs data with two generation flags, uses finite send credits and cleanup to protect flag wrap reuse.",
+    "project": "nccl",
+    "path": "src/device/prims_ll.h"
+  },
+  {
+    "id": "nccl-review-26",
+    "claim": "LL layout assumptions include flags following data and contiguous socket receive or eight-byte atomic IB/RDMA writes.",
+    "project": "nccl",
+    "path": "src/include/device.h"
+  },
+  {
+    "id": "nccl-review-27",
+    "claim": "LL128 has 128-byte lines with one of sixteen 64-bit elements reserved for a flag and designated flag-thread stores.",
+    "project": "nccl",
+    "path": "src/device/prims_ll128.h"
+  },
+  {
+    "id": "nccl-review-28",
+    "claim": "Transport selection tries canConnect/setup in candidate order; local P2P checks topology, network preference, device visibility and access.",
+    "project": "nccl",
+    "path": "src/transport/p2p.cc"
+  },
+  {
+    "id": "nccl-review-29",
+    "claim": "SHM canConnect requires enabled policy, no network preference, matching host hash and matching shared-memory device identity.",
+    "project": "nccl",
+    "path": "src/transport/shm.cc"
+  },
+  {
+    "id": "nccl-review-30",
+    "claim": "Network plugin success with null isend/irecv request means no accepted request yet, requiring progress/retry.",
+    "project": "nccl",
+    "path": "src/include/plugin/net/net_v12.h"
+  },
+  {
+    "id": "nccl-review-31",
+    "claim": "NET send advances transmitted only for real accepted requests and returns credit after test completion and ordered FIFO reset.",
+    "project": "nccl",
+    "path": "src/transport/net.cc"
+  },
+  {
+    "id": "nccl-review-32",
+    "claim": "NET receive completion can require conditional Simple/GDR visibility flush before GPU-ready tail publication.",
+    "project": "nccl",
+    "path": "src/transport/net.cc"
+  },
+  {
+    "id": "nccl-review-33",
+    "claim": "Device communicator validates initializer, readiness/version/capability requirements and supports selected runtime-sized state.",
+    "project": "nccl",
+    "path": "src/dev_runtime.cc"
+  },
+  {
+    "id": "nccl-review-34",
+    "claim": "Gin context count is a hint; strong and VA signal capability promises constrain later custom-kernel use.",
+    "project": "nccl",
+    "path": "src/include/nccl_device/host.h"
+  },
+  {
+    "id": "nccl-review-35",
+    "claim": "Strong signal visibility covers preceding puts, while weak signal covers only its bundled put under the documented action contract.",
+    "project": "nccl",
+    "path": "src/include/nccl_device/gin.h"
+  },
+  {
+    "id": "nccl-review-36",
+    "claim": "Gin host setup filters active backends by requested type and signal capability and can try the next eligible setup candidate.",
+    "project": "nccl",
+    "path": "src/gin/gin_host.cc"
+  },
+  {
+    "id": "nccl-review-37",
+    "claim": "Ordinary registration can intentionally return success/null, and cache local/graph references retire transport registrations separately from allocation ownership.",
+    "project": "nccl",
+    "path": "src/register/register.cc"
+  },
+  {
+    "id": "nccl-review-38",
+    "claim": "Nonpersistent host plan callback uploads proxy work, starts proxy and enqueues reclaim without waiting there for all network requests.",
+    "project": "nccl",
+    "path": "src/enqueue/enqueue.cc"
+  },
+  {
+    "id": "nccl-review-39",
+    "claim": "Finalize, destroy, abort and revoke have distinct quiescence/failure contracts; failed outputs are not mathematically rolled back.",
+    "project": "nccl",
+    "path": "src/nccl.h.in"
+  },
+  {
+    "id": "nccl-review-40",
+    "claim": "Async getter returns API status separately from communicator/proxy/Gin error output and linked group-job handling.",
+    "project": "nccl",
+    "path": "src/init.cc"
+  },
+  {
+    "id": "nccl-review-41",
+    "claim": "RAS platform implementation defaults enabled, passive diagnostics default disabled, and bootstrap explicitly tolerates RAS initialization failure.",
+    "project": "nccl",
+    "path": "src/ras/ras.cc"
+  },
+  {
+    "id": "nccl-review-42",
+    "claim": "Progress monitoring uses per-GPU workers and host counter mirrors that may be stale; it does not establish model tensor readiness.",
+    "project": "nccl",
+    "path": "src/ras/progress_monitor.cc"
+  },
+  {
+    "id": "nccl-review-43",
+    "claim": "Local P2P diagnostics compare deterministic remote write/read patterns and synchronize cleanup; no hardware run is claimed.",
+    "project": "nccl",
+    "path": "src/diagnostics/p2p.cc"
+  },
+  {
+    "id": "nccl-review-44",
+    "claim": "Contributed custom all-reduce checkAllEqual verifies its custom float4 outputs and cleanup destroys device resources/windows before communicator retirement.",
+    "project": "nccl",
+    "path": "contrib/custom_algos/allreduce/main.cu"
+  },
+  {
+    "id": "nccl-review-45",
+    "claim": "README points to separate nccl-tests; its source bodies and runtime results are outside the inspected local baseline.",
+    "project": "nccl",
+    "path": "README.md"
+  }
+]

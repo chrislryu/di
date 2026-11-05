@@ -1,0 +1,34 @@
+---
+title: "Which inference engine?"
+description: "Choose from model support, workload behavior, and operating requirements before benchmarking."
+kind: decision
+projects: ["vllm","sglang","deepinfer"]
+related: [{"title":"Parallelism choices","href":"/decisions/parallelism/"},{"title":"Follow one request","href":"/walkthroughs/one-request/"}]
+---
+
+## Start with a workload contract
+
+Write down the exact model revision, tokenizer, precision, context limits, prompt/output length distribution, concurrency, target hardware, and required API behavior. An engine that cannot execute the model correctly is not a performance candidate. **Throughput** measures completed work per time; **latency** measures how long a request waits. Compare both under the same offered load and output-quality requirements.
+
+| Situation | Evidence to collect | Options | Tradeoffs | Prerequisites | Deeper explanation |
+| --- | --- | --- | --- | --- | --- |
+| Need an online text-generation service | Model loading, streaming, cancellation, sampling correctness | Evaluate vLLM or SGLang on the exact model | Different schedulers, cache policies, and operational interfaces | Verified model/hardware support | [vLLM](/architecture/vllm/), [SGLang](/architecture/sglang/) |
+| Repeated prompt prefixes dominate | Prefix hit rate, saved compute, eviction pressure | Evaluate the engines’ local prefix-cache behavior | Hits help only when matching state remains reusable | Consistent tokenization and model configuration | [KV cache](/concepts/kv-cache/) |
+| Need the released DeepSeek runtime | Required model, accelerator and offline API | Evaluate DeepInfer within its released scope | Full serving components remain external | Supported model and hardware | [DeepInfer](/architecture/deepinfer/) |
+| Model fits, but demand grows | Queue time, GPU memory, token timings | Tune one engine, then consider replicas or orchestration | Extra workers add routing and deployment complexity | Reproducible baseline | [Performance](/concepts/performance/) |
+
+## Apply the choice
+
+For a streaming chat service, begin with a correctness smoke test and cancellation test in each eligible engine. Then replay the same request distribution, including warm and cold prefixes. Record successful requests meeting the latency objective, rather than comparing isolated peak token rates. Hold model precision and generation limits constant; otherwise a faster result may describe different work.
+
+The [vLLM scheduler](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/v1/core/sched/scheduler.py) and [SGLang scheduler](https://github.com/sgl-project/sglang/blob/a16830deb5ea5b1e8c9874ad646f3ba95542191c/python/sglang/srt/managers/scheduler.py) are useful starting points for explaining observed behavior. The [DeepInfer release scope](https://github.com/deepseek-ai/DeepInfer/blob/a679bb86ce36e883a98a97733492b686e5b9a08e/README.md) explicitly identifies its supported model/hardware and missing service pieces. No ranking follows from those architectural differences.
+
+The developer verifies semantics and integration; the operator selects a measured deployment. Revisit the choice when the model, workload, hardware, or required features change.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [vLLM source map](/architecture/vllm/repository-map/) | Public engine, scheduler, and execution boundaries |
+| [SGLang source map](/architecture/sglang/repository-map/) | SRT responsibilities and request representations |
+| [DeepInfer public scope](/architecture/deepinfer/repository-map/) | Offline runtime and external service pieces |

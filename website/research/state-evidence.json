@@ -1,0 +1,86 @@
+[
+  {
+    "id": "nixl-1",
+    "claim": "NIXL provides point-to-point transfer abstractions across memory and storage through plugins",
+    "project": "nixl",
+    "path": "README.md"
+  },
+  {
+    "id": "nixl-2",
+    "claim": "The inference conductor owns allocations and metadata exchange while NIXL performs transfers",
+    "project": "nixl",
+    "path": "docs/nixl.md"
+  },
+  {
+    "id": "nixl-3",
+    "claim": "The agent validates descriptors, tracks registrations and remote metadata, selects a compatible backend, and tracks transfer status",
+    "project": "nixl",
+    "path": "src/core/nixl_agent.cpp"
+  },
+  {
+    "id": "nixl-4",
+    "claim": "The UCX backend implements registration, posting, and completion behind the generic agent interface",
+    "project": "nixl",
+    "path": "src/plugins/ucx/ucx_backend.cpp"
+  },
+  {
+    "id": "nixl-5",
+    "claim": "The C++ example registers DRAM buffers, exchanges metadata, posts a WRITE, polls completion and notification, and releases resources",
+    "project": "nixl",
+    "path": "examples/cpp/nixl_example.cpp"
+  },
+  {
+    "id": "mooncake-6",
+    "claim": "Mooncake exposes transfer and shared-store infrastructure for inference workloads",
+    "project": "mooncake",
+    "path": "README.md"
+  },
+  {
+    "id": "vllm-7",
+    "claim": "The vLLM Mooncake Store worker imports the store package and integrates cache loading and saving",
+    "project": "vllm",
+    "path": "vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/worker.py"
+  },
+  {
+    "id": "mooncake-8",
+    "claim": "The store Client exposes Query, Get, Put, and batch operations",
+    "project": "mooncake",
+    "path": "mooncake-store/include/client_service.h"
+  },
+  {
+    "id": "mooncake-9",
+    "claim": "The master implements replica lookup and PutStart/PutEnd object lifecycle operations",
+    "project": "mooncake",
+    "path": "mooncake-store/src/master_service.cpp"
+  },
+  {
+    "id": "mooncake-10",
+    "claim": "Transfer Engine exposes memory registration, transfer batches, submission, and completion status",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/include/transfer_engine.h"
+  },
+  {
+    "id": "mooncake-11",
+    "claim": "A store read queries replica metadata, selects a complete replica, transfers bytes, checks errors and validates lease lifetime",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-12",
+    "claim": "Client::Get selects a complete replica, transfers into slices, checks checksum, and rejects an expired lease",
+    "project": "mooncake",
+    "path": "mooncake-store/src/client_service.cpp"
+  },
+  {
+    "id": "mooncake-13",
+    "claim": "Client integration tests exercise the Store client through its service boundaries",
+    "project": "mooncake",
+    "path": "mooncake-store/tests/client_integration_test.cpp"
+  },
+  {
+    "id": "mooncake-14",
+    "claim": "The transfer benchmark demonstrates direct Transfer Engine usage independently of serving cache semantics",
+    "project": "mooncake",
+    "path": "mooncake-transfer-engine/example/transfer_engine_bench.cpp"
+  }
+]

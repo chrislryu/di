@@ -1,0 +1,554 @@
+[
+  {
+    "id": "deepep-internals-buffer-lifecycle-1",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: EPBuffer construction, size hints, and load-balance allocation plan.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-buffer-lifecycle-2",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Dispatch/combine sizing and EP native storage lifecycle.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-buffer-lifecycle-3",
+    "claim": "BufferAllocator plans aligned meta tensors and materializes an exact CUDA byte region once. Chapter evidence: Aligned meta-tensor planning and one-time materialization.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/allocator.py"
+  },
+  {
+    "id": "deepep-internals-buffer-lifecycle-4",
+    "claim": "Meta-to-CUDA allocation and storage-pointer assertions Chapter evidence: Meta-to-CUDA allocation and storage-pointer assertions.",
+    "project": "deepep",
+    "path": "tests/buffer/test_allocation.py"
+  },
+  {
+    "id": "deepep-internals-buffer-lifecycle-5",
+    "claim": "Python BufferBase ownership and destroy boundary Chapter evidence: Python BufferBase ownership and destroy boundary.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/base.py"
+  },
+  {
+    "id": "deepep-internals-buffer-lifecycle-6",
+    "claim": "Automatic native cleanup invokes derived destruction while explicit cleanup omissions produce a resource leak warning. Chapter evidence: Native explicit destruction and leak warning behavior.",
+    "project": "deepep",
+    "path": "csrc/buffers/base.hpp"
+  },
+  {
+    "id": "deepep-internals-combine-kernels-1",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Native combine validation, source output size, and deferred reduction.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-combine-kernels-2",
+    "claim": "Combine launcher validates hybrid channel/SM compatibility and selects the configured layout/reduction specialization. Chapter evidence: Combine specialization and hybrid channel compatibility.",
+    "project": "deepep",
+    "path": "csrc/kernels/ep/combine.hpp"
+  },
+  {
+    "id": "deepep-internals-combine-kernels-3",
+    "claim": "Reduction layout depends on multiple-reduction permission and rank/top-k counts; arithmetic has BF16 bypass and floating-point accumulation branches. Chapter evidence: Rank versus top-k layout and numerical reduction helper.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine_utils.cuh"
+  },
+  {
+    "id": "deepep-internals-combine-kernels-4",
+    "claim": "Direct combine decodes original source ownership and returns prepared expert contributions through accessible symmetric pointers or network puts. Chapter evidence: Source metadata decoding, local expert reduction, and return transport.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine.cuh"
+  },
+  {
+    "id": "deepep-internals-combine-kernels-5",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: allow_multiple_reduction and public combine contract.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-combine-kernels-6",
+    "claim": "Final combine chooses contributions according to prior grouping, adds optional biases, and returns weights separately. Chapter evidence: Final contribution selection, activation reduction, and weight output.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine_reduce_epilogue.cuh"
+  },
+  {
+    "id": "deepep-internals-combine-kernels-7",
+    "claim": "Reference dispatch deduplicates by destination rank and encodes shared-capacity source IDs; combine models grouped and ordered reductions. Chapter evidence: Reference grouped and ordered reductions with biases.",
+    "project": "deepep",
+    "path": "deep_ep/utils/refs.py"
+  },
+  {
+    "id": "deepep-internals-combine-kernels-8",
+    "claim": "Expanded/non-expanded combine and returned-weight assertions Chapter evidence: Expanded/non-expanded combine and returned-weight assertions.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-1",
+    "claim": "Reference dispatch deduplicates by destination rank and encodes shared-capacity source IDs; combine models grouped and ordered reductions. Chapter evidence: Reference rank deduplication, local expert masking, and source identity.",
+    "project": "deepep",
+    "path": "deep_ep/utils/refs.py"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-2",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: Python dispatch/handle/combine control flow.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-3",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Native validation, count wait, output allocation, and finalization.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-4",
+    "claim": "Direct dispatch separates notify counting from data warps, deduplicates rank slots, and uses NVLink-accessible stores or Gin puts. Chapter evidence: Direct notify and token movement.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/dispatch.cuh"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-5",
+    "claim": "Copy epilogue waits for main dispatch, localizes expert IDs, assigns/reuses expanded slots, and writes return metadata. Chapter evidence: Receive tensors and reverse-routing metadata.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/dispatch_copy_epilogue.cuh"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-6",
+    "claim": "Direct combine decodes original source ownership and returns prepared expert contributions through accessible symmetric pointers or network puts. Chapter evidence: Return metadata decode and direct contribution placement.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine.cuh"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-7",
+    "claim": "Final combine chooses contributions according to prior grouping, adds optional biases, and returns weights separately. Chapter evidence: Original-token final reduction.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine_reduce_epilogue.cuh"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-8",
+    "claim": "launch helper, mode enumeration, and reference assertions Chapter evidence: launch helper, mode enumeration, and reference assertions.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-dispatch-combine-trace-9",
+    "claim": "EventOverlap inserts current-stream waits and executes then clears one deferred hook; context-manager wait occurs on exit. Chapter evidence: Current-stream wait and one-time deferred hook.",
+    "project": "deepep",
+    "path": "deep_ep/utils/event.py"
+  },
+  {
+    "id": "deepep-internals-dispatch-host-path-1",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: Public dispatch setup and native argument assembly.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-dispatch-host-path-2",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Native dispatch validation and stream-control placement.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-dispatch-host-path-3",
+    "claim": "launch helper and dispatch execution-mode combinations Chapter evidence: launch helper and dispatch execution-mode combinations.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-dispatch-kernels-1",
+    "claim": "Launcher selects direct/hybrid specialization and removes notify warps in cached mode. Chapter evidence: Direct/hybrid specialization and notify/dispatch warp budgeting.",
+    "project": "deepep",
+    "path": "csrc/kernels/ep/dispatch.hpp"
+  },
+  {
+    "id": "deepep-internals-dispatch-kernels-2",
+    "claim": "Direct dispatch separates notify counting from data warps, deduplicates rank slots, and uses NVLink-accessible stores or Gin puts. Chapter evidence: Direct dispatch notify reduction, rank deduplication, and movement.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/dispatch.cuh"
+  },
+  {
+    "id": "deepep-internals-dispatch-kernels-3",
+    "claim": "Copy epilogue waits for main dispatch, localizes expert IDs, assigns/reuses expanded slots, and writes return metadata. Chapter evidence: Dependent-launch synchronization and final receive layout.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/dispatch_copy_epilogue.cuh"
+  },
+  {
+    "id": "deepep-internals-dispatch-kernels-4",
+    "claim": "Direct and selected topology correctness checks against reference dispatch Chapter evidence: Direct and selected topology correctness checks against reference dispatch.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-1",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: LB allocation, domain-local replica mapping, and public weight/gradient contracts.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-2",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Weight descriptor validation, LB launches, and recorded tensors.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-3",
+    "claim": "NVLink prefetch pushes mapped owner expert payloads into redundant symmetric destinations with barriers. Chapter evidence: NVLink weight-push kernel and fused completion barriers.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/prefetch_weights.cuh"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-4",
+    "claim": "Redundant gradient return loads chunks and accumulates into owner FP32 gradients with reduction stores and completion barriers. Chapter evidence: Chunked redundant-gradient loads and FP32 atomic accumulation.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/reduce_grads.cuh"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-5",
+    "claim": "Seeded accumulation, chunk-size sweeps, and order-independent integer test data Chapter evidence: Seeded accumulation, chunk-size sweeps, and order-independent integer test data.",
+    "project": "deepep",
+    "path": "tests/ep/test_reduce_grads.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-6",
+    "claim": "Replica payload sweeps, sentinel preservation, and byte-exact checks Chapter evidence: Replica payload sweeps, sentinel preservation, and byte-exact checks.",
+    "project": "deepep",
+    "path": "tests/ep/test_prefetch_weights.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-7",
+    "claim": "Experimental Bucket sessions stage tensors in bounded storage, reject nesting, and require one group per session. Chapter evidence: Bucket storage, one-group session, staged results, and exhaustion checks.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/bucket.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-8",
+    "claim": "Session correctness, explicit destination and in-buffer variants Chapter evidence: Session correctness, explicit destination and in-buffer variants.",
+    "project": "deepep",
+    "path": "tests/bucket/test_session.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-9",
+    "claim": "Experimental PP sends/receives contiguous tensors only to adjacent ranks in a bounded pipeline ring. Chapter evidence: Adjacent-rank ring send/recv and bounded in-flight storage.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/pp.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-10",
+    "claim": "Pipeline send/recv stress schedules and equality assertions Chapter evidence: Pipeline send/recv stress schedules and equality assertions.",
+    "project": "deepep",
+    "path": "tests/pp/test_pp.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-11",
+    "claim": "Experimental Engram configures registered storage and fetches indexed entries with per-layer wait hooks. Chapter evidence: Storage configuration, indexed fetch, QP bound, and per-layer hooks.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/engram.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-12",
+    "claim": "Indexed data/scale checks with forward and reverse layer wait order Chapter evidence: Indexed data/scale checks with forward and reverse layer wait order.",
+    "project": "deepep",
+    "path": "tests/engram/test_engram.py"
+  },
+  {
+    "id": "deepep-internals-expert-replication-and-extensions-13",
+    "claim": "Pinned release uses EPBuffer, NCCL Gin, and DeepJIT; removed V1/NVSHMEM and experimental extensions are explicitly bounded. Chapter evidence: Experimental extensions and bounded platform support.",
+    "project": "deepep",
+    "path": "README.md"
+  },
+  {
+    "id": "deepep-internals-groups-and-communicators-1",
+    "claim": "NCCL communicator wrappers distinguish cached borrowed PyTorch pointers from managed newly created communicators. Chapter evidence: Cached, borrowed, and managed NCCLCommHandle paths.",
+    "project": "deepep",
+    "path": "deep_ep/comm/handle.py"
+  },
+  {
+    "id": "deepep-internals-groups-and-communicators-2",
+    "claim": "Context validates NCCL Gin GDAKI capability, creates a device communicator, and derives physical and logical domains. Chapter evidence: NCCL properties, Gin requirements, and device context initialization.",
+    "project": "deepep",
+    "path": "csrc/kernels/comm/context.cpp"
+  },
+  {
+    "id": "deepep-internals-groups-and-communicators-3",
+    "claim": "Pinned release uses EPBuffer, NCCL Gin, and DeepJIT; removed V1/NVSHMEM and experimental extensions are explicitly bounded. Chapter evidence: Loaded NCCL library and current platform requirements.",
+    "project": "deepep",
+    "path": "README.md"
+  },
+  {
+    "id": "deepep-internals-groups-and-communicators-4",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: EP buffer context ownership and collective destruction.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-groups-and-communicators-5",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: EPBuffer group fields and context-derived domain attributes.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-groups-and-communicators-6",
+    "claim": "Communication barrier correctness exercise Chapter evidence: Communication barrier correctness exercise.",
+    "project": "deepep",
+    "path": "tests/comm/test_barrier.py"
+  },
+  {
+    "id": "deepep-internals-groups-and-communicators-7",
+    "claim": "Explicit world and pair-group registration assertions Chapter evidence: Explicit world and pair-group registration assertions.",
+    "project": "deepep",
+    "path": "tests/buffer/test_allocation.py"
+  },
+  {
+    "id": "deepep-internals-hybrid-communication-1",
+    "claim": "Context validates NCCL Gin GDAKI capability, creates a device communicator, and derives physical and logical domains. Chapter evidence: Hybrid domains and Gin connection requirements.",
+    "project": "deepep",
+    "path": "csrc/kernels/comm/context.cpp"
+  },
+  {
+    "id": "deepep-internals-hybrid-communication-2",
+    "claim": "Launcher selects direct/hybrid specialization and removes notify warps in cached mode. Chapter evidence: Hybrid warp roles and specialized kernel selection.",
+    "project": "deepep",
+    "path": "csrc/kernels/ep/dispatch.hpp"
+  },
+  {
+    "id": "deepep-internals-hybrid-communication-3",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Hybrid channel sizing and forwarding/linked-list tensor shapes.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-hybrid-communication-4",
+    "claim": "Hybrid dispatch deduplicates scale-out domains, publishes channel progress tails, forwards locally, and preserves reverse-route metadata. Chapter evidence: Scale-out puts, tail publication, forwarding waits, and metadata.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/hybrid_dispatch.cuh"
+  },
+  {
+    "id": "deepep-internals-hybrid-communication-5",
+    "claim": "Hybrid combine follows forwarding metadata and channel links to return contributions across NVLink and rail communication. Chapter evidence: Reverse forwarding, scale-up waits, rail puts, and completion signals.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/hybrid_combine.cuh"
+  },
+  {
+    "id": "deepep-internals-hybrid-communication-6",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: Deterministic sorting and hybrid handle metadata preservation.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-hybrid-communication-7",
+    "claim": "Topology-selected dispatch/combine reference assertions Chapter evidence: Topology-selected dispatch/combine reference assertions.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-jit-and-runtime-1",
+    "claim": "Installation builds the host extension and packages headers for later runtime GPU specialization. Chapter evidence: Host extension sources, compiler flags, NCCL linking, and packaged headers.",
+    "project": "deepep",
+    "path": "setup.py"
+  },
+  {
+    "id": "deepep-internals-jit-and-runtime-2",
+    "claim": "Import checks loaded NCCL binary consistency before initializing JIT and importing public buffers. Chapter evidence: Loaded NCCL check, persistent environment defaults, and JIT initialization order.",
+    "project": "deepep",
+    "path": "deep_ep/__init__.py"
+  },
+  {
+    "id": "deepep-internals-jit-and-runtime-3",
+    "claim": "NCCL discovery prioritizes explicit environment roots then installed NVIDIA package metadata. Chapter evidence: NCCL root discovery and library filename resolution.",
+    "project": "deepep",
+    "path": "deep_ep/utils/find_pkgs.py"
+  },
+  {
+    "id": "deepep-internals-jit-and-runtime-4",
+    "claim": "DeepJIT initializes lazily with tracked DeepEP headers and compiler options that include NCCL path and selected Gin defines. Chapter evidence: DeepJIT configuration, compiler options, and tracked headers.",
+    "project": "deepep",
+    "path": "csrc/runtime/jit.hpp"
+  },
+  {
+    "id": "deepep-internals-jit-and-runtime-5",
+    "claim": "Launcher selects direct/hybrid specialization and removes notify warps in cached mode. Chapter evidence: Generated dispatch compilation unit and launch options.",
+    "project": "deepep",
+    "path": "csrc/kernels/ep/dispatch.hpp"
+  },
+  {
+    "id": "deepep-internals-jit-and-runtime-6",
+    "claim": "Combine launcher validates hybrid channel/SM compatibility and selects the configured layout/reduction specialization. Chapter evidence: Combine specialization and dependent reduction launch.",
+    "project": "deepep",
+    "path": "csrc/kernels/ep/combine.hpp"
+  },
+  {
+    "id": "deepep-internals-jit-and-runtime-7",
+    "claim": "Pinned release uses EPBuffer, NCCL Gin, and DeepJIT; removed V1/NVSHMEM and experimental extensions are explicitly bounded. Chapter evidence: Pinned release runtime compiler, GPU, CUDA, PyTorch, and NCCL requirements.",
+    "project": "deepep",
+    "path": "README.md"
+  },
+  {
+    "id": "deepep-internals-jit-and-runtime-8",
+    "claim": "Correctness modes and profiled operation boundaries Chapter evidence: Correctness modes and profiled operation boundaries.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-precision-and-capacity-1",
+    "claim": "Test FP8 conversion groups hidden elements into 128-value blocks and carries scales for reconstruction. Chapter evidence: Test FP8 cast and cast-back utilities.",
+    "project": "deepep",
+    "path": "deep_ep/utils/math.py"
+  },
+  {
+    "id": "deepep-internals-precision-and-capacity-2",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: Dispatch tensor representations and scale-layout option.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-precision-and-capacity-3",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Topology-aware maximum of dispatch and combine byte requirements.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-precision-and-capacity-4",
+    "claim": "Compiled constants define public top-k index width and 32-byte TMA, 64-byte RDMA, and two-MiB allocation alignment. Chapter evidence: Public index type and TMA/RDMA/allocation alignment constants.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/common/compiled.cuh"
+  },
+  {
+    "id": "deepep-internals-precision-and-capacity-5",
+    "claim": "Reduction layout depends on multiple-reduction permission and rank/top-k counts; arithmetic has BF16 bypass and floating-point accumulation branches. Chapter evidence: BF16 bypass and floating-point accumulation branches.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/combine_utils.cuh"
+  },
+  {
+    "id": "deepep-internals-precision-and-capacity-6",
+    "claim": "Reference dispatch deduplicates by destination rank and encodes shared-capacity source IDs; combine models grouped and ordered reductions. Chapter evidence: Reference reduction grouping and ordered accumulation.",
+    "project": "deepep",
+    "path": "deep_ep/utils/refs.py"
+  },
+  {
+    "id": "deepep-internals-precision-and-capacity-7",
+    "claim": "Precision, capacity, skew, alignment, and reduction correctness coverage Chapter evidence: Precision, capacity, skew, alignment, and reduction correctness coverage.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-public-contracts-1",
+    "claim": "Pinned release uses EPBuffer, NCCL Gin, and DeepJIT; removed V1/NVSHMEM and experimental extensions are explicitly bounded. Chapter evidence: Current release scope, requirements, and removed V1 interface.",
+    "project": "deepep",
+    "path": "README.md"
+  },
+  {
+    "id": "deepep-internals-public-contracts-2",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: EPBuffer.dispatch input, output, and lifetime contracts.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-public-contracts-3",
+    "claim": "Reference dispatch deduplicates by destination rank and encodes shared-capacity source IDs; combine models grouped and ordered reductions. Chapter evidence: Reference dispatch selection and explicit activation reduction.",
+    "project": "deepep",
+    "path": "deep_ep/utils/refs.py"
+  },
+  {
+    "id": "deepep-internals-public-contracts-4",
+    "claim": "EventOverlap inserts current-stream waits and executes then clears one deferred hook; context-manager wait occurs on exit. Chapter evidence: EventOverlap wait hooks and current-stream dependency.",
+    "project": "deepep",
+    "path": "deep_ep/utils/event.py"
+  },
+  {
+    "id": "deepep-internals-public-contracts-5",
+    "claim": "test_dispatch_combine contracts and reference assertions Chapter evidence: test_dispatch_combine contracts and reference assertions.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-routing-and-handles-1",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: EPHandle fields, cached dispatch constraints, and combine arguments.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-routing-and-handles-2",
+    "claim": "Routing reference identity and cached-layout checks Chapter evidence: Routing reference identity and cached-layout checks.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-routing-and-handles-3",
+    "claim": "Reference dispatch deduplicates by destination rank and encodes shared-capacity source IDs; combine models grouped and ordered reductions. Chapter evidence: Global source-token encoding in reference dispatch.",
+    "project": "deepep",
+    "path": "deep_ep/utils/refs.py"
+  },
+  {
+    "id": "deepep-internals-routing-and-handles-4",
+    "claim": "Copy epilogue waits for main dispatch, localizes expert IDs, assigns/reuses expanded slots, and writes return metadata. Chapter evidence: Source identity and expanded-slot metadata writes.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/dispatch_copy_epilogue.cuh"
+  },
+  {
+    "id": "deepep-internals-routing-and-handles-5",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Direct versus hybrid handle allocation and validation.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-streams-and-events-1",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Stream-control prologue and epilogue contracts.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-streams-and-events-2",
+    "claim": "Communication uses a pooled stream and event-based stream dependencies. Chapter evidence: Pooled communication stream and CUDA event waits.",
+    "project": "deepep",
+    "path": "csrc/comm/stream.hpp"
+  },
+  {
+    "id": "deepep-internals-streams-and-events-3",
+    "claim": "EventHandle owns a recorded CUDA event and may retain tensors used by asynchronous work. Chapter evidence: EventHandle CUDA event and retained tensor list.",
+    "project": "deepep",
+    "path": "csrc/utils/event.hpp"
+  },
+  {
+    "id": "deepep-internals-streams-and-events-4",
+    "claim": "EventOverlap inserts current-stream waits and executes then clears one deferred hook; context-manager wait occurs on exit. Chapter evidence: Wait hooks, one-time result, explicit release, and context-manager behavior.",
+    "project": "deepep",
+    "path": "deep_ep/utils/event.py"
+  },
+  {
+    "id": "deepep-internals-streams-and-events-5",
+    "claim": "Previous-event, async, allocation-stream, and deferred launch combinations Chapter evidence: Previous-event, async, allocation-stream, and deferred launch combinations.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  },
+  {
+    "id": "deepep-internals-token-layouts-1",
+    "claim": "Packed token records align hidden/scales/metadata and preserve fixed rank strides for channel subviews. Chapter evidence: TokenLayout alignment, metadata, and rank/channel strides.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/layout/ep/token.cuh"
+  },
+  {
+    "id": "deepep-internals-token-layouts-2",
+    "claim": "Copy epilogue waits for main dispatch, localizes expert IDs, assigns/reuses expanded slots, and writes return metadata. Chapter evidence: Fresh and cached expansion slot assignment.",
+    "project": "deepep",
+    "path": "deep_ep/include/deep_ep/impls/ep/dispatch_copy_epilogue.cuh"
+  },
+  {
+    "id": "deepep-internals-token-layouts-3",
+    "claim": "EPBuffer dispatch/combine distinguish ordinary and deferred returns; EPHandle retains immutable routing by reference and layout metadata. Chapter evidence: EPHandle prefix-sum conventions and actual expanded expert counts.",
+    "project": "deepep",
+    "path": "deep_ep/buffers/ep.py"
+  },
+  {
+    "id": "deepep-internals-token-layouts-4",
+    "claim": "Native EP validates capacities/layouts, controls streams, handles exact or worst-case receive allocation, and separates main kernels from epilogues. Chapter evidence: Capacity-sized output allocation and exact-count branch.",
+    "project": "deepep",
+    "path": "csrc/buffers/ep.hpp"
+  },
+  {
+    "id": "deepep-internals-token-layouts-5",
+    "claim": "Expanded counts, valid-slot equality, zero-padding, and capacity slicing assertions Chapter evidence: Expanded counts, valid-slot equality, zero-padding, and capacity slicing assertions.",
+    "project": "deepep",
+    "path": "tests/ep/test_ep.py"
+  }
+]

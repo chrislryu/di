@@ -1,0 +1,14 @@
+---
+title: "Architecture guides"
+description: "Ten projects, grouped by the responsibility you are trying to understand."
+---
+
+import ProjectIndex from '../../../components/ProjectIndex.astro';
+
+Start with [vLLM](/architecture/vllm/) for one engine. Read the other guides directly when their boundary matches your problem. The categories below describe primary roles, not a required installation sequence.
+
+Each repository guide has an overview and 14 focused chapters. Follow the diagrams to understand the main operation, its owners, and the decisions that change the path. Short code-reading routes lead into the implementation when you need more detail.
+
+<ProjectIndex />
+
+Each guide follows customer purpose → system role → architecture → operation trace → decision gates → code-reading path. Source metadata identifies the inspected snapshot; integration support must be checked for the selected configuration.

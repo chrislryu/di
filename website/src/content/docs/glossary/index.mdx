@@ -1,0 +1,252 @@
+---
+title: "Glossary"
+description: "Shared vocabulary for inference, memory, GPU communication, and networking."
+kind: "glossary"
+---
+
+## Token
+
+An integer identifying an item in a model’s vocabulary. Tokens can represent parts of words, whole words, punctuation, or other input units; one token is not necessarily one word. [Learn more →](/concepts/request-lifecycle/)
+
+## Tokenization
+
+Converting text into the token IDs expected by a model. Detokenization converts generated IDs back into text. [Learn more →](/concepts/request-lifecycle/)
+
+## Prefill
+
+Processing input context to build attention state and obtain the model output needed to start generation. Long prompts can consume substantial compute before users receive output. [Learn more →](/concepts/request-lifecycle/)
+
+## Decode
+
+Advancing generation using accumulated context, typically producing one new token per sequence per ordinary iteration. Speculative methods can change how much progress an iteration makes. [Learn more →](/concepts/request-lifecycle/)
+
+## KV cache
+
+Stored attention keys and values for previously processed tokens. It avoids recomputing that state while generating or reusing a compatible prefix; it is not a cache of finished answers. [Learn more →](/concepts/kv-cache/)
+
+## Prefix caching
+
+Reusing attention state for a compatible initial token sequence. Reuse requires correct model/state identity and ownership, not just matching visible text. [Learn more →](/concepts/kv-cache/)
+
+## Block
+
+A fixed-granularity unit used by an engine to manage cached token state. Logical block IDs and the physical memory holding the tensors are separate representations. [Learn more →](/concepts/kv-cache/)
+
+## Continuous batching
+
+Changing the active work set between model iterations so new requests can join as others finish. It improves utilization but still requires token and memory budgets. [Learn more →](/concepts/scheduling/)
+
+## Chunked prefill
+
+Splitting prompt processing across multiple scheduling iterations. This can moderate interference with ongoing generation at the cost of completing a prompt over more iterations. [Learn more →](/concepts/scheduling/)
+
+## Preemption
+
+Temporarily stopping scheduled work to make resources available. Resuming may require recomputation or restoring state, depending on the engine. [Learn more →](/concepts/scheduling/)
+
+## Disaggregation
+
+Running stages such as prefill and decode in separate worker pools. It enables separate capacity choices but requires handoff and state movement. [Learn more →](/concepts/disaggregation/)
+
+## Data parallelism
+
+Running replicas on different request or data partitions. Each replica has its own execution state; workload placement still matters. [Learn more →](/concepts/parallelism/)
+
+## Tensor parallelism
+
+Splitting operations or parameter tensors across devices that cooperate on a model computation. Communication can occur within each model layer. [Learn more →](/concepts/parallelism/)
+
+## Pipeline parallelism
+
+Placing successive model stages on different devices. Intermediate activations cross stage boundaries; keeping stages busy requires scheduling. [Learn more →](/concepts/parallelism/)
+
+## Context parallelism
+
+Partitioning work associated with a sequence’s context across devices. The attention algorithm determines which state and reductions must be exchanged. [Learn more →](/concepts/parallelism/)
+
+## Expert parallelism
+
+Placing different MoE experts on different devices. Token dispatch and result combination follow the router’s expert selections. [Learn more →](/concepts/parallelism/)
+
+## MoE
+
+Mixture of experts: a model design that selects a subset of expert networks for each token. Sparse expert activation can still require substantial communication. [Learn more →](/concepts/parallelism/)
+
+## Rank
+
+One participant in a process group or communicator. A rank identifies a communication participant, not a user request. [Learn more →](/concepts/communication/)
+
+## Communicator
+
+A library object describing a set of participating ranks and the resources needed for their operations. All participants must follow a compatible operation contract. [Learn more →](/concepts/communication/)
+
+## Collective
+
+A coordinated operation across a group of participants, such as all-reduce or all-gather. Its result depends on contributions and participation from the group. [Learn more →](/concepts/communication/)
+
+## All-reduce
+
+Combining corresponding values from every rank, for example by summing, then making the combined result available to every rank. [Learn more →](/concepts/communication/)
+
+## All-gather
+
+Collecting each participant’s contribution so every participant obtains the gathered data. [Learn more →](/concepts/communication/)
+
+## Reduce-scatter
+
+Reducing participants’ corresponding contributions and distributing different reduced portions to different participants. [Learn more →](/concepts/communication/)
+
+## Dispatch
+
+Moving token activations to the ranks owning their selected experts. The receive layout must agree with subsequent expert computation. [Learn more →](/concepts/communication/)
+
+## Combine
+
+Returning and accumulating expert results according to the matching routing metadata. It must preserve the mapping to original token ownership. [Learn more →](/concepts/communication/)
+
+## RDMA
+
+Remote direct memory access: a network capability for accessing registered memory with less host CPU involvement in the data path. It still needs setup, valid registrations, lifetime management, and completion checks. [Learn more →](/concepts/networking/)
+
+## GPUDirect RDMA
+
+A GPU-aware RDMA path that can move data to or from GPU memory when the hardware, driver, and software stack support it. Using an RDMA-capable NIC alone does not establish this path. [Learn more →](/concepts/networking/)
+
+## EFA
+
+Elastic Fabric Adapter: AWS networking technology exposed through an EFA device and compatible software stack. The libfabric provider selected at runtime determines the available semantics. [Learn more →](/concepts/networking/)
+
+## Provider
+
+A libfabric implementation of a set of fabric capabilities for a device or composed software path. Provider selection is a capability negotiation, not just a hardware-name lookup. [Learn more →](/concepts/networking/)
+
+## Completion queue
+
+A queue through which a communication implementation reports completed work and errors. Submission success and completion are different events. [Learn more →](/concepts/networking/)
+
+## Memory registration
+
+Making a buffer range available to a transfer backend with the metadata and access needed by that backend. Registration does not transfer ownership or extend the underlying allocation’s lifetime automatically. [Learn more →](/concepts/networking/)
+
+## NVLink
+
+A device interconnect used for high-bandwidth communication within supported GPU systems. Available connectivity depends on the actual machine topology. [Learn more →](/concepts/topology/)
+
+## PCIe
+
+Peripheral Component Interconnect Express: the host/device interconnect connecting GPUs, NICs, and other devices. Different PCIe placements can create different paths and bottlenecks. [Learn more →](/concepts/topology/)
+
+## NIC
+
+Network interface controller, the device connecting a host to the network. Its placement relative to a GPU matters for the transfer path. [Learn more →](/concepts/topology/)
+
+## SM
+
+Streaming multiprocessor: a unit of NVIDIA GPU execution capacity. Communication kernels that occupy SMs can compete with model kernels. [Learn more →](/concepts/topology/)
+
+## Control plane
+
+The coordination path for placement, discovery, descriptors, and operation metadata. A working control path does not prove that payload data can move. [Learn more →](/concepts/disaggregation/)
+
+## Data plane
+
+The path carrying tensor or byte payloads. Its resource ownership and completion conditions can differ from those of request-routing messages. [Learn more →](/concepts/disaggregation/)
+
+## SLO
+
+Service-level objective: a stated performance or availability target for a defined workload and measurement scope. It supplies the criterion for evaluating a serving choice. [Learn more →](/concepts/performance/)
+
+## Time to first token
+
+Elapsed time until the first generated token reaches the observer. State whether measurement begins at the client, server arrival, or engine admission. [Learn more →](/concepts/performance/)
+
+## Inter-token latency
+
+Time between successive generated tokens as observed at a stated boundary. Network buffering and response framing can change what the client sees. [Learn more →](/concepts/performance/)
+
+## Throughput
+
+Useful work completed per unit time, such as requests or generated tokens per second. Specify workload, output lengths, concurrency, and latency constraints. [Learn more →](/concepts/performance/)
+
+## Tail latency
+
+Latency near the slow end of a distribution, often described using percentiles. A better average can coexist with worse tail behavior. [Learn more →](/concepts/performance/)
+
+## Logits
+
+The model's scores for possible next tokens before a probability-normalization
+step. Sampling code can transform or mask these scores before choosing output.
+A finite tensor of scores is not itself a streamed text response.
+[Follow sampling and output →](/architecture/vllm/sampling-and-output/)
+
+## CUDA stream
+
+An ordered sequence of GPU work submissions. Work on different streams needs
+explicit dependencies when one stream consumes data produced by another.
+A host function returning does not generally establish GPU completion.
+[Follow stream and event ordering →](/architecture/deepep/streams-and-events/)
+
+## CUDA graph
+
+A captured graph of GPU operations that can be replayed to reduce repeated
+launch overhead. Capturing and replaying work introduces constraints on shapes,
+addresses, and state management; an eager path launches work directly.
+[Follow GPU execution →](/architecture/vllm/gpu-execution/)
+
+## Speculative decoding
+
+Generation that proposes draft tokens and verifies them against the target
+model, potentially advancing several output tokens in an iteration. The
+verification algorithm and accepted-token bookkeeping determine progress;
+a draft token is not automatically accepted output or completed target KV state.
+[Follow async and speculative execution →](/architecture/vllm/async-and-speculative/)
+
+## Grammar constraint
+
+A rule restricting which generated token sequences are valid, often derived
+from a schema or formal grammar. The runtime must keep constraint state aligned
+with the accepted output and apply masks at the correct sampling step.
+[Follow structured generation →](/architecture/vllm/structured-generation/)
+
+## Radix tree
+
+A prefix tree that compresses shared path segments. A serving engine can use
+it to locate reusable token prefixes, while separate allocation metadata tracks
+the physical KV locations and whether they may be reclaimed.
+[Work through prefix matching →](/architecture/sglang/prefix-cache/)
+
+## Reference count
+
+A count used to track active ownership or use of a shared resource. Its exact
+meaning belongs to the implementation: a cached block with no active request
+references may still contain reusable data until reclaimed.
+[Follow KV block ownership →](/architecture/vllm/kv-memory/)
+
+## Queue pair
+
+A communication resource commonly abbreviated **QP**, associated with queues
+for submitted network work. The transport determines its exact semantics and
+resource requirements. Increasing the number of QPs is not by itself proof of
+higher useful throughput.
+[Follow DeepEP capacity choices →](/architecture/deepep/precision-and-capacity/)
+
+## Rail
+
+A separately organized network path or resource lane used by a communication
+implementation. Multi-rail scheduling decides how to distribute transfer work;
+its benefit depends on topology, message size, and usable path capacity.
+[Follow plugin rails and scheduling →](/architecture/aws-ofi-nccl/rails-and-scheduling/)
+
+## Eager protocol
+
+A message protocol that can send payload data without first completing a
+receiver-directed rendezvous for that message. Size limits and resource
+requirements depend on the selected provider and implementation.
+[Inspect EFA message protocols →](/architecture/libfabric/efa-message-protocols/)
+
+## Rendezvous protocol
+
+A message-transfer protocol that coordinates participants before moving some
+or all of the payload. This coordination can manage larger-message resource
+requirements; it is distinct from connecting an application request to a worker.
+[Inspect EFA message protocols →](/architecture/libfabric/efa-message-protocols/)

@@ -1,0 +1,80 @@
+---
+title: 'NCCL: Communication graphs'
+description: "Build rings, trees, channels, and connections from topology."
+kind: architecture
+projects: [nccl]
+---
+
+import Source from '../../../../components/Source.astro';
+
+## Embed a communication pattern in the machine
+
+The system graph describes hardware and usable paths. A **communication graph** describes how ranks will communicate over those paths: local rank order, inter-node endpoints, and parallel channels. NCCL prepares several candidates because different operations can benefit from different exchange patterns.
+
+`ncclTopoGraph` holds a requested pattern and channel limits, then receives search results such as channel count, path types, local orders, and intra/inter-node bandwidth estimates.
+
+<Source project="nccl" path="src/include/graph.h" lines="174-194" label="Communication graph inputs and results" />
+
+## Compare ring and tree relationships
+
+A ring gives every rank a predecessor and successor. Here is one teaching arrangement for four ranks on two nodes:
+
+```mermaid
+flowchart TD
+  accTitle: Conceptual four-rank ring across two nodes
+  accDescr: Ranks zero and one share node A, ranks two and three share node B, and the ring uses local connectors within nodes and network connectors across nodes.
+  subgraph A["Node A"]
+    R0["Rank 0"] -->|"local connector"| R1["Rank 1"]
+  end
+  subgraph B["Node B"]
+    R2["Rank 2"] -->|"local connector"| R3["Rank 3"]
+  end
+  R1 -->|"network connector"| R2
+  R3 -->|"network connector"| R0
+```
+
+Local and cross-node edges can use different transports. The selected order comes from topology search; this drawing illustrates the relationship.
+
+A tree expresses parent/child relationships. Reduction moves toward the root and the final result moves back down:
+
+```mermaid
+flowchart TD
+  accTitle: Conceptual four-rank tree reduction and broadcast
+  accDescr: A teaching tree reduces child contributions upward to rank zero and broadcasts final results downward; it illustrates a graph family rather than a selected runtime embedding.
+  R0["Rank 0: root"]
+  R1["Rank 1: internal rank"]
+  R2["Rank 2: leaf"]
+  R3["Rank 3: leaf"]
+  R3 -->|"reduce upward"| R1
+  R1 -->|"reduce upward"| R0
+  R2 -->|"reduce upward"| R0
+  R0 -.->|"broadcast final result"| R1
+  R0 -.->|"broadcast final result"| R2
+  R1 -.->|"broadcast final result"| R3
+```
+
+Both patterns implement the same all-reduce result, but expose different parallelism and communication depth. Their execution is covered in [device kernels](/architecture/nccl/device-kernels/).
+
+## Search within resource constraints
+
+Initialization requests ring and balanced-tree graphs. Specialized graph families, including NVLink-switch and collective-network paths, are additional candidates when supported. They extend the available implementation menu without becoming requirements for ordinary NCCL communication.
+
+<Source project="nccl" path="src/init.cc" lines="1420-1467" label="Graph families prepared during initialization" />
+
+Search embeds each pattern into usable paths while accounting for shared link capacity, channel bounds, and network placement. It operates within a search budget. The result is a feasible planning candidate, rather than a benchmark of the current tensor or a proof of a globally optimal placement.
+
+<Source project="nccl" path="src/graph/search.cc" lines="1151-1318" label="Graph search and resource bounds" />
+
+## Treat channels as parallel work lanes
+
+A channel carries peer relationships and work state. More channels can expose more concurrent chunks and help fill links for large transfers. They also use connections, work storage, and GPU resources. Channel count therefore belongs to planning and tuning, not to hardware inventory.
+
+Initialization establishes feasible structures; per-operation selection chooses the implementation and resources for the current message. Small and large all-reduces on the same communicator can reasonably select different choices.
+
+Graph results become concrete ring/tree channel relationships and transport connections before execution. This is the boundary to inspect when a useful-looking graph fails to become usable communication.
+
+<Source project="nccl" path="src/graph/connect.cc" label="Graph results converted into channel relationships" />
+
+## Read the code
+
+Read `ncclTopoGraph`, initialization's graph requests, `ncclTopoCompute`, then `connect.cc`. Preserve the distinction among detected topology, graph candidates, and the operation's selected implementation when reading logs. Continue to [algorithm selection](/architecture/nccl/algorithm-selection/) for the final choice.

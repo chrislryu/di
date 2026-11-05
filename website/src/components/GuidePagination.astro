@@ -1,0 +1,17 @@
+---
+import { learningPath } from '../data/learning-path';
+import { guideContext } from '../data/guides';
+import GuideContents from './GuideContents.astro';
+const { entry } = Astro.locals.starlightRoute;
+const guide = guideContext(entry.id);
+const index = learningPath.findIndex(([id]) => id === entry.id);
+const previous = index > 0 ? learningPath[index - 1] : undefined;
+const next = index >= 0 ? learningPath[index + 1] : undefined;
+---
+{guide && guide.position === 0 && <GuideContents project={guide.project} />}
+{(entry.data.related ?? []).length > 0 && <aside class="related"><strong>Keep exploring</strong><ul>{entry.data.related.map(item => <li><a href={item.href}>{item.title}</a></li>)}</ul></aside>}
+{guide && guide.position > 0 ? <nav class="path-navigation" aria-label="Repository chapters" data-pagefind-ignore>
+  <p>Chapter {guide.position + 1} of {guide.total} · <a class="guide-return" href={guide.overviewHref}>{guide.name} guide overview</a></p>
+  <div>{guide.previous && <a rel="prev" href={guide.previous.href}><small>← Previous chapter</small>{guide.previous.title}</a>}{guide.next && <a rel="next" href={guide.next.href}><small>Next chapter →</small>{guide.next.title}</a>}</div>
+  {!guide.next && <p>You have reached the end of this repository guide. <a class="guide-return" href="/start/reading-path/">Return to the newcomer path →</a></p>}
+</nav> : index >= 0 ? <nav class="path-navigation" aria-label="Newcomer learning path" data-pagefind-ignore><p>Newcomer path · step {index + 1} of {learningPath.length}</p><div>{previous && <a rel="prev" href={`/${previous[0]}/`}><small>← Previous</small>{previous[1]}</a>}{next && <a rel="next" href={`/${next[0]}/`}><small>Next →</small>{next[1]}</a>}</div></nav> : entry.data.template !== 'splash' && <p class="path-return" data-pagefind-ignore><a href="/start/reading-path/">Find your place in the reading path →</a></p>}

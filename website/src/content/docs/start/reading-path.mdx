@@ -1,0 +1,35 @@
+---
+title: "A path through the stack"
+description: "Learn through concrete operations, then return for deeper concepts."
+kind: "start"
+---
+
+import { learningPath } from '../../../data/learning-path';
+
+## Newcomer path
+
+Start with the customer requirement. Follow one engine before introducing transfers or collectives. Each guide's previous/next links follow this same path; concepts are linked when they first become useful.
+
+<ol>{learningPath.map(([id,title]) => <li><a href={'/' + id + '/'}>{title}</a></li>)}</ol>
+
+## Read an overview or a full guide
+
+Each repository overview is chapter 1 of a 15-page guide. Use **Browse all chapters** to choose a subsystem or follow its internals in order. Chapter navigation stays inside that repository; overview navigation continues along the newcomer path above.
+
+Start with the repository map, then follow startup and one representative operation. The chapters explain the main owners and decisions with diagrams and short routes into source. Choose a subsystem when you need it; you do not need to read every chapter in order.
+
+## Enter with a question
+
+| Your question | Start here | Then inspect |
+| --- | --- | --- |
+| Why does the first token take so long? | [Request lifecycle](/concepts/request-lifecycle/) | [Scheduling](/concepts/scheduling/) and [performance](/concepts/performance/) |
+| What happens when the prompt moves to another worker? | [Prefill/decode walkthrough](/walkthroughs/prefill-decode/) | [NIXL](/architecture/nixl/) |
+| Can repeated context be reused? | [KV cache](/concepts/kv-cache/) | [Mooncake](/architecture/mooncake/) |
+| Why do GPUs communicate during generation? | [Parallelism](/concepts/parallelism/) | [NCCL](/architecture/nccl/) and [DeepEP](/architecture/deepep/) |
+| Is my deployment using EFA? | [AWS network walkthrough](/walkthroughs/aws-network/) | [Network decisions](/decisions/network/) |
+
+## How to read the source
+
+Read a guide's purpose and map first, then follow its representative operation through the linked symbols. Each link pins a commit. Compare state ownership at every process or device boundary: a queue entry, a logical block identifier, and the actual tensor bytes are different things.
+
+The architecture can be followed through source alone. Runtime examples state their hardware and setup requirements separately.

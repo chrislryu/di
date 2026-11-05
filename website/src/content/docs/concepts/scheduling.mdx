@@ -1,0 +1,39 @@
+---
+title: "Scheduling"
+description: "How queues, token budgets, continuous batches, and cache capacity determine which requests advance."
+kind: "concept"
+projects: ["vllm","sglang"]
+related: [{"title":"Inside vLLM","href":"/architecture/vllm/"},{"title":"Performance and reliability","href":"/concepts/performance/"}]
+---
+
+## Share an accelerator across requests
+
+A web server can start another coroutine cheaply. A model engine must also find device memory and execution capacity. Its scheduler converts pending requests into work the accelerator can execute in the next iteration. It balances progress for existing requests against admitting new ones.
+
+**Continuous batching** updates batch membership between iterations. Imagine three requests generating outputs of different lengths. When the shortest finishes, another request can join a later iteration while the other two continue. Fixed batching would leave its capacity unavailable until the whole batch completes.
+
+A scheduler cannot simply maximize the number of requests in every batch. A request may need hundreds of prompt tokens computed, one more decode token, additional [KV-cache](/glossary/#kv-cache) blocks, or an external transfer to finish before it is ready. Sequence count, token budget, cache space, and execution-specific constraints all matter.
+
+## Prefill competes with decode
+
+A long prompt can occupy substantial computation before producing a first token. Existing decode requests need frequent progress to maintain smooth output. **Chunked prefill** splits long prompt computation so an iteration need not consume the entire prompt at once. It changes scheduling granularity; it does not remove the underlying work.
+
+The [vLLM scheduler](https://github.com/vllm-project/vllm/blob/9a56d4fec6b0a30a0a989f1cd06cd3c2f7325619/vllm/v1/core/sched/scheduler.py) describes its model in terms of each request's computed-token count catching up with tokens needing computation. The code does not need separate global “prefill phase” and “decode phase” queues to implement these concepts. Trace `schedule()`, then inspect how token budgets and cache allocations constrain a proposed batch.
+
+In SGLang, [normal and overlap event loops](https://github.com/sgl-project/sglang/blob/a16830deb5ea5b1e8c9874ad646f3ba95542191c/python/sglang/srt/managers/scheduler.py) make the cycle explicit: ingest requests, choose a batch, execute it, and process results. The overlap loop pipelines some host work with accelerator execution. That can hide overhead but requires careful result ordering.
+
+## Capacity and fairness are separate questions
+
+A larger batch can amortize work and increase aggregate throughput while increasing waiting time or the interval between output tokens. A fair admission policy does not guarantee every request makes equally expensive progress. Under cache pressure, an engine may defer admission or preempt work; recomputation and tail latency become part of the cost.
+
+Treat configured limits as guardrails and runtime decisions as their application to the current workload. An operator chooses batch limits and policy. The runtime sees actual lengths, available blocks, cache hits, and transfer readiness. Observe both waiting and running requests when diagnosing saturation.
+
+**Check yourself:** If GPU memory is nearly full but computation is underused, would increasing the token budget necessarily help? No: allocation or dependency constraints may prevent the scheduler from using that budget. Start with the blocked resource, then change one limit and measure.
+
+## Explore the implementation
+
+| Repository chapter | What to inspect |
+| --- | --- |
+| [vLLM token scheduling](/architecture/vllm/scheduling/) | Budgets, preemption, and optimistic progress |
+| [SGLang batch scheduling](/architecture/sglang/scheduling/) | Batch selection and request retirement |
+| [DeepInfer native scheduler](/architecture/deepinfer/native-scheduler/) | Sequence states, votes, and emitted metadata |

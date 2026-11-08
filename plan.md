@@ -194,16 +194,16 @@ cross-links for projects that span several roles.
 
 | Group | Guide | Local source |
 | --- | --- | --- |
-| Serving orchestration | Dynamo | `repositories/dynamo` |
-| Inference engines | vLLM | `repositories/vllm` |
-| Inference engines | SGLang | `repositories/sglang` |
-| Inference engines | DeepInfer | `repositories/deepinfer` |
-| Data movement and shared state | NIXL | `repositories/nixl` |
-| Data movement and shared state | Mooncake | `repositories/mooncake` |
-| GPU communication | NCCL | `repositories/nccl` |
-| GPU communication | DeepEP | `repositories/deepep` |
-| Network integration | AWS OFI NCCL | `repositories/aws-ofi-nccl` |
-| Network integration | libfabric | `repositories/libfabric` |
+| Serving orchestration | Dynamo | `references/dynamo` |
+| Inference engines | vLLM | `references/vllm` |
+| Inference engines | SGLang | `references/sglang` |
+| Inference engines | DeepInfer | `references/deepinfer` |
+| Data movement and shared state | NIXL | `references/nixl` |
+| Data movement and shared state | Mooncake | `references/mooncake` |
+| GPU communication | NCCL | `references/nccl` |
+| GPU communication | DeepEP | `references/deepep` |
+| Network integration | AWS OFI NCCL | `references/aws-ofi-nccl` |
+| Network integration | libfabric | `references/libfabric` |
 
 These categories organize learning; they do not define exclusive capabilities
 or establish integration support.

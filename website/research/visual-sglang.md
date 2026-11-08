@@ -2,7 +2,7 @@
 
 Dedicated repository scope: SGLang overview and all fourteen internals chapters.
 Source baseline: `a16830deb5ea5b1e8c9874ad646f3ba95542191c` in
-`repositories/sglang`. No upstream files or source revisions were changed.
+`references/sglang`. No upstream files or source revisions were changed.
 
 This pass adds nineteen mechanism-specific diagrams and upgrades the existing
 overview's accessible metadata: twenty Mermaid diagrams across fifteen pages.

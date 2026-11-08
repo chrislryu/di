@@ -14,7 +14,7 @@ conceptual, and no performance plots or measurements were invented.
 
 Paths below are relative to `website/src/content/docs/architecture/`.
 
-| Page | New visual | Semantic source checks in `repositories/vllm/` |
+| Page | New visual | Semantic source checks in `references/vllm/` |
 | --- | --- | --- |
 | `vllm.mdx` | Preserve overview map, add accessible metadata and scope | Existing serving → AsyncLLM → core → scheduler/executor → client output boundaries remain unchanged. |
 | `vllm/repository-map.mdx` | Process/context ownership of persistent requests, iteration plans, worker rows, and output collectors | `vllm/v1/engine/async_llm.py`, `engine/core.py`, `core/sched/output.py`, `worker/gpu_input_batch.py`: stable request identity crosses distinct representations, rather than one object being shared. |

@@ -1,22 +1,10 @@
-## Development
+# Website notes
 
-When starting the dev server, use background mode:
+- Content lives in `src/content/docs/`; `src/data/guides.json` controls chapter order.
+- `src/data/sources.json` records reviewed upstream revisions; `research/` holds evidence.
+- Author site-root URLs. Prerender middleware adds the `/di/` production prefix.
+- Keep Mermaid accessible titles/descriptions and local scrolling for large diagrams.
+- For routing changes, also check `GUIDE_BASE_PATH=/di GUIDE_DIST=dist-pages npm run validate`.
+- Start dev servers with `npm run astro -- dev --host 0.0.0.0 --background`.
 
-```
-astro dev --background
-```
-
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
-
-## Documentation
-
-Full documentation: https://docs.astro.build
-
-Consult these guides before working on related tasks:
-
-- [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
-- [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
-- [Using React, Vue, Svelte, or other framework components](https://docs.astro.build/en/guides/framework-components/)
-- [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
-- [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
-- [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+See `README.md` for preview, deployment and validation commands.

@@ -12,7 +12,7 @@ function fixture(t) {
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const options = {
     dist: path.join(root, 'dist'), sourceManifest: path.join(root, 'sources.json'),
-    repositoryRoot: path.join(root, 'repositories'), researchDir: path.join(root, 'research'),
+    repositoryRoot: path.join(root, 'references'), researchDir: path.join(root, 'research'),
   };
   const write = (name, value) => {
     const filename = path.join(root, name);
@@ -70,8 +70,8 @@ test('optional local checkouts are explicitly unverified; required source checki
 
 test('source references and evidence are checked at the pinned revision, including line bounds', t => {
   const { options, root, manifest, write } = fixture(t);
-  const repository = path.join(root, 'repositories/sample');
-  write('repositories/sample/README.md', 'first\nsecond\n');
+  const repository = path.join(root, 'references/sample');
+  write('references/sample/README.md', 'first\nsecond\n');
   const git = args => execFileSync('git', ['-C', repository, ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
   git(['init']); git(['add', 'README.md']);
   git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'fixture']);

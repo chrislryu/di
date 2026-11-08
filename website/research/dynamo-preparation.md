@@ -2,7 +2,7 @@
 
 Inspected locally at the pinned Dynamo commit in `src/data/sources.json`.
 These are authoring notes, not a claim of runtime certification. No source or GPU
-tests were executed. Paths below are relative to `repositories/dynamo/`.
+tests were executed. Paths below are relative to `references/dynamo/`.
 
 ## Exact frontend pipeline
 

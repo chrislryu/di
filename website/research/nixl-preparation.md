@@ -1,7 +1,7 @@
 # NIXL internals preparation
 
 Inspected at the pinned local NIXL revision. Paths below are relative to
-`repositories/nixl/`. No transfer/runtime tests were executed. These notes record
+`references/nixl/`. No transfer/runtime tests were executed. These notes record
 actual source branches for the forthcoming internals guide.
 
 ## Descriptor preparation and reuse

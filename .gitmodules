@@ -1,0 +1,30 @@
+[submodule "aws-ofi-nccl"]
+	path = references/aws-ofi-nccl
+	url = https://github.com/aws/aws-ofi-nccl.git
+[submodule "deepep"]
+	path = references/deepep
+	url = https://github.com/deepseek-ai/DeepEP.git
+[submodule "deepinfer"]
+	path = references/deepinfer
+	url = https://github.com/deepseek-ai/DeepInfer.git
+[submodule "dynamo"]
+	path = references/dynamo
+	url = https://github.com/ai-dynamo/dynamo.git
+[submodule "libfabric"]
+	path = references/libfabric
+	url = https://github.com/ofiwg/libfabric.git
+[submodule "mooncake"]
+	path = references/mooncake
+	url = https://github.com/kvcache-ai/Mooncake.git
+[submodule "nccl"]
+	path = references/nccl
+	url = https://github.com/NVIDIA/nccl.git
+[submodule "nixl"]
+	path = references/nixl
+	url = https://github.com/ai-dynamo/nixl.git
+[submodule "sglang"]
+	path = references/sglang
+	url = https://github.com/sgl-project/sglang.git
+[submodule "vllm"]
+	path = references/vllm
+	url = https://github.com/vllm-project/vllm.git

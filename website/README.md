@@ -31,6 +31,10 @@ verify search against production preview. Manage the preview server with
 `npm run astro -- preview status` and `npm run astro -- preview stop`.
 The published site is [chrislryu.github.io/di](https://chrislryu.github.io/di/).
 
+Upstream sources live in the parent repository's `references/` Git submodules.
+Initialize them with `git submodule update --init --jobs 4` from the repository
+root to run `npm run check:sources`. The website build does not require them.
+
 ## GitHub Pages
 
 Pushing `main` runs `.github/workflows/pages.yml`: install dependencies, validate

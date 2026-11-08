@@ -90,7 +90,7 @@ export function sourceReference(value, manifest) {
 export function checkSite({
   dist = path.join(websiteRoot, 'dist'),
   sourceManifest = path.join(websiteRoot, 'src/data/sources.json'),
-  repositoryRoot = path.resolve(websiteRoot, '../repositories'),
+  repositoryRoot = path.resolve(websiteRoot, '../references'),
   researchDir = path.join(websiteRoot, 'research'),
   requireSources = false,
   base = '/',

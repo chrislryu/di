@@ -2,7 +2,7 @@
 
 Dedicated repository scope: DeepEP overview and all fourteen internals chapters.
 Pinned source: `f6aa38fe06cd4a0489e7730365d4e0114970a2f3` under
-`repositories/deepep/`. The pass adds sixteen diagrams and upgrades the existing
+`references/deepep/`. The pass adds sixteen diagrams and upgrades the existing
 overview diagram, producing seventeen Mermaid visuals across fifteen pages.
 
 The prior communication agent supplied an unapplied draft. This repository's
